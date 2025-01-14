@@ -4,11 +4,12 @@ source "https://rubygems.org"
 ruby '3.2.2'
 
 # Rails et dépendances de base
-gem "rails", "~> 7.1.0"  # Rétrograder à une version stable
+gem "rails", "~> 7.1.0"  # Version spécifique
 gem "puma", ">= 5.0"
+
+# Base de données
 gem "sqlite3", ">= 2.1", group: [:development, :test]
 
-# Ajoutez ces gems pour production
 group :production do
   gem 'pg'
   gem 'rails_12factor'
