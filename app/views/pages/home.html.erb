@@ -1,0 +1,91 @@
+<div class="container mx-auto px-4 py-8">
+  <section class="hero bg-gradient-to-r from-blue-600 to-blue-800 text-white rounded-lg shadow-lg p-8 mb-12">
+    <div class="grid md:grid-cols-2 gap-8 items-center">
+      <div>
+        <h1 class="text-4xl font-bold mb-4">İstanbul Tesisat Hizmetleri</h1>
+        <p class="text-xl mb-6">
+          Profesyonel tesisat ekibimizle her türlü su tesisatı, kalorifer, klima ve acil müdahale hizmetlerinizdeyiz.
+        </p>
+        <div class="flex space-x-4">
+          <%= link_to 'Hizmetlerimiz', services_path, 
+              class: 'bg-white text-blue-600 px-6 py-3 rounded-full font-semibold hover:bg-blue-50 transition' %>
+          <%= link_to 'İletişim', new_customer_inquiry_path, 
+              class: 'border border-white text-white px-6 py-3 rounded-full hover:bg-white/10 transition' %>
+        </div>
+      </div>
+      <div class="hidden md:block">
+        <div class="bg-white/20 rounded-lg p-6">
+          <svg class="w-full h-64 text-white" fill="currentColor" viewBox="0 0 24 24">
+            <!-- SVG İkonu -->
+            <path d="M15 17h2a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-6a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h2v-4h2v4z"/>
+          </svg>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="services mb-12">
+    <h2 class="text-3xl font-bold text-center mb-8">Sunduğumuz Hizmetler</h2>
+    <div class="grid md:grid-cols-3 gap-6">
+      <% @services.each do |service| %>
+        <div class="bg-white rounded-lg shadow-md p-6 hover:shadow-xl transition group">
+          <div class="text-blue-600 mb-4">
+            <svg class="w-12 h-12" fill="currentColor" viewBox="0 0 24 24">
+              <!-- Service-specific icon logic could be added here -->
+            </svg>
+          </div>
+          <h3 class="text-xl font-semibold mb-2 group-hover:text-blue-600 transition">
+            <%= service.name %>
+          </h3>
+          <p class="text-gray-600"><%= service.description %></p>
+          <%= link_to 'Detaylar', service_path(service), 
+              class: 'mt-4 inline-block text-blue-600 hover:underline' %>
+        </div>
+      <% end %>
+    </div>
+  </section>
+
+  <section class="features bg-gray-100 rounded-lg p-8 mb-12">
+    <h2 class="text-3xl font-bold text-center mb-8">Neden Bizi Seçmelisiniz?</h2>
+    <div class="grid md:grid-cols-3 gap-6">
+      <div class="text-center">
+        <div class="bg-blue-100 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
+          <svg class="w-8 h-8 text-blue-600" fill="currentColor" viewBox="0 0 24 24">
+            <!-- Hızlı Servis İkonu -->
+          </svg>
+        </div>
+        <h3 class="font-semibold text-xl mb-2">Hızlı Servis</h3>
+        <p>Acil çağrılara 30 dakika içinde yanıt veriyoruz.</p>
+      </div>
+      <!-- Diğer özellikler -->
+    </div>
+  </section>
+
+  <section class="contact bg-white rounded-lg shadow-md p-8">
+    <div class="grid md:grid-cols-2 gap-8">
+      <div>
+        <h2 class="text-3xl font-bold mb-4">Hemen İletişime Geçin</h2>
+        <p class="text-gray-600 mb-6">
+          Tesisat sorunlarınız için profesyonel çözümler sunuyoruz. Ücretsiz keşif ve danışmanlık.
+        </p>
+        <div class="space-y-4">
+          <div class="flex items-center">
+            <svg class="w-6 h-6 mr-4 text-blue-600" fill="currentColor" viewBox="0 0 24 24">
+              <!-- Telefon İkonu -->
+            </svg>
+            <span>0 (555) 123 45 67</span>
+          </div>
+          <div class="flex items-center">
+            <svg class="w-6 h-6 mr-4 text-blue-600" fill="currentColor" viewBox="0 0 24 24">
+              <!-- E-posta İkonu -->
+            </svg>
+            <span>destek@istanbultesisat.com</span>
+          </div>
+        </div>
+      </div>
+      <div>
+        <%= render 'customer_inquiries/form', customer_inquiry: CustomerInquiry.new %>
+      </div>
+    </div>
+  </section>
+</div>
