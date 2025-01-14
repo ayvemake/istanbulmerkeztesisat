@@ -27,5 +27,15 @@ module ServiceWeb
     
     # Ajoutez cette ligne
     config.assets.paths << Rails.root.join("app", "assets", "images")
+    
+    # Autoriser tous les hôtes en production
+    if Rails.env.production?
+      config.hosts = nil
+      config.action_dispatch.default_headers = {
+        'X-Frame-Options' => 'ALLOWALL',
+        'X-XSS-Protection' => '1; mode=block',
+        'X-Content-Type-Options' => 'nosniff'
+      }
+    end
   end
 end
