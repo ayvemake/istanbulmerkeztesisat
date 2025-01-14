@@ -1,4 +1,4 @@
-class CreateServiceAreas < ActiveRecord::Migration[7.1]
+class CreateServiceAreas < ActiveRecord::Migration[8.0]
   def change
     create_table :service_areas do |t|
       t.string :name
