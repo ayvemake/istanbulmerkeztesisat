@@ -1,4 +1,4 @@
-class UpdateContactsTable < ActiveRecord::Migration[8.0]
+class UpdateContactsTable < ActiveRecord::Migration[7.1]
   def change
   end
 end

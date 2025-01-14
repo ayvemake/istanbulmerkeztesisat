@@ -1,50 +1,52 @@
-<%= form_with(
-  model: customer_inquiry, 
-  local: false, 
-  html: { 
-    id: 'customer_inquiry_form', 
-    class: 'space-y-4', 
-    data: { 
-      controller: 'contact-form',
-      action: 'turbo:submit-end->contact-form#handleSubmit'
-    }
-  }
-) do |f| %>
-  <div>
-    <%= f.label :name, 'Ad Soyad', class: 'block mb-2 text-gray-700' %>
-    <%= f.text_field :name, 
-        class: 'w-full px-4 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500',
-        required: true %>
-  </div>
+<div class="bg-white rounded-lg p-6">
+  <%= form_with(model: customer_inquiry, local: true, class: "space-y-6") do |f| %>
+    <% if customer_inquiry.errors.any? %>
+      <div class="bg-red-50 text-red-500 p-4 rounded-lg mb-6">
+        <h2 class="text-lg font-medium mb-2">
+          <%= pluralize(customer_inquiry.errors.count, "error") %>:
+        </h2>
+        <ul class="list-disc pl-5">
+          <% customer_inquiry.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
 
-  <div>
-    <%= f.label :phone, 'Telefon Numarası', class: 'block mb-2 text-gray-700' %>
-    <%= f.telephone_field :phone, 
-        class: 'w-full px-4 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500',
-        data: { 
-          'contact-form-target': 'phoneInput',
-          pattern: '\+?90\s?[0-9]{3}\s?[0-9]{3}\s?[0-9]{2}\s?[0-9]{2}'
-        },
-        required: true %>
-  </div>
+    <div>
+      <%= f.label :name, "İsim Soyisim", class: "block text-sm font-medium text-gray-700 mb-1" %>
+      <%= f.text_field :name, class: "w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500" %>
+    </div>
 
-  <div>
-    <%= f.label :email, 'E-posta (İsteğe Bağlı)', class: 'block mb-2 text-gray-700' %>
-    <%= f.email_field :email, 
-        class: 'w-full px-4 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500' %>
-  </div>
+    <div>
+      <%= f.label :phone, "Telefon", class: "block text-sm font-medium text-gray-700 mb-1" %>
+      <%= f.telephone_field :phone, class: "w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500" %>
+    </div>
 
-  <div>
-    <%= f.label :message, 'Mesajınız', class: 'block mb-2 text-gray-700' %>
-    <%= f.text_area :message, 
-        rows: 4, 
-        class: 'w-full px-4 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500',
-        required: true,
-        minlength: 10,
-        maxlength: 500 %>
-  </div>
+    <div>
+      <%= f.label :email, "E-posta", class: "block text-sm font-medium text-gray-700 mb-1" %>
+      <%= f.email_field :email, class: "w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500" %>
+    </div>
 
-  <%= f.submit 'Gönder', 
-      class: 'bg-blue-600 text-white px-6 py-2 rounded-full hover:bg-blue-700 transition',
-      data: { 'contact-form-target': 'submitButton' } %>
-<% end %> 
+    <div>
+      <%= f.label :service_type, "Hizmet Türü", class: "block text-sm font-medium text-gray-700 mb-1" %>
+      <%= f.select :service_type, 
+          options_for_select([
+            ['Su Tesisatı', 'plumbing'],
+            ['Boya', 'painting']
+          ]), 
+          { prompt: 'Hizmet seçiniz' }, 
+          class: "w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500" %>
+    </div>
+
+    <div>
+      <%= f.label :message, "Mesajınız", class: "block text-sm font-medium text-gray-700 mb-1" %>
+      <%= f.text_area :message, rows: 4, class: "w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500" %>
+    </div>
+
+    <div class="flex items-center">
+      <%= f.submit "Gönder", 
+          class: "w-full bg-emerald-600 text-white px-6 py-3 rounded-lg hover:bg-emerald-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-emerald-500 transition-colors duration-200" %>
+    </div>
+  <% end %>
+</div> 

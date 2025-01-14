@@ -1,15 +1,18 @@
 class PagesController < ApplicationController
   def home
-    @services = Service.featured
-    @testimonials = Testimonial.latest(3)
-    @customer_inquiry = CustomerInquiry.new
+    @featured_services = Service.featured
+    @services = Service.active.limit(6)
+    @testimonials = Testimonial.recent if Testimonial.table_exists?
   end
 
   def about
-    @team_members = TeamMember.all
   end
 
   def zones
     @service_areas = ServiceArea.all
+  end
+
+  def technical_info
+    @page_title = "Teknik Bilgiler"
   end
 end

@@ -1,22 +1,24 @@
 class Contact < ApplicationRecord
   validates :name, presence: true
-  validates :phone, presence: true
-  validates :message, presence: true
-  validates :email, format: { with: URI::MailTo::EMAIL_REGEXP }, allow_nil: true
+  validates :phone, presence: true, format: { 
+    with: /\A\+?90\s?[0-9]{3}\s?[0-9]{3}\s?[0-9]{2}\s?[0-9]{2}\z/, 
+    message: "Geçerli bir telefon numarası girin" 
+  }
+  validates :message, presence: true, length: { minimum: 10, maximum: 500 }
+  validates :email, format: { with: URI::MailTo::EMAIL_REGEXP }, allow_blank: true
 
   enum status: {
-    nouveau: 0,
-    en_cours: 1,
-    traite: 2
+    new: 0,
+    in_progress: 1,
+    completed: 2
   }
 
-  after_create :notify_admin
-  
+  after_create :send_notification
+
   private
 
-  def notify_admin
-    # Logique future d'envoi de notification
-    # Vous pourriez utiliser ActionMailer ici
-    ContactMailer.admin_notification(self).deliver_later if Rails.env.production?
+  def send_notification
+    # Gelecekte e-posta bildirimi eklenecek
+    ContactNotificationJob.perform_later(self)
   end
 end 

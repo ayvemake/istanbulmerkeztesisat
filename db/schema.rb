@@ -10,13 +10,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_01_14_170857) do
+ActiveRecord::Schema[7.1].define(version: 2025_01_14_182338) do
   create_table "customer_inquiries", force: :cascade do |t|
     t.string "name"
     t.string "phone"
     t.string "email"
     t.text "message"
-    t.integer "status"
+    t.integer "inquiry_status", default: 0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -37,6 +37,14 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_14_170857) do
     t.string "meta_keywords"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "image_url"
+    t.string "key_features"
+    t.integer "service_type"
+  end
+
+  create_table "team_members", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "testimonials", force: :cascade do |t|
@@ -45,4 +53,5 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_14_170857) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
+
 end

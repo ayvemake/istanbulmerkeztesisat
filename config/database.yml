@@ -22,8 +22,5 @@ production:
   <<: *default
   adapter: postgresql
   encoding: unicode
-  database: service_web_production
-  username: <%= ENV['DATABASE_USERNAME'] %>
-  password: <%= ENV['DATABASE_PASSWORD'] %>
   url: <%= ENV['DATABASE_URL'] %>
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>

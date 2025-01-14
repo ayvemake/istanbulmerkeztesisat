@@ -1,0 +1,17 @@
+<div class="group relative">
+  <div class="aspect-h-4 aspect-w-3 overflow-hidden rounded-lg bg-gray-100">
+    <%= image_tag service.image_url.presence || "default_service.jpg",
+        class: "h-full w-full object-cover object-center group-hover:opacity-75" %>
+  </div>
+  <div class="mt-4 flex justify-between">
+    <div>
+      <h3 class="text-sm text-gray-700">
+        <%= link_to service.name, service_path(service), class: "font-medium" %>
+      </h3>
+      <p class="mt-1 text-sm text-gray-500"><%= service.category_display_name %></p>
+    </div>
+    <p class="text-sm font-medium text-gray-900">
+      <%= number_to_currency(service.price, unit: "₺") %>
+    </p>
+  </div>
+</div> 

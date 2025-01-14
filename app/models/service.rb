@@ -1,17 +1,24 @@
 class Service < ApplicationRecord
+  CATEGORIES = {
+    'Tesisat ve Bakım' => {
+      'Su Kaçağı Tespiti ve Tamiri' => 'leak_detection',
+      'Tuvalet ve Lavabo Tamiri' => 'plumbing_repair',
+      'Tıkanıklık ve Gider Açma' => 'drain_cleaning',
+      'Kombi Bakım ve Tamiri' => 'heating_maintenance',
+      'Klima Montaj ve Bakım' => 'ac_service',
+      'Boya ve Dekorasyon' => 'painting',
+      'Elektrik Tesisatı' => 'electrical'
+    }
+  }.freeze
+
   validates :name, presence: true
   validates :description, presence: true
-  validates :price, numericality: { greater_than_or_equal_to: 0 }, allow_nil: true
+  validates :service_type, presence: true
+  validates :price, presence: true, numericality: { greater_than_or_equal_to: 0 }
 
-  enum :category, {
-    plomberie_generale: 'plomberie_generale',
-    chauffage: 'chauffage',
-    climatisation: 'climatisation',
-    urgence: 'urgence'
-  }, prefix: true
-
-  # Scopes for easy querying
   scope :active, -> { where(active: true) }
-  scope :by_category, ->(category) { where(category: category) }
+  scope :by_type, ->(type) { where(service_type: type) }
   scope :featured, -> { active.limit(4) }
+
+  serialize :key_features, Array, coder: YAML
 end 

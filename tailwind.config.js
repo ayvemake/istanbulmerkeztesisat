@@ -1,4 +1,5 @@
-/** @type {import('tailwindcss').Config} */
+const colors = require('tailwindcss/colors')
+
 module.exports = {
   content: [
     './app/views/**/*.{erb,haml,html,slim}',
@@ -9,13 +10,14 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        primary: {
-          DEFAULT: '#2563eb',  // Bleu principal
-          light: '#3b82f6',
-          dark: '#1e40af'
-        }
+        primary: colors.emerald,
       }
     },
   },
   plugins: [],
+  safelist: [
+    {
+      pattern: /(bg|text|border)-emerald-(50|100|200|300|400|500|600|700|800|900|950)/,
+    }
+  ]
 } 

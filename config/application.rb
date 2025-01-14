@@ -18,11 +18,14 @@ module ServiceWeb
     # Configuration de la base de données
     config.active_record.verify_foreign_keys_for_fixtures = false
     
-    # Configuration des locales
+    # Configuration de la locale
     config.i18n.default_locale = :tr
     config.i18n.available_locales = [:tr, :en]
     
     # Configuration du fuseau horaire
     config.time_zone = 'Istanbul'
+    
+    # Ajoutez cette ligne
+    config.assets.paths << Rails.root.join("app", "assets", "images")
   end
 end

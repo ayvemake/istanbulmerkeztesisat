@@ -1,0 +1,40 @@
+tr:
+  services:
+    index:
+      service_types:
+        plumbing: "Su ve Sıhhi Tesisat"
+        painting: "Boya ve Dekorasyon"
+  activerecord:
+    attributes:
+      customer_inquiry:
+        name: "Ad Soyad"
+        email: "E-posta"
+        phone: "Telefon"
+        message: "Mesaj"
+    errors:
+      models:
+        customer_inquiry:
+          attributes:
+            name:
+              blank: "Ad Soyad alanı boş bırakılamaz"
+            email:
+              blank: "E-posta alanı boş bırakılamaz"
+              invalid: "Geçerli bir e-posta adresi giriniz"
+            phone:
+              blank: "Telefon alanı boş bırakılamaz"
+            message:
+              blank: "Mesaj alanı boş bırakılamaz"
+              too_short: "Mesaj en az %{count} karakter olmalıdır" 
+  date:
+    formats:
+      short: "%d %b %Y"
+      long: "%d %B %Y"
+    month_names: [~, Ocak, Şubat, Mart, Nisan, Mayıs, Haziran, Temmuz, Ağustos, Eylül, Ekim, Kasım, Aralık]
+    abbr_month_names: [~, Oca, Şub, Mar, Nis, May, Haz, Tem, Ağu, Eyl, Eki, Kas, Ara]
+    day_names: [Pazar, Pazartesi, Salı, Çarşamba, Perşembe, Cuma, Cumartesi]
+    abbr_day_names: [Paz, Pts, Sal, Çar, Per, Cum, Cts]
+    
+  time:
+    formats:
+      short: "%d %b %Y %H:%M"
+      long: "%d %B %Y %H:%M" 

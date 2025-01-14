@@ -1,4 +1,8 @@
 class ContactsController < ApplicationController
+  def new
+    @contact = Contact.new
+  end
+
   def create
     @contact = Contact.new(contact_params)
 
@@ -6,14 +10,26 @@ class ContactsController < ApplicationController
       if @contact.save
         format.turbo_stream do
           render turbo_stream: [
-            turbo_stream.append('contacts', partial: 'contacts/success'),
-            turbo_stream.replace('contact_form', partial: 'contacts/form', locals: { contact: Contact.new })
+            turbo_stream.replace('contact_form', 
+              partial: 'contacts/success', 
+              locals: { message: 'Mesajınız başarıyla gönderildi.' }
+            ),
+            turbo_stream.append('notifications', 
+              partial: 'shared/toast', 
+              locals: { type: 'success', message: 'İletişim formunuz alındı.' }
+            )
           ]
         end
+        format.html { redirect_to root_path, notice: 'Mesajınız başarıyla gönderildi.' }
       else
         format.turbo_stream do
-          render turbo_stream: turbo_stream.replace('contact_form', partial: 'contacts/form', locals: { contact: @contact })
+          render turbo_stream: turbo_stream.replace(
+            'contact_form', 
+            partial: 'contacts/form', 
+            locals: { contact: @contact }
+          )
         end
+        format.html { render :new }
       end
     end
   end
@@ -21,7 +37,7 @@ class ContactsController < ApplicationController
   private
 
   def contact_params
-    params.require(:contact).permit(:name, :phone, :message)
+    params.require(:contact).permit(:name, :phone, :email, :message)
   end
 end 
 

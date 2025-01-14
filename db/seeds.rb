@@ -9,83 +9,76 @@
 #   end
 
 # Nettoyez les données existantes
-CustomerInquiry.destroy_all
-Service.destroy_all
-TeamMember.destroy_all
-ServiceArea.destroy_all
+puts "Veriler temizleniyor..."
+[CustomerInquiry, Service, TeamMember, ServiceArea].each(&:destroy_all)
 
-# Créer des services de plomberie
-services_data = [
+# Services de plomberie/sanitaire
+plumbing_services = [
   {
-    name: 'Su Tesisatı Onarımı',
-    description: 'Profesyonel su tesisatı kurulum ve onarım hizmetleri',
-    category: 'plomberie_generale',
-    price: 250.00,
+    name: 'Su Kaçağı Tespiti ve Tamiri',
+    description: 'Kameralı cihazlarla su kaçağı tespiti, noktasal tamir, boru değişimi ve yalıtım hizmetleri. Duvar ve zemin kırmadan tespit.',
+    price: 250,
+    service_type: 'plumbing',
+    key_features: ['Kameralı tespit', 'Noktasal tamir', 'Garantili işçilik'],
     active: true
   },
   {
-    name: 'Kalorifer Sistemi Bakımı',
-    description: 'Komple kalorifer sistemi bakım ve onarım hizmetleri',
-    category: :chauffage,
-    price: 350.00,
+    name: 'Tuvalet ve Lavabo Tamiri',
+    description: 'Tuvalet taşı değişimi, lavabo montajı, musluk tamiri, rezervuar tamiri ve değişimi, sifon tamiri gibi tüm banyo tesisat işleri.',
+    price: 200,
+    service_type: 'plumbing',
+    key_features: ['Aynı gün servis', 'Orijinal yedek parça', 'Profesyonel ekip'],
     active: true
   },
   {
-    name: 'Klima Montajı',
-    description: 'Merkezi ve split klima sistemleri kurulumu',
-    category: :climatisation,
-    price: 500.00,
+    name: 'Gider Açma ve Tıkanıklık',
+    description: 'Robotik cihazlarla lavabo, tuvalet, banyo ve mutfak gideri açma. Kırmadan dökmeden tıkanıklık açma garantili hizmet.',
+    price: 180,
+    service_type: 'plumbing',
+    key_features: ['Robotik cihaz', 'Kırmadan çözüm', 'Kalıcı çözüm'],
     active: true
   },
   {
-    name: 'Acil Tesisat Müdahalesi',
-    description: '7/24 acil tesisat arıza ve müdahale hizmeti',
-    category: :urgence,
-    price: 400.00,
+    name: 'Pis Su Tesisatı',
+    description: 'Pis su tesisatı döşeme, tamir ve yenileme. Bina içi ve dışı pis su hattı döşeme, logar ve rögar yapımı.',
+    price: 350,
+    service_type: 'plumbing',
+    key_features: ['Komple tesisat', 'TSE standartları', 'Uzun ömürlü malzeme'],
     active: true
   }
 ]
 
-services_data.each do |service_attrs|
+# Services de peinture
+painting_services = [
+  {
+    name: 'İç Cephe Boyama',
+    description: 'Profesyonel iç cephe boyama hizmeti. Duvar hazırlığı, alçı, macun ve son kat boya uygulaması.',
+    price: 40, # prix au m²
+    service_type: 'painting',
+    key_features: ['Ücretsiz keşif', 'Kaliteli boya', 'Temiz işçilik'],
+    active: true
+  },
+  {
+    name: 'Dış Cephe Boyama',
+    description: 'Dış cephe boya ve mantolama hizmetleri. Bina dış cephesi için komple çözüm.',
+    price: 60, # prix au m²
+    service_type: 'painting',
+    key_features: ['İskele kurulumu', 'Garantili uygulama', 'TSE standartları'],
+    active: true
+  },
+  {
+    name: 'Dekoratif Boya',
+    description: 'İtalyan sıva, efekt boya ve özel dekoratif uygulamalar. Evinize özel tasarım çözümleri.',
+    price: 80, # prix au m²
+    service_type: 'painting',
+    key_features: ['Özel tasarım', 'Profesyonel uygulama', 'Dayanıklı malzeme'],
+    active: true
+  }
+]
+
+# Création des services
+(plumbing_services + painting_services).each do |service_attrs|
   Service.create!(service_attrs)
 end
 
-puts "Services créés avec succès !"
-
-# Team Members
-team_members_data = [
-  {
-    name: 'Mehmet Yılmaz',
-    role: 'Genel Müdür',
-    bio: 'Tesisat sektöründe 20 yılı aşkın deneyime sahip profesyonel yönetici.',
-    avatar: 'mehmet_yilmaz.jpg'
-  },
-  {
-    name: 'Ayşe Demir',
-    role: 'Teknik Direktör',
-    bio: 'Mühendislik alanında uzman, yenilikçi tesisat çözümleri geliştiren lider.',
-    avatar: 'ayse_demir.jpg'
-  }
-]
-
-team_members_data.each do |member_attrs|
-  TeamMember.create!(member_attrs)
-end
-
-# Service Areas
-service_areas_data = [
-  {
-    name: 'Kadıköy',
-    postal_code: '34700',
-    description: 'Kadıköy ve çevre ilçelerde profesyonel tesisat hizmetleri.'
-  },
-  {
-    name: 'Beşiktaş',
-    postal_code: '34300',
-    description: 'Beşiktaş ve çevresinde güvenilir tesisat çözümleri.'
-  }
-]
-
-service_areas_data.each do |area_attrs|
-  ServiceArea.create!(area_attrs)
-end
+puts "Hizmetler başarıyla oluşturuldu!"
