@@ -28,14 +28,10 @@ module ServiceWeb
     # Ajoutez cette ligne
     config.assets.paths << Rails.root.join("app", "assets", "images")
     
-    # Autoriser tous les hôtes en production
-    if Rails.env.production?
-      config.hosts = nil
-      config.action_dispatch.default_headers = {
-        'X-Frame-Options' => 'ALLOWALL',
-        'X-XSS-Protection' => '1; mode=block',
-        'X-Content-Type-Options' => 'nosniff'
-      }
-    end
+    # Configuration des hôtes autorisés
+    config.hosts << "healthcheck.railway.app"
+    config.hosts << ".railway.app"
+    config.hosts << ENV['RAILWAY_STATIC_URL'] if ENV['RAILWAY_STATIC_URL'].present?
+    config.hosts << ENV['RAILWAY_PUBLIC_DOMAIN'] if ENV['RAILWAY_PUBLIC_DOMAIN'].present?
   end
 end
