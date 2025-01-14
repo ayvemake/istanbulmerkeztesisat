@@ -1,9 +1,9 @@
 [build]
-builder = "nixpacks"
-buildCommand = "bundle install && rails assets:precompile"
+builder = "DOCKERFILE"
+buildCommand = ""
 
 [deploy]
-startCommand = "bundle exec rails server -b 0.0.0.0 -p $PORT"
+startCommand = ""
 restartPolicyType = "ON_FAILURE"
 healthcheckPath = "/"
 healthcheckTimeout = 300
