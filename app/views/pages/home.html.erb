@@ -1,4 +1,60 @@
 <div class="container mx-auto px-4 py-8">
+  <!-- Nouvelle section liste déroulante -->
+  <div class="bg-white rounded-lg shadow-lg p-6 mb-8">
+    <details class="group">
+      <summary class="flex justify-between items-center cursor-pointer list-none">
+        <h2 class="text-2xl font-bold text-emerald-700">Tüm Hizmetlerimiz</h2>
+        <span class="transition group-open:rotate-180">
+          <svg class="h-6 w-6 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+          </svg>
+        </span>
+      </summary>
+      <div class="mt-6">
+        <!-- Services de Plomberie -->
+        <div class="mb-6">
+          <h3 class="text-xl font-bold text-gray-900 mb-4">Su ve Tesisat Hizmetleri</h3>
+          <div class="space-y-3 pl-4">
+            <% [
+              { name: 'Pis Su Tesisatı', service: Service.find_by(name: 'Pis Su Tesisatı') },
+              { name: 'Su Kaçağı Tespiti ve Tamiri', service: Service.find_by(name: 'Su Kaçağı Tespiti ve Tamiri') },
+              { name: 'Tuvalet ve Lavabo Tamiri', service: Service.find_by(name: 'Tuvalet ve Lavabo Tamiri') },
+              { name: 'Gider Açma ve Tıkanıklık', service: Service.find_by(name: 'Gider Açma ve Tıkanıklık') }
+            ].each do |item| %>
+              <% if item[:service].present? %>
+                <%= link_to service_path(item[:service]), 
+                    class: "flex items-center group hover:text-emerald-600 transition-colors" do %>
+                  <div class="w-2 h-2 bg-blue-500 rounded-full mr-3 group-hover:scale-125 transition-transform"></div>
+                  <span class="text-lg text-gray-700 group-hover:text-blue-600"><%= item[:name] %></span>
+                <% end %>
+              <% end %>
+            <% end %>
+          </div>
+        </div>
+
+        <!-- Services de Peinture -->
+        <div>
+          <h3 class="text-xl font-bold text-gray-900 mb-4">Boya ve Dekorasyon Hizmetleri</h3>
+          <div class="space-y-3 pl-4">
+            <% [
+              { name: 'İç Cephe Boyama', service: Service.find_by(name: 'İç Cephe Boyama') },
+              { name: 'Dış Cephe Boyama', service: Service.find_by(name: 'Dış Cephe Boyama') },
+              { name: 'Dekoratif Boya', service: Service.find_by(name: 'Dekoratif Boya') }
+            ].each do |item| %>
+              <% if item[:service].present? %>
+                <%= link_to service_path(item[:service]), 
+                    class: "flex items-center group hover:text-emerald-600 transition-colors" do %>
+                  <div class="w-2 h-2 bg-amber-500 rounded-full mr-3 group-hover:scale-125 transition-transform"></div>
+                  <span class="text-lg text-gray-700 group-hover:text-amber-600"><%= item[:name] %></span>
+                <% end %>
+              <% end %>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </details>
+  </div>
+
   <section class="hero bg-gradient-to-r from-emerald-600 to-emerald-800 text-white rounded-lg shadow-lg p-8 mb-12">
     <div class="grid md:grid-cols-2 gap-8 items-center">
       <div>
@@ -53,9 +109,6 @@
       <div class="bg-white rounded-lg shadow-lg overflow-hidden group hover:shadow-xl transition">
         <%= link_to services_path(type: 'painting'), class: "block" do %>
           <div class="relative">
-            <%= image_tag '/images/services/painting-service.jpg', 
-                class: "w-full h-48 object-cover",
-                alt: "Boya ve Dekorasyon Hizmetleri" %>
             <div class="p-8">
               <h3 class="text-2xl font-semibold mb-4 group-hover:text-emerald-600">
                 Boya ve Dekorasyon

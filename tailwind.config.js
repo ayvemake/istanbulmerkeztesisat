@@ -1,4 +1,4 @@
-const colors = require('tailwindcss/colors')
+const defaultTheme = require('tailwindcss/defaultTheme')
 
 module.exports = {
   content: [
@@ -9,15 +9,14 @@ module.exports = {
   ],
   theme: {
     extend: {
-      colors: {
-        primary: colors.emerald,
-      }
+      fontFamily: {
+        sans: ['Inter var', ...defaultTheme.fontFamily.sans],
+      },
     },
   },
-  plugins: [],
-  safelist: [
-    {
-      pattern: /(bg|text|border)-emerald-(50|100|200|300|400|500|600|700|800|900|950)/,
-    }
-  ]
+  plugins: [
+    require('@tailwindcss/forms'),
+    require('@tailwindcss/aspect-ratio'),
+    require('@tailwindcss/typography'),
+  ],
 } 
