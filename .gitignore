@@ -68,3 +68,31 @@ yarn-debug.log*
 .DS_Store
 .idea
 .vscode
+
+# Ignorer les fichiers sensibles
+/config/master.key
+/config/credentials.yml.enc
+.env
+
+# Ignorer les fichiers temporaires
+/tmp
+/log
+.byebug_history
+
+# Ignorer les fichiers de base de données
+/db/*.sqlite3
+/db/*.sqlite3-*
+
+# Ignorer les fichiers de build
+/public/assets
+/public/packs
+/public/packs-test
+/node_modules
+/yarn-error.log
+/storage/*
+!/storage/.keep
+
+# Ignorer les fichiers système
+.DS_Store
+.env*
+.env.local

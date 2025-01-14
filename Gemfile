@@ -8,12 +8,11 @@ gem "rails", "~> 7.1.0"  # Version spécifique
 gem "puma", ">= 5.0"
 
 group :development, :test do
-  gem "sqlite3", ">= 2.1"
+  gem "sqlite3"
 end
 
 group :production do
-  gem 'pg'
-  gem 'rails_12factor'
+  gem "pg"
 end
 
 # Gems essentiels
