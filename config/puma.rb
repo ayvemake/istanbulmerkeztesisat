@@ -35,14 +35,15 @@ port ENV.fetch("PORT") { 3000 }
 environment ENV.fetch("RAILS_ENV") { "development" }
 
 # Spécifiez le nombre de processus à exécuter
-workers ENV.fetch("WEB_CONCURRENCY") { 2 }
+workers ENV.fetch("WEB_CONCURRENCY") { 4 }
 
-# Utilisez le mode cluster préchargé pour une meilleure performance
+# Préchargez l'application pour de meilleures performances
 preload_app!
 
 # Permettre à Puma d'être redémarré par `rails restart`
 plugin :tmp_restart
 
 on_worker_boot do
+  # Configuration du Worker pour la reconnexion à la base de données
   ActiveRecord::Base.establish_connection if defined?(ActiveRecord)
 end
