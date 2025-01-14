@@ -7,8 +7,9 @@ ruby '3.2.2'
 gem "rails", "~> 7.1.0"  # Version spécifique
 gem "puma", ">= 5.0"
 
-# Base de données
-gem "sqlite3", ">= 2.1", group: [:development, :test]
+group :development, :test do
+  gem "sqlite3", ">= 2.1"
+end
 
 group :production do
   gem 'pg'
