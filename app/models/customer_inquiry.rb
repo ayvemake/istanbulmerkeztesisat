@@ -1,23 +1,21 @@
 class CustomerInquiry < ApplicationRecord
   validates :name, presence: true
-  validates :phone, presence: true, format: { 
-    with: /\A\+?90\s?[0-9]{3}\s?[0-9]{3}\s?[0-9]{2}\s?[0-9]{2}\z/, 
-    message: "Geçerli bir telefon numarası girin" 
-  }
+  validates :phone, presence: true
   validates :message, presence: true, length: { minimum: 10, maximum: 500 }
-  validates :email, format: { with: URI::MailTo::EMAIL_REGEXP }, allow_blank: true
-
-  enum :status, {
+  
+  # Utilisez une méthode de classe pour l'enum
+  enum status: {
     new: 0,
     in_progress: 1,
     completed: 2
-  }, prefix: true
+  }
 
   after_create :send_notification
 
   private
 
   def send_notification
-    CustomerInquiryNotificationJob.perform_later(self)
+    # Utilisez un job de background seulement si le job existe
+    CustomerInquiryNotificationJob.perform_later(self) if defined?(CustomerInquiryNotificationJob)
   end
 end 

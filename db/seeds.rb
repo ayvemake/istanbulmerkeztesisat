@@ -8,12 +8,18 @@
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
 
+# Nettoyez les données existantes
+CustomerInquiry.destroy_all
+Service.destroy_all
+TeamMember.destroy_all
+ServiceArea.destroy_all
+
 # Créer des services de plomberie
 services_data = [
   {
     name: 'Su Tesisatı Onarımı',
     description: 'Profesyonel su tesisatı kurulum ve onarım hizmetleri',
-    category: :plomberie_generale,
+    category: 'plomberie_generale',
     price: 250.00,
     active: true
   },
@@ -41,9 +47,7 @@ services_data = [
 ]
 
 services_data.each do |service_attrs|
-  Service.find_or_create_by!(name: service_attrs[:name]) do |service|
-    service.update!(service_attrs)
-  end
+  Service.create!(service_attrs)
 end
 
 puts "Services créés avec succès !"
@@ -65,9 +69,7 @@ team_members_data = [
 ]
 
 team_members_data.each do |member_attrs|
-  TeamMember.find_or_create_by!(name: member_attrs[:name]) do |member|
-    member.update!(member_attrs)
-  end
+  TeamMember.create!(member_attrs)
 end
 
 # Service Areas
@@ -85,7 +87,5 @@ service_areas_data = [
 ]
 
 service_areas_data.each do |area_attrs|
-  ServiceArea.find_or_create_by!(name: area_attrs[:name]) do |area|
-    area.update!(area_attrs)
-  end
+  ServiceArea.create!(area_attrs)
 end
