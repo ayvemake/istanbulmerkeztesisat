@@ -3,7 +3,7 @@ Rails.application.routes.draw do
 
   # Pages statiques
   get '/about', to: 'pages#about'
-  get '/zones-intervention', to: 'pages#zones'
+  get '/zones-intervention', to: 'pages#zones', as: :zones
   get '/teknik-bilgiler', to: 'pages#technical_info', as: :technical_info
 
   # Ressources RESTful
