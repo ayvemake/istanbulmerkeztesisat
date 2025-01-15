@@ -84,4 +84,10 @@ Rails.application.configure do
 
   # Ajoutez cette ligne temporairement si nécessaire
   config.secret_key_base = 'dc4b6f6b41a99cfb13671a2edc7b3ee48752985a426b6a15d8ad2814e28c360bdc1540414e838873816854d96eaef533522f7ce74b53c218cb6d86d7637a3d39'
+
+  # Configuration des hôtes autorisés pour ngrok
+  config.hosts.clear # Efface les restrictions d'hôtes en développement
+  config.hosts << "localhost"
+  config.hosts << /.*\.ngrok-free\.app/
+  config.hosts << /.*\.ngrok\.io/
 end
