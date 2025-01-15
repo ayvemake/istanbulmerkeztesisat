@@ -28,6 +28,9 @@ gem "bootsnap", require: false
 gem 'tailwindcss-rails'
 gem 'hotwire-rails'
 
+# Image processing
+gem 'image_processing'
+
 # Authentification et Autorisation
 gem 'devise'
 gem 'pundit'
@@ -41,6 +44,7 @@ end
 group :development do
   gem 'rubocop'
   gem 'brakeman'
+  gem 'rack-mini-profiler'
 end
 
 gem 'redis'

@@ -1,0 +1,13 @@
+<div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+  <h2>Nouvelle demande de service</h2>
+  
+  <div style="background: #f3f4f6; padding: 20px; border-radius: 8px; margin: 20px 0;">
+    <h3>Détails du client :</h3>
+    <p><strong>Nom :</strong> <%= @inquiry.name %></p>
+    <p><strong>Email :</strong> <%= @inquiry.email %></p>
+    <p><strong>Téléphone :</strong> <%= @inquiry.phone %></p>
+    <p><strong>Service demandé :</strong> <%= @service&.name || 'Non spécifié' %></p>
+    <p><strong>Message :</strong></p>
+    <p style="white-space: pre-line;"><%= @inquiry.message %></p>
+  </div>
+</div> 
