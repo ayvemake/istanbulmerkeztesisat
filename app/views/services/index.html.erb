@@ -10,21 +10,11 @@
     <div class="max-w-3xl mx-auto">
       <ul class="space-y-6">
         <% @all_services.each do |service| %>
-          <li class="group">
-            <%= link_to service_path(service), 
-                class: "flex items-center p-4 rounded-lg hover:bg-emerald-50 transition-all duration-200" do %>
-              <div class="w-4 h-4 bg-emerald-500 rounded-full mr-6 group-hover:scale-125 transition-transform"></div>
-              <span class="text-2xl font-semibold text-emerald-700 group-hover:text-emerald-600 
-                         border-b-2 border-transparent group-hover:border-emerald-600 
-                         group-hover:translate-x-2 transition-all duration-300">
-                <%= service.name %>
-              </span>
-              <svg class="w-6 h-6 ml-auto text-emerald-500 opacity-0 group-hover:opacity-100 transition-opacity" 
-                   fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
-              </svg>
-            <% end %>
-          </li>
+          <% cache service do %>
+            <li class="group">
+              <%= render 'service', service: service %>
+            </li>
+          <% end %>
         <% end %>
       </ul>
     </div>

@@ -42,3 +42,8 @@ group :development do
   gem 'rubocop'
   gem 'brakeman'
 end
+
+gem 'redis'
+gem 'hiredis'
+
+gem 'sitemap_generator'

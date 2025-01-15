@@ -53,4 +53,18 @@ Rails.application.configure do
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
 
+  config.cache_store = :redis_cache_store, {
+    url: ENV['REDIS_URL'],
+    driver: :hiredis,
+    expires_in: 1.day
+  }
+
+  # Compression Gzip
+  config.middleware.use Rack::Deflater
+  
+  # Cache statique
+  config.public_file_server.headers = {
+    'Cache-Control' => "public, max-age=#{30.days.to_i}"
+  }
+
 end
