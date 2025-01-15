@@ -278,4 +278,116 @@
       Hemen Arayın
     </a>
   </section>
+
+  <!-- Section Carrousel -->
+  <div class="mb-16">
+    <div class="max-w-6xl mx-auto px-4">
+      <div class="grid md:grid-cols-2 gap-12">
+        <!-- Carrousel Boya -->
+        <div class="relative overflow-hidden rounded-xl shadow-lg bg-white"
+             data-controller="carousel"
+             data-carousel-current-value="0"
+             data-carousel-interval-value="5000"
+             data-action="mouseenter->carousel#mouseEnter mouseleave->carousel#mouseLeave">
+         
+         <div class="aspect-w-16 aspect-h-9 relative">
+           <!-- Images -->
+           <div class="absolute inset-0">
+             <% ['paint1', 'paint2', 'paint3'].each_with_index do |image, index| %>
+               <%= image_tag "services/#{image}.png",
+                   class: "absolute inset-0 w-full h-full object-cover transition-all duration-500 transform #{'opacity-0' if index != 0}",
+                   data: { 
+                     carousel_target: "slide", 
+                     index: index 
+                   },
+                   onerror: "this.style.display='none'; console.error('Image not found: #{image}')" %>
+             <% end %>
+           </div>
+           
+           <!-- Contrôles -->
+           <button data-action="carousel#previous"
+                   class="absolute left-4 top-1/2 -translate-y-1/2 p-2 rounded-full bg-white/80 shadow-lg hover:bg-white transition-colors">
+             <svg class="w-6 h-6 text-gray-800" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+             </svg>
+           </button>
+           
+           <button data-action="carousel#next"
+                   class="absolute right-4 top-1/2 -translate-y-1/2 p-2 rounded-full bg-white/80 shadow-lg hover:bg-white transition-colors">
+             <svg class="w-6 h-6 text-gray-800" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+             </svg>
+           </button>
+           
+           <!-- Indicateurs -->
+           <div class="absolute bottom-4 left-1/2 -translate-x-1/2 flex space-x-2">
+             <% 3.times do |i| %>
+               <button class="w-2 h-2 rounded-full transition-colors duration-200"
+                       data-carousel-target="indicator"
+                       data-action="carousel#select"
+                       data-index="<%= i %>"></button>
+             <% end %>
+           </div>
+         </div>
+         
+         <div class="p-4">
+           <h3 class="text-xl font-bold text-emerald-800 mb-2">Boya ve Dekorasyon</h3>
+           <p class="text-gray-600">Profesyonel boya ve dekorasyon hizmetlerimiz</p>
+         </div>
+       </div>
+       
+       <!-- Carrousel Tesisat -->
+       <div class="relative overflow-hidden rounded-xl shadow-lg bg-white"
+            data-controller="carousel"
+            data-carousel-current-value="0"
+            data-carousel-interval-value="5000"
+            data-action="mouseenter->carousel#mouseEnter mouseleave->carousel#mouseLeave">
+         <div class="aspect-w-16 aspect-h-9 relative">
+           <!-- Images -->
+           <div class="absolute inset-0">
+             <% ['sanitary1', 'sanitary2', 'sanitary3'].each_with_index do |image, index| %>
+               <%= image_tag "services/#{image}.png",
+                   class: "absolute inset-0 w-full h-full object-cover transition-all duration-500 transform #{'opacity-0' if index != 0}",
+                   data: { 
+                     carousel_target: "slide", 
+                     index: index 
+                   },
+                   onerror: "this.style.display='none'; console.error('Image not found: #{image}')" %>
+             <% end %>
+           </div>
+           
+           <!-- Contrôles -->
+           <button data-action="carousel#previous"
+                   class="absolute left-4 top-1/2 -translate-y-1/2 p-2 rounded-full bg-white/80 shadow-lg hover:bg-white transition-colors">
+             <svg class="w-6 h-6 text-gray-800" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+             </svg>
+           </button>
+           
+           <button data-action="carousel#next"
+                   class="absolute right-4 top-1/2 -translate-y-1/2 p-2 rounded-full bg-white/80 shadow-lg hover:bg-white transition-colors">
+             <svg class="w-6 h-6 text-gray-800" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+             </svg>
+           </button>
+           
+           <!-- Indicateurs -->
+           <div class="absolute bottom-4 left-1/2 -translate-x-1/2 flex space-x-2">
+             <% 3.times do |i| %>
+               <button class="w-2 h-2 rounded-full transition-colors duration-200"
+                       data-carousel-target="indicator"
+                       data-action="carousel#select"
+                       data-index="<%= i %>"></button>
+             <% end %>
+           </div>
+         </div>
+         
+         <div class="p-4">
+           <h3 class="text-xl font-bold text-emerald-800 mb-2">Tesisat Hizmetleri</h3>
+           <p class="text-gray-600">Profesyonel tesisat ve bakım hizmetlerimiz</p>
+         </div>
+       </div>
+      </div>
+    </div>
+  </div>
 </div>

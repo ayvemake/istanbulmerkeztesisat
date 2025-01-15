@@ -4,14 +4,14 @@
 
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
   <!-- Section de tous les services -->
-  <div class="bg-white rounded-lg shadow-lg p-6 mb-8">
-    <h2 class="text-3xl font-bold text-center text-gray-900 mb-8">Hizmetlerimiz</h2>
+  <div class="bg-white rounded-xl shadow-xl p-8 mb-12">
+    <h2 class="text-4xl font-bold text-center text-emerald-800 mb-10">Hizmetlerimiz</h2>
     
     <div class="max-w-4xl mx-auto">
-      <ul class="space-y-6">
+      <ul class="grid gap-6">
         <% @all_services.each do |service| %>
           <% cache service do %>
-            <li class="group hover:bg-stone-50 rounded-lg transition-colors duration-200">
+            <li class="group">
               <%= render 'service', service: service %>
             </li>
           <% end %>
@@ -21,18 +21,20 @@
   </div>
 
   <!-- Section Avantages -->
-  <div class="bg-gray-50 rounded-lg shadow-lg p-12 mb-12">
-    <h2 class="text-3xl font-bold text-center text-gray-900 mb-12">Neden Bizi Seçmelisiniz?</h2>
+  <div class="bg-gray-50 rounded-lg shadow-lg p-8 mb-8">
+    <h2 class="text-2xl font-bold text-center text-gray-900 mb-6">Neden Bizi Seçmelisiniz?</h2>
     
-    <div class="grid md:grid-cols-3 gap-8">
-      <div class="bg-white p-8 rounded-xl shadow-md hover:shadow-lg transition-shadow">
-        <div class="w-16 h-16 bg-emerald-100 rounded-full flex items-center justify-center mb-6 mx-auto">
-          <svg class="w-8 h-8 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <div class="grid md:grid-cols-3 gap-6">
+      <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow">
+        <div class="w-12 h-12 bg-emerald-100 rounded-full flex items-center justify-center mb-4 mx-auto">
+          <svg class="w-6 h-6 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
           </svg>
         </div>
-        <h3 class="text-xl font-bold text-center mb-4">7/24 Hizmet</h3>
-        <p class="text-gray-600 text-center">Günün her saati yanınızdayız. Acil durumlar için 30 dakika içinde müdahale.</p>
+        <h3 class="text-lg font-bold text-center mb-3">7/24 Hizmet</h3>
+        <p class="text-gray-600 text-sm text-justify leading-snug">
+          Günün her saati yanınızdayız. Acil durumlar için 30 dakika içinde müdahale.
+        </p>
       </div>
 
       <div class="bg-white p-8 rounded-xl shadow-md hover:shadow-lg transition-shadow">

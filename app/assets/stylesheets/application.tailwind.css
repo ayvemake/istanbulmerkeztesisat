@@ -68,4 +68,29 @@
       transform: translateY(0) translateX(-50%);
     }
   }
+
+  /* Styles du carrousel */
+  .carousel-slide {
+    @apply absolute inset-0 w-full h-full transition-all duration-500 transform;
+  }
+
+  .carousel-slide[data-active="true"] {
+    @apply opacity-100 translate-x-0;
+  }
+
+  .carousel-slide[data-active="false"] {
+    @apply opacity-0;
+  }
+
+  .carousel-indicator {
+    @apply w-2 h-2 rounded-full transition-colors duration-200;
+  }
+
+  .carousel-indicator[data-active="true"] {
+    @apply bg-emerald-600;
+  }
+
+  .carousel-indicator[data-active="false"] {
+    @apply bg-gray-300;
+  }
 } 
