@@ -1,0 +1,147 @@
+<section class="py-16 mb-24 bg-gradient-to-b from-white to-emerald-50">
+  <div class="max-w-7xl mx-auto px-4">
+    <div class="text-center mb-16">
+      <h2 class="text-4xl font-bold text-gray-900 mb-4">Çalışma Sürecimiz</h2>
+      <p class="text-lg text-gray-600 max-w-2xl mx-auto">
+        Her projede kaliteli sonuç için titizlikle uyguladığımız profesyonel çalışma adımlarımız
+      </p>
+    </div>
+
+    <div class="grid md:grid-cols-4 gap-8" data-controller="work-process">
+      <% [
+        {
+          step: 1,
+          title: "Ücretsiz Keşif",
+          desc: "Ücretsiz keşif ve detaylı inceleme",
+          icon: "clipboard-check",
+          details: [
+            "Yerinde ücretsiz keşif",
+            "Detaylı proje incelemesi",
+            "Mevcut durum analizi",
+            "Müşteri ihtiyaç analizi"
+          ]
+        },
+        {
+          step: 2,
+          title: "Planlama",
+          desc: "Proje planı ve maliyet analizi",
+          icon: "chart-bar",
+          details: [
+            "Detaylı maliyet hesaplama",
+            "Malzeme seçimi",
+            "Zaman planlaması",
+            "Ekip organizasyonu"
+          ]
+        },
+        {
+          step: 3,
+          title: "Profesyonel Uygulama",
+          desc: "Uzman ekiple titiz uygulama",
+          icon: "cog",
+          details: [
+            "Uzman ekip çalışması",
+            "Kaliteli malzeme kullanımı",
+            "Güvenli çalışma ortamı",
+            "Düzenli ilerleme raporu"
+          ]
+        },
+        {
+          step: 4,
+          title: "Kalite Kontrol",
+          desc: "Son kontrol ve müşteri onayı",
+          icon: "shield-check",
+          details: [
+            "Detaylı son kontrol",
+            "Müşteri onayı",
+            "Garanti belgesi",
+            "Bakım tavsiyeleri"
+          ]
+        }
+      ].each do |item| %>
+        <div class="relative group" 
+             data-work-process-target="step"
+             data-action="mouseenter->work-process#showDetails mouseleave->work-process#hideDetails">
+          <!-- Carte principale -->
+          <div class="bg-white rounded-xl p-6 shadow-lg relative z-10 h-full transition-all duration-300 group-hover:shadow-xl group-hover:scale-105">
+            <!-- Numéro d'étape -->
+            <div class="text-6xl font-bold text-emerald-100/50 absolute -top-4 -left-2">
+              <%= item[:step] %>
+            </div>
+            
+            <!-- Icône -->
+            <div class="mb-4 relative z-10">
+              <div class="w-12 h-12 bg-emerald-100 rounded-lg flex items-center justify-center">
+                <%= render partial: "shared/icons/#{item[:icon]}", locals: { classes: "w-6 h-6 text-emerald-600" } %>
+              </div>
+            </div>
+
+            <!-- Titre et description -->
+            <div class="relative z-10">
+              <h3 class="text-xl font-bold text-gray-900 mb-3">
+                <%= item[:title] %>
+              </h3>
+              <p class="text-gray-600">
+                <%= item[:desc] %>
+              </p>
+            </div>
+
+            <!-- Liste détaillée (visible au hover) -->
+            <div class="absolute inset-0 bg-white rounded-xl p-6 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-20">
+              <h4 class="font-bold text-emerald-600 mb-4">
+                <%= item[:title] %>
+              </h4>
+              <ul class="space-y-3">
+                <% item[:details].each do |detail| %>
+                  <li class="flex items-center text-gray-600">
+                    <svg class="w-5 h-5 text-emerald-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                    </svg>
+                    <%= detail %>
+                  </li>
+                <% end %>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Ligne de connexion -->
+          <% if item[:step] < 4 %>
+            <div class="hidden md:block absolute top-1/2 right-0 w-full h-1 bg-emerald-100 -z-10 transform translate-x-1/2"></div>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+
+    <!-- Section d'engagement -->
+    <div class="mt-16 bg-white rounded-xl p-8 shadow-lg">
+      <div class="grid md:grid-cols-3 gap-8">
+        <div class="text-center">
+          <div class="w-16 h-16 bg-emerald-100 rounded-full flex items-center justify-center mx-auto mb-4">
+            <svg class="w-8 h-8 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+            </svg>
+          </div>
+          <h4 class="font-bold text-gray-900 mb-2">Zamanında Teslimat</h4>
+          <p class="text-gray-600">Projelerinizi planlanan sürede tamamlıyoruz</p>
+        </div>
+        <div class="text-center">
+          <div class="w-16 h-16 bg-emerald-100 rounded-full flex items-center justify-center mx-auto mb-4">
+            <svg class="w-8 h-8 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
+            </svg>
+          </div>
+          <h4 class="font-bold text-gray-900 mb-2">Garanti</h4>
+          <p class="text-gray-600">2 yıl boyunca hizmet garantisi</p>
+        </div>
+        <div class="text-center">
+          <div class="w-16 h-16 bg-emerald-100 rounded-full flex items-center justify-center mx-auto mb-4">
+            <svg class="w-8 h-8 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+            </svg>
+          </div>
+          <h4 class="font-bold text-gray-900 mb-2">Hızlı Müdahale</h4>
+          <p class="text-gray-600">Acil durumlarda 30 dakika içinde müdahale</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section> 

@@ -11,4 +11,6 @@ Rails.application.routes.draw do
   resources :customer_inquiries, only: [:new, :create], path: 'contact'
   resources :service_areas, only: [:index, :show]
   resources :contacts, only: [:new, :create]
+
+  get 'services/update_categories', to: 'services#update_categories'
 end

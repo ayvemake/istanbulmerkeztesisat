@@ -1,92 +1,289 @@
-<% content_for :breadcrumbs do %>
-  <span class="text-gray-500">Hizmetlerimiz</span>
-<% end %>
-
-<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-  <!-- Section de tous les services -->
-  <div class="bg-white rounded-xl shadow-xl p-8 mb-12">
-    <h2 class="text-4xl font-bold text-center text-emerald-800 mb-10">Hizmetlerimiz</h2>
+<div class="container mx-auto px-4 py-12" data-controller="services-filter" data-services-filter-category-value="<%= params[:category] %>">
+  <!-- 1. Hero Section (existante) -->
+  <div class="relative rounded-3xl overflow-hidden mb-24">
+    <div class="absolute inset-0 bg-gradient-to-r from-emerald-900/90 to-emerald-800/90 z-10"></div>
+    <div class="absolute inset-0">
+      <%= image_tag "https://images.unsplash.com/photo-1581094288338-2314dddb7ece", 
+          class: "w-full h-full object-cover" %>
+    </div>
     
-    <div class="max-w-4xl mx-auto">
-      <ul class="grid gap-6">
-        <% @all_services.each do |service| %>
-          <% cache service do %>
-            <li class="group">
-              <%= render 'service', service: service %>
-            </li>
-          <% end %>
-        <% end %>
-      </ul>
+    <div class="relative z-20 px-8 py-24 text-white">
+      <div class="max-w-3xl mx-auto text-center">
+        <h1 class="text-4xl md:text-5xl font-bold mb-6">Profesyonel Hizmet, Güvenilir Çözümler</h1>
+        <p class="text-xl text-white/90 mb-8">
+          20 yılı aşkın tecrübemiz ve uzman ekibimizle İstanbul'un her bölgesinde kaliteli hizmet sunuyoruz
+        </p>
+        <div class="flex flex-wrap justify-center gap-4">
+          <div class="flex items-center bg-white/10 backdrop-blur rounded-lg px-6 py-3">
+            <svg class="w-8 h-8 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
+            </svg>
+            <div class="ml-3">
+              <div class="font-medium">2 Yıl Garanti</div>
+              <div class="text-sm text-white/75">Tüm hizmetlerde</div>
+            </div>
+          </div>
+          <div class="flex items-center bg-white/10 backdrop-blur rounded-lg px-6 py-3">
+            <svg class="w-8 h-8 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+            </svg>
+            <div class="ml-3">
+              <div class="font-medium">7/24 Hizmet</div>
+              <div class="text-sm text-white/75">Acil müdahale</div>
+            </div>
+          </div>
+          <div class="flex items-center bg-white/10 backdrop-blur rounded-lg px-6 py-3">
+            <svg class="w-8 h-8 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/>
+            </svg>
+            <div class="ml-3">
+              <div class="font-medium">Uzman Ekip</div>
+              <div class="text-sm text-white/75">Deneyimli ustalar</div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 
-  <!-- Section Avantages -->
-  <div class="bg-gray-50 rounded-lg shadow-lg p-8 mb-8">
-    <h2 class="text-2xl font-bold text-center text-gray-900 mb-6">Neden Bizi Seçmelisiniz?</h2>
-    
-    <div class="grid md:grid-cols-3 gap-6">
-      <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow">
-        <div class="w-12 h-12 bg-emerald-100 rounded-full flex items-center justify-center mb-4 mx-auto">
-          <svg class="w-6 h-6 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
-          </svg>
+  <!-- 2. Section Notre Expertise (existante) -->
+  <div class="max-w-7xl mx-auto mb-24">
+    <div class="grid md:grid-cols-2 gap-12 items-center">
+      <div>
+        <h2 class="text-3xl font-bold text-gray-900 mb-6">Kaliteli Malzeme, Profesyonel İşçilik</h2>
+        <p class="text-lg text-gray-600 mb-8 leading-relaxed">
+          Sektörün önde gelen markalarıyla çalışıyor, en kaliteli malzemeleri kullanıyoruz. 
+          Her projede müşteri memnuniyetini ön planda tutarak, işimizi titizlikle yapıyoruz.
+        </p>
+        <div class="space-y-4">
+          <div class="flex items-start">
+            <div class="flex-shrink-0 p-2 bg-emerald-100 rounded-lg">
+              <svg class="w-6 h-6 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+              </svg>
+            </div>
+            <div class="ml-4">
+              <h3 class="text-lg font-medium text-gray-900">TSE Standartlarına Uygun Malzemeler</h3>
+              <p class="mt-1 text-gray-600">Yalnızca sertifikalı ve garantili ürünler kullanıyoruz</p>
+            </div>
+          </div>
+          <div class="flex items-start">
+            <div class="flex-shrink-0 p-2 bg-emerald-100 rounded-lg">
+              <svg class="w-6 h-6 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+              </svg>
+            </div>
+            <div class="ml-4">
+              <h3 class="text-lg font-medium text-gray-900">Modern Ekipman ve Teknoloji</h3>
+              <p class="mt-1 text-gray-600">En son teknoloji cihazlarla hızlı ve etkili çözümler</p>
+            </div>
+          </div>
+          <div class="flex items-start">
+            <div class="flex-shrink-0 p-2 bg-emerald-100 rounded-lg">
+              <svg class="w-6 h-6 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+              </svg>
+            </div>
+            <div class="ml-4">
+              <h3 class="text-lg font-medium text-gray-900">Detaylı Keşif ve Planlama</h3>
+              <p class="mt-1 text-gray-600">Her projeye özel çözüm ve maliyet analizi</p>
+            </div>
+          </div>
         </div>
-        <h3 class="text-lg font-bold text-center mb-3">7/24 Hizmet</h3>
-        <p class="text-gray-600 text-sm text-justify leading-snug">
-          Günün her saati yanınızdayız. Acil durumlar için 30 dakika içinde müdahale.
+      </div>
+      <div class="grid grid-cols-2 gap-4">
+        <div class="space-y-4">
+          <div class="rounded-lg overflow-hidden shadow-lg">
+            <%= image_tag "https://images.unsplash.com/photo-1621905252507-b35492cc74b4", 
+                class: "w-full h-48 object-cover" %>
+          </div>
+          <div class="rounded-lg overflow-hidden shadow-lg">
+            <%= image_tag "https://images.unsplash.com/photo-1595844730298-b960ff98fee0", 
+                class: "w-full h-64 object-cover" %>
+          </div>
+        </div>
+        <div class="space-y-4 pt-8">
+          <div class="rounded-lg overflow-hidden shadow-lg">
+            <%= image_tag "https://images.unsplash.com/photo-1534349762230-e0cadf78f5da", 
+                class: "w-full h-64 object-cover" %>
+          </div>
+          <div class="rounded-lg overflow-hidden shadow-lg">
+            <%= image_tag "https://images.unsplash.com/photo-1513694203232-719a280e022f", 
+                class: "w-full h-48 object-cover" %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3. Section Processus de Travail -->
+  <%= render 'work_process' %>
+  
+  <!-- 4. Navigation et Liste des Services -->
+  <div class="mt-24">
+    <!-- Navigation par catégorie -->
+    <div class="flex justify-center mb-12">
+      <nav class="flex space-x-4 bg-white rounded-full shadow-lg p-2">
+        <button data-services-filter-target="button"
+                data-category="all"
+                data-action="click->services-filter#filter"
+                class="px-6 py-2 rounded-full font-medium transition-colors">
+          Tüm Hizmetler
+        </button>
+        <button data-services-filter-target="button"
+                data-category="painting"
+                data-action="click->services-filter#filter"
+                class="px-6 py-2 rounded-full text-gray-600 hover:bg-gray-50 font-medium transition-colors">
+          Boya ve Dekorasyon
+        </button>
+        <button data-services-filter-target="button"
+                data-category="plumbing"
+                data-action="click->services-filter#filter"
+                class="px-6 py-2 rounded-full text-gray-600 hover:bg-gray-50 font-medium transition-colors">
+          Su ve Tesisat
+        </button>
+      </nav>
+    </div>
+
+    <!-- Sections des services par catégorie -->
+    <!-- Section Boya ve Dekorasyon -->
+    <section class="mb-20" 
+             data-services-filter-target="section"
+             data-category="painting">
+      <div class="flex items-center justify-between mb-8">
+        <div>
+          <h2 class="text-3xl font-bold text-gray-900">Boya ve Dekorasyon</h2>
+          <p class="text-gray-600 mt-2">Yaşam alanlarınız için profesyonel çözümler</p>
+        </div>
+        <div class="flex items-center space-x-8">
+          <div class="text-gray-600">
+            <span class="font-medium"><%= @painting_services.count %></span> hizmet
+          </div>
+          <div class="flex items-center text-emerald-600 hover:text-emerald-700 cursor-pointer"
+               data-action="click->services-filter#filter"
+               data-category="painting">
+            <span class="font-medium">Tüm Boya Hizmetleri</span>
+            <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+            </svg>
+          </div>
+        </div>
+      </div>
+
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <% @painting_services.each do |service| %>
+          <%= render 'service_card', service: service %>
+        <% end %>
+      </div>
+    </section>
+
+    <!-- Section Su ve Tesisat -->
+    <section class="mb-20"
+             data-services-filter-target="section"
+             data-category="plumbing">
+      <div class="flex items-center justify-between mb-8">
+        <div>
+          <h2 class="text-3xl font-bold text-gray-900">Su ve Tesisat</h2>
+          <p class="text-gray-600 mt-2">Profesyonel tesisat çözümleri</p>
+        </div>
+        <div class="flex items-center space-x-8">
+          <div class="text-gray-600">
+            <span class="font-medium"><%= @plumbing_services.count %></span> hizmet
+          </div>
+          <div class="flex items-center text-emerald-600 hover:text-emerald-700 cursor-pointer"
+               data-action="click->services-filter#filter"
+               data-category="plumbing">
+            <span class="font-medium">Tüm Tesisat Hizmetleri</span>
+            <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+            </svg>
+          </div>
+        </div>
+      </div>
+
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <% @plumbing_services.each do |service| %>
+          <%= render 'service_card', service: service %>
+        <% end %>
+      </div>
+    </section>
+  </div>
+
+  <!-- 5. Section FAQ (existante) -->
+  <section class="mt-24 bg-gray-50 rounded-2xl p-8 lg:p-12">
+    <div class="text-center mb-12">
+      <h2 class="text-3xl font-bold text-gray-900 mb-4">Sık Sorulan Sorular</h2>
+      <p class="text-gray-600">Hizmetlerimiz hakkında merak edilenler</p>
+    </div>
+
+    <div class="max-w-3xl mx-auto space-y-4">
+      <% [
+        {
+          q: "Hizmet garantiniz var mı?",
+          a: "Evet, tüm hizmetlerimiz 2 yıl garantilidir. İşçilik ve malzeme kaynaklı sorunlarda ücretsiz servis sağlıyoruz."
+        },
+        {
+          q: "Ücretsiz keşif yapıyor musunuz?",
+          a: "Evet, İstanbul içi tüm bölgelere ücretsiz keşif hizmeti veriyoruz."
+        },
+        {
+          q: "Acil durumlar için hizmet veriyor musunuz?",
+          a: "Evet, 7/24 acil servis hizmetimiz mevcuttur. Su kaçağı, tıkanıklık gibi acil durumlarda 30 dakika içinde müdahale ediyoruz."
+        }
+      ].each do |faq| %>
+        <details class="bg-white rounded-lg shadow-sm">
+          <summary class="px-6 py-4 cursor-pointer flex items-center justify-between">
+            <span class="font-medium text-gray-900"><%= faq[:q] %></span>
+            <svg class="w-5 h-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+            </svg>
+          </summary>
+          <div class="px-6 pb-4 text-gray-600">
+            <%= faq[:a] %>
+          </div>
+        </details>
+      <% end %>
+    </div>
+  </section>
+
+  <!-- 6. Section Statistiques -->
+  <section class="bg-emerald-50 py-16 mb-24">
+    <div class="max-w-7xl mx-auto px-4">
+      <div class="text-center mb-16">
+        <h2 class="text-3xl font-bold text-gray-900 mb-4">Neden Bizi Tercih Etmelisiniz?</h2>
+        <p class="text-lg text-gray-600 max-w-2xl mx-auto">
+          Yılların deneyimi ve binlerce başarılı projemizle İstanbul'un güvenilir hizmet sağlayıcısıyız
         </p>
       </div>
 
-      <div class="bg-white p-8 rounded-xl shadow-md hover:shadow-lg transition-shadow">
-        <div class="w-16 h-16 bg-emerald-100 rounded-full flex items-center justify-center mb-6 mx-auto">
-          <svg class="w-8 h-8 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
-          </svg>
+      <div class="grid md:grid-cols-4 gap-8 text-center">
+        <div class="bg-white rounded-xl p-6 shadow-lg transform hover:-translate-y-1 transition-transform">
+          <div class="text-4xl font-bold text-emerald-600 mb-2">20+</div>
+          <div class="text-gray-600">Yıllık Deneyim</div>
         </div>
-        <h3 class="text-xl font-bold text-center mb-4">Garantili Hizmet</h3>
-        <p class="text-gray-600 text-center">Tüm hizmetlerimiz 2 yıl garantilidir. %100 müşteri memnuniyeti.</p>
-      </div>
-
-      <div class="bg-white p-8 rounded-xl shadow-md hover:shadow-lg transition-shadow">
-        <div class="w-16 h-16 bg-emerald-100 rounded-full flex items-center justify-center mb-6 mx-auto">
-          <svg class="w-8 h-8 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z"/>
-          </svg>
+        <div class="bg-white rounded-xl p-6 shadow-lg transform hover:-translate-y-1 transition-transform">
+          <div class="text-4xl font-bold text-emerald-600 mb-2">5000+</div>
+          <div class="text-gray-600">Mutlu Müşteri</div>
         </div>
-        <h3 class="text-xl font-bold text-center mb-4">Uygun Fiyat</h3>
-        <p class="text-gray-600 text-center">Şeffaf fiyatlandırma ve rekabetçi fiyatlar. Ücretsiz keşif hizmeti.</p>
+        <div class="bg-white rounded-xl p-6 shadow-lg transform hover:-translate-y-1 transition-transform">
+          <div class="text-4xl font-bold text-emerald-600 mb-2">15+</div>
+          <div class="text-gray-600">Uzman Personel</div>
+        </div>
+        <div class="bg-white rounded-xl p-6 shadow-lg transform hover:-translate-y-1 transition-transform">
+          <div class="text-4xl font-bold text-emerald-600 mb-2">%98</div>
+          <div class="text-gray-600">Müşteri Memnuniyeti</div>
+        </div>
       </div>
     </div>
-  </div>
+  </section>
 
-  <!-- Section Devis -->
-  <div class="bg-emerald-600 rounded-lg shadow-lg p-12">
-    <div class="max-w-4xl mx-auto text-center">
-      <h2 class="text-3xl font-bold text-white mb-6">Ücretsiz Keşif ve Fiyat Teklifi Alın</h2>
-      <p class="text-emerald-100 text-xl mb-8">
-        Size en uygun çözümü sunabilmemiz için ücretsiz keşif hizmetimizden faydalanın
-      </p>
-      <div class="flex justify-center space-x-6">
-        <%= link_to new_customer_inquiry_path, 
-            class: "bg-white text-emerald-600 px-8 py-4 rounded-lg text-lg font-semibold hover:bg-emerald-50 transition-colors" do %>
-          <span class="flex items-center">
-            <svg class="w-6 h-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/>
-            </svg>
-            Teklif Al
-          </span>
-        <% end %>
-        
-        <a href="tel:+905555555555" 
-           class="border-2 border-white text-white px-8 py-4 rounded-lg text-lg font-semibold hover:bg-white hover:text-emerald-600 transition-colors">
-          <span class="flex items-center">
-            <svg class="w-6 h-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
-            </svg>
-            Hemen Ara
-          </span>
-        </a>
-      </div>
-    </div>
-  </div>
-</div> 
+  <!-- 7. CTA Section -->
+  <%= render 'shared/cta_section' %>
+</div>
+
+<!-- Stimulus Controller pour la navigation -->
+<%= content_tag :div, nil, 
+    data: { 
+      controller: "services-filter",
+      services_filter_category_value: params[:category] 
+    } %> 

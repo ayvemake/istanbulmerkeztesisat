@@ -121,4 +121,17 @@
   .whatsapp-modal-content.show {
     @apply scale-100 opacity-100;
   }
+
+  .carousel-placeholder {
+    @apply absolute inset-0 bg-gray-100 transition-opacity duration-300;
+  }
+
+  .carousel-image {
+    @apply absolute inset-0 w-full h-full object-cover;
+    @apply transition-transform duration-500;
+  }
+
+  .bg-gradient-custom {
+    @apply bg-gradient-to-b from-white via-gray-100 to-gray-400 w-screen relative left-[50%] right-[50%] ml-[-50vw] mr-[-50vw];
+  }
 } 

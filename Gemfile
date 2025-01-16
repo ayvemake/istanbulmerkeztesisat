@@ -7,6 +7,9 @@ ruby '3.2.2'
 gem "rails", "~> 7.1.0"  # Version spécifique
 gem "puma", ">= 5.0"
 
+# Environment variables
+gem 'dotenv-rails'
+
 group :development, :test do
   gem "sqlite3"
 end
@@ -30,6 +33,7 @@ gem 'hotwire-rails'
 
 # Image processing
 gem 'image_processing'
+gem 'mini_magick'
 
 # Authentification et Autorisation
 gem 'devise'

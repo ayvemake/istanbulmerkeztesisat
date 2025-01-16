@@ -1,0 +1,44 @@
+<section class="py-16 mb-24" data-controller="testimonial-carousel">
+  <div class="max-w-6xl mx-auto px-4">
+    <div class="text-center mb-12">
+      <h2 class="text-3xl font-bold text-gray-900 mb-4">Müşterilerimiz Ne Diyor?</h2>
+      <p class="text-lg text-gray-600">Hizmetlerimizi tercih eden müşterilerimizin görüşleri</p>
+    </div>
+
+    <div class="relative">
+      <div class="overflow-hidden">
+        <div class="flex transition-transform duration-500" data-testimonial-carousel-target="slider">
+          <% testimonials = [
+            { name: "Ahmet Yılmaz", role: "Ev Sahibi", content: "Çok profesyonel bir ekip. İşlerini zamanında ve özenle yaptılar. Kesinlikle tavsiye ederim." },
+            { name: "Ayşe Kaya", role: "Site Yöneticisi", content: "Acil bir su sızıntısı durumunda 30 dakika içinde geldiler ve sorunu hemen çözdüler." },
+            { name: "Mehmet Demir", role: "İşyeri Sahibi", content: "Dış cephe boyama işimizi çok güzel yaptılar. Temiz ve düzenli çalışıyorlar." }
+          ] %>
+          
+          <% testimonials.each do |testimonial| %>
+            <div class="w-full flex-shrink-0 px-4">
+              <div class="bg-white rounded-xl p-8 shadow-lg">
+                <div class="flex items-center mb-6">
+                  <div class="h-12 w-12 rounded-full bg-emerald-100 flex items-center justify-center">
+                    <span class="text-2xl text-emerald-600"><%= testimonial[:name][0] %></span>
+                  </div>
+                  <div class="ml-4">
+                    <div class="font-medium text-gray-900"><%= testimonial[:name] %></div>
+                    <div class="text-sm text-gray-500"><%= testimonial[:role] %></div>
+                  </div>
+                </div>
+                <p class="text-gray-600 leading-relaxed"><%= testimonial[:content] %></p>
+              </div>
+            </div>
+          <% end %>
+        </div>
+      </div>
+
+      <button data-action="testimonial-carousel#prev" class="absolute left-0 top-1/2 -translate-y-1/2 bg-white rounded-full p-2 shadow-lg hover:bg-gray-50">
+        <!-- SVG pour flèche gauche -->
+      </button>
+      <button data-action="testimonial-carousel#next" class="absolute right-0 top-1/2 -translate-y-1/2 bg-white rounded-full p-2 shadow-lg hover:bg-gray-50">
+        <!-- SVG pour flèche droite -->
+      </button>
+    </div>
+  </div>
+</section> 
