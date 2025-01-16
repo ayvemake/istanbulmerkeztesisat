@@ -33,5 +33,7 @@ module ServiceWeb
     config.hosts << ".railway.app"
     config.hosts << ENV['RAILWAY_STATIC_URL'] if ENV['RAILWAY_STATIC_URL'].present?
     config.hosts << ENV['RAILWAY_PUBLIC_DOMAIN'] if ENV['RAILWAY_PUBLIC_DOMAIN'].present?
+    
+    config.google_maps_api_key = ENV['GOOGLE_MAPS_API_KEY']
   end
 end

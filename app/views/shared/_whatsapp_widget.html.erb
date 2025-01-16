@@ -1,0 +1,21 @@
+<div class="fixed bottom-6 right-4 z-50 whatsapp-widget">
+  <a 
+    href="https://wa.me/41795118990?text=Merhaba,%20hizmetleriniz%20hakk%C4%B1nda%20bilgi%20almak%20istiyorum"
+    target="_blank"
+    class="flex items-center bg-white p-3 rounded-full shadow-lg hover:shadow-xl transition-all duration-200 group">
+    <div class="w-8 h-8 flex-shrink-0">
+      <%= image_tag "services/whatsapp_logo.webp", 
+          alt: "WhatsApp Logo", 
+          class: "w-full h-full object-contain transition-transform duration-200 group-hover:scale-105" %>
+    </div>
+    <span class="font-medium text-base whitespace-nowrap"></span>
+  </a>
+</div>
+
+<style>
+  @media (min-width: 768px) {
+    .whatsapp-widget {
+      display: none !important;
+    }
+  }
+</style> 

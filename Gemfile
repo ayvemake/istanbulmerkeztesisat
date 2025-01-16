@@ -51,3 +51,6 @@ gem 'redis'
 gem 'hiredis'
 
 gem 'sitemap_generator'
+
+gem 'rest-client'  # Pour les appels API
+gem 'json'         # Pour parser les réponses

@@ -13,23 +13,24 @@
         <div class="hidden sm:ml-8 sm:flex sm:space-x-8">
           <%= link_to "Ana Sayfa", root_path, 
               class: "#{current_page?(root_path) ? 'border-emerald-500 text-emerald-600' : 'border-transparent text-gray-700 hover:text-emerald-600'} 
-                     inline-flex items-center px-1 pt-1 border-b-2 text-lg font-bold transition-colors" %>
+                     inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium" %>
+          
           
           <%= link_to "Hizmetlerimiz", services_path,
               class: "#{current_page?(services_path) ? 'border-emerald-500 text-emerald-600' : 'border-transparent text-gray-700 hover:text-emerald-600'} 
-                     inline-flex items-center px-1 pt-1 border-b-2 text-lg font-bold transition-colors" %>
+                     inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium" %>
           
           <%= link_to "Hakkımızda", about_path,
               class: "#{current_page?(about_path) ? 'border-emerald-500 text-emerald-600' : 'border-transparent text-gray-700 hover:text-emerald-600'} 
-                     inline-flex items-center px-1 pt-1 border-b-2 text-lg font-bold transition-colors" %>
+                     inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium" %>
           
           <%= link_to "İletişim", new_customer_inquiry_path,
               class: "#{current_page?(new_customer_inquiry_path) ? 'border-emerald-500 text-emerald-600' : 'border-transparent text-gray-700 hover:text-emerald-600'} 
-                     inline-flex items-center px-1 pt-1 border-b-2 text-lg font-bold transition-colors" %>
+                     inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium" %>
           
           <%= link_to "Teknik Bilgiler", technical_info_path,
               class: "#{current_page?(technical_info_path) ? 'border-emerald-500 text-emerald-600' : 'border-transparent text-gray-700 hover:text-emerald-600'} 
-                     inline-flex items-center px-1 pt-1 border-b-2 text-lg font-bold transition-colors" %>
+                     inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium" %>
         </div>
       </div>
 
@@ -101,8 +102,9 @@
 
   <!-- Sous-menu avec le menu déroulant -->
   <div class="border-t border-gray-200 bg-white">
+
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="flex justify-center h-16">
+      <div class="flex flex-row justify-between h-16">
         <!-- Menu déroulant pour la navigation principale -->
         <details class="group">
           <summary class="flex items-center space-x-3 text-gray-700 hover:text-emerald-600 font-medium cursor-pointer list-none 
@@ -162,6 +164,9 @@
           </div>
         </details>
       </div>
+
     </div>
+
   </div>
+
 </nav> 

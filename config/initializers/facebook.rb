@@ -1,0 +1,5 @@
+FACEBOOK_CONFIG = {
+  page_id: ENV['FACEBOOK_PAGE_ID'],
+  app_id: ENV['FACEBOOK_APP_ID'],
+  app_secret: ENV['FACEBOOK_APP_SECRET']
+} 
