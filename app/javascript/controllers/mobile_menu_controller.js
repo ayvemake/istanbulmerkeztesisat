@@ -4,42 +4,43 @@ export default class extends Controller {
   static targets = ["menu", "overlay"]
 
   connect() {
-    // Empêcher le scroll sur iOS quand le menu est ouvert
-    document.addEventListener('touchmove', this.handleTouchMove.bind(this), { passive: false })
+    // S'assurer que le menu est fermé au démarrage
+    this.closeMenu()
   }
 
-  disconnect() {
-    document.removeEventListener('touchmove', this.handleTouchMove.bind(this))
-  }
-
-  toggle(event) {
-    event.preventDefault()
-    const isOpen = this.menuTarget.classList.contains('translate-x-0')
-    
-    if (isOpen) {
-      this.close()
+  toggle() {
+    if (this.menuTarget.classList.contains("translate-x-full")) {
+      this.openMenu()
     } else {
-      this.open()
+      this.closeMenu()
     }
   }
 
-  open() {
-    this.menuTarget.classList.remove('translate-x-full')
-    this.menuTarget.classList.add('translate-x-0')
-    this.overlayTarget.classList.remove('opacity-0', 'pointer-events-none')
-    document.body.style.overflow = 'hidden'
+  openMenu() {
+    this.menuTarget.classList.remove("translate-x-full")
+    this.menuTarget.classList.add("translate-x-0")
+    this.overlayTarget.classList.remove("opacity-0", "pointer-events-none")
+    this.overlayTarget.classList.add("opacity-100")
+    document.body.style.overflow = 'hidden' // Empêcher le défilement
   }
 
-  close() {
-    this.menuTarget.classList.remove('translate-x-0')
-    this.menuTarget.classList.add('translate-x-full')
-    this.overlayTarget.classList.add('opacity-0', 'pointer-events-none')
-    document.body.style.overflow = ''
+  closeMenu() {
+    this.menuTarget.classList.remove("translate-x-0")
+    this.menuTarget.classList.add("translate-x-full")
+    this.overlayTarget.classList.remove("opacity-100")
+    this.overlayTarget.classList.add("opacity-0", "pointer-events-none")
+    document.body.style.overflow = '' // Réactiver le défilement
   }
 
-  handleTouchMove(event) {
-    if (this.menuTarget.classList.contains('translate-x-0')) {
-      event.preventDefault()
+  // Fermer le menu si on clique sur l'overlay
+  clickOutside(event) {
+    if (event.target === this.overlayTarget) {
+      this.closeMenu()
     }
+  }
+
+  // Fermer le menu quand on clique sur un lien
+  closeOnNavigation() {
+    this.closeMenu()
   }
 } 
