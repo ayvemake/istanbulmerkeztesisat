@@ -243,10 +243,9 @@
     </div>
   </div>
 
-  <!-- Section Processus de Travail -->
-  <%= render 'services/work_process' %>
+  <!-- Section CTA 
 
-  <!-- Section CTA -->
+  
   <div class="bg-emerald-600 py-16">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
       <h2 class="text-3xl font-bold text-white mb-8">
@@ -270,6 +269,7 @@
       </div>
     </div>
   </div>
+  -->
 
   <%= javascript_tag do %>
     function showCategory(category) {
@@ -377,6 +377,7 @@
   <% content_for :scripts do %>
     <script>
       let currentImageIndex = 0;
+      let modalImages = null; // Variable globale pour stocker les images actuelles
 
       function showServiceDetails(name, description, type) {
         const modal = document.getElementById('service-modal');
@@ -386,36 +387,38 @@
         const bgClass = type === 'tesisat' ? 'bg-emerald-50' : 'bg-amber-50';
         const borderClass = type === 'tesisat' ? 'border-emerald-200' : 'border-amber-200';
         
-        // Préparer les images en HTML avec image_tag
-        const images = {
-          tesisat: {
-            cover: '<%= image_tag "services/sanitary1.png", class: "w-full h-full object-cover transform hover:scale-105 transition-transform duration-300", alt: "Su Tesisatı" %>',
-            gallery: [
-              '<%= image_tag "services/sanitary1.png", class: "w-full h-full object-cover transform hover:scale-110 transition-transform duration-300", alt: "Örnek çalışma 1" %>',
-              '<%= image_tag "services/sanitary2.png", class: "w-full h-full object-cover transform hover:scale-110 transition-transform duration-300", alt: "Örnek çalışma 2" %>',
-              '<%= image_tag "services/sanitary3.png", class: "w-full h-full object-cover transform hover:scale-110 transition-transform duration-300", alt: "Örnek çalışma 3" %>'
-            ]
-          },
-          boya: {
-            cover: '<%= image_tag "services/paint1.png", class: "w-full h-full object-cover transform hover:scale-105 transition-transform duration-300", alt: "Boya Hizmeti" %>',
-            gallery: [
-              '<%= image_tag "services/paint1.png", class: "w-full h-full object-cover transform hover:scale-110 transition-transform duration-300", alt: "Örnek çalışma 1" %>',
-              '<%= image_tag "services/paint2.png", class: "w-full h-full object-cover transform hover:scale-110 transition-transform duration-300", alt: "Örnek çalışma 2" %>',
-              '<%= image_tag "services/paint3.png", class: "w-full h-full object-cover transform hover:scale-110 transition-transform duration-300", alt: "Örnek çalışma 3" %>'
-            ]
-          }
+        // Stocker les images dans la variable globale
+        modalImages = type === 'tesisat' ? {
+          cover: '<%= image_tag "services/sanitary1.png", class: "w-full h-full object-cover", alt: "Su Tesisatı" %>',
+          gallery: [
+            '<%= image_tag "services/sanitary1.png", class: "w-full h-full object-cover", alt: "Örnek çalışma 1" %>',
+            '<%= image_tag "services/sanitary2.png", class: "w-full h-full object-cover", alt: "Örnek çalışma 2" %>',
+            '<%= image_tag "services/sanitary3.png", class: "w-full h-full object-cover", alt: "Örnek çalışma 3" %>'
+          ]
+        } : {
+          cover: '<%= image_tag "services/paint1.png", class: "w-full h-full object-cover", alt: "Boya Hizmeti" %>',
+          gallery: [
+            '<%= image_tag "services/paint1.png", class: "w-full h-full object-cover", alt: "Örnek çalışma 1" %>',
+            '<%= image_tag "services/paint2.png", class: "w-full h-full object-cover", alt: "Örnek çalışma 2" %>',
+            '<%= image_tag "services/paint3.png", class: "w-full h-full object-cover", alt: "Örnek çalışma 3" %>'
+          ]
         };
-        
-        const selectedImages = type === 'tesisat' ? images.tesisat : images.boya;
+
+        currentImageIndex = 0; // Réinitialiser l'index
         
         content.innerHTML = `
           <div>
             <!-- Image de couverture -->
             <div class="relative h-64 overflow-hidden rounded-t-xl">
-              ${selectedImages.cover}
+              ${modalImages.cover}
               <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
               <h3 class="absolute bottom-6 left-8 text-3xl font-bold text-white">${name}</h3>
             </div>
+
+            <!-- Bouton fermer amélioré -->
+            <button onclick="closeModal()" 
+                    class="absolute top-4 right-4 p-2 bg-white rounded-full shadow-lg hover:bg-gray-100 transition-colors">
+            </button>
 
             <div class="p-8 space-y-8">
               <!-- Description principale -->
@@ -423,35 +426,41 @@
                 <p class="text-gray-700 leading-relaxed">${description}</p>
               </div>
 
-              <!-- Galerie d'images améliorée -->
+              <!-- Galerie d'images -->
               <div>
                 <h4 class="text-lg font-semibold text-gray-900 mb-4">Örnek Çalışmalarımız</h4>
                 
                 <!-- Image principale -->
-                <div class="relative aspect-w-16 aspect-h-9 mb-4 rounded-lg overflow-hidden">
-                  <div id="main-image" class="relative">
-                    ${selectedImages.gallery[currentImageIndex]}
-                    
-                    <!-- Boutons navigation -->
-                    <button onclick="changeImage('prev')" class="absolute left-4 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/75 text-white p-2 rounded-full transition-colors">
-                      <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
-                      </svg>
-                    </button>
-                    <button onclick="changeImage('next')" class="absolute right-4 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/75 text-white p-2 rounded-full transition-colors">
-                      <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
-                      </svg>
-                    </button>
+                <div class="relative max-w-3xl mx-auto mb-4">
+                  <div class="aspect-w-16 aspect-h-9 rounded-lg overflow-hidden">
+                    <div id="main-image" class="relative" data-type="${type}">
+                      ${modalImages.gallery[currentImageIndex]}
+                      
+                      <!-- Boutons navigation -->
+                      <button type="button"
+                              onclick="navigateGallery('prev', event)" 
+                              class="absolute left-4 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white text-gray-800 p-2 rounded-full shadow-lg transition-colors z-10">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+                        </svg>
+                      </button>
+                      <button type="button"
+                              onclick="navigateGallery('next', event)" 
+                              class="absolute right-4 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white text-gray-800 p-2 rounded-full shadow-lg transition-colors z-10">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                        </svg>
+                      </button>
+                    </div>
                   </div>
                 </div>
 
                 <!-- Miniatures -->
-                <div class="grid grid-cols-3 gap-4">
-                  ${selectedImages.gallery.map((img, index) => `
-                    <div class="aspect-w-4 aspect-h-3 rounded-lg overflow-hidden cursor-pointer ${currentImageIndex === index ? 'ring-2 ring-offset-2 ring-emerald-500' : ''}"
-                         onclick="setImage(${index})">
-                      <div class="transform hover:scale-110 transition-transform duration-300">
+                <div class="grid grid-cols-3 gap-4 max-w-3xl mx-auto">
+                  ${modalImages.gallery.map((img, index) => `
+                    <div class="aspect-w-4 aspect-h-3 rounded-lg overflow-hidden cursor-pointer thumbnail-container ${currentImageIndex === index ? 'ring-2 ring-offset-2 ring-emerald-500' : ''}"
+                         onclick="updateMainImage(${index}, event)">
+                      <div class="w-full h-full">
                         ${img}
                       </div>
                     </div>
@@ -550,37 +559,45 @@
         document.body.style.overflow = 'hidden';
       }
 
-      function changeImage(direction) {
-        const mainImage = document.getElementById('main-image');
-        const type = mainImage.dataset.type;
-        const images = type === 'tesisat' ? images.tesisat.gallery : images.boya.gallery;
+      function navigateGallery(direction, event) {
+        event.preventDefault();
+        event.stopPropagation();
         
         if (direction === 'next') {
-          currentImageIndex = (currentImageIndex + 1) % images.length;
+          currentImageIndex = (currentImageIndex + 1) % modalImages.gallery.length;
         } else {
-          currentImageIndex = (currentImageIndex - 1 + images.length) % images.length;
+          currentImageIndex = (currentImageIndex - 1 + modalImages.gallery.length) % modalImages.gallery.length;
         }
         
-        updateGallery();
-        event.stopPropagation();
+        updateMainImage(currentImageIndex);
       }
 
-      function setImage(index) {
+      function updateMainImage(index, event) {
+        if (event) {
+          event.preventDefault();
+          event.stopPropagation();
+        }
+        
         currentImageIndex = index;
-        updateGallery();
-        event.stopPropagation();
+        const mainImage = document.getElementById('main-image');
+        
+        // Mettre à jour l'image principale avec animation
+        mainImage.classList.remove('image-fade');
+        void mainImage.offsetWidth; // Force reflow
+        mainImage.classList.add('image-fade');
+        mainImage.innerHTML = modalImages.gallery[currentImageIndex];
+        
+        updateThumbnailSelection();
       }
 
-      function updateGallery() {
-        const mainImage = document.getElementById('main-image');
-        const type = mainImage.dataset.type;
-        const images = type === 'tesisat' ? images.tesisat.gallery : images.boya.gallery;
-        
-        mainImage.innerHTML = images[currentImageIndex];
-        
-        // Mise à jour des miniatures
-        document.querySelectorAll('.thumbnail').forEach((thumb, index) => {
-          thumb.classList.toggle('ring-2', index === currentImageIndex);
+      function updateThumbnailSelection() {
+        // Mettre à jour la sélection des miniatures
+        document.querySelectorAll('.thumbnail-container').forEach((thumb, idx) => {
+          if (idx === currentImageIndex) {
+            thumb.classList.add('ring-2', 'ring-offset-2', 'ring-emerald-500');
+          } else {
+            thumb.classList.remove('ring-2', 'ring-offset-2', 'ring-emerald-500');
+          }
         });
       }
 
@@ -641,6 +658,40 @@
 
       .image-fade {
         animation: fadeIn 0.3s ease-in-out;
+      }
+
+      /* Suppression des styles de transformation et transition non nécessaires */
+      .modal-image {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      /* Animation pour le changement d'image */
+      @keyframes fadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
+      }
+
+      .image-fade {
+        animation: fadeIn 0.3s ease-in-out;
+      }
+
+      .image-fade {
+        animation: fadeIn 0.3s ease-in-out;
+      }
+
+      @keyframes fadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
+      }
+
+      .thumbnail-container {
+        transition: all 0.2s ease-in-out;
+      }
+
+      .thumbnail-container:hover {
+        opacity: 0.9;
       }
     </style>
   <% end %>

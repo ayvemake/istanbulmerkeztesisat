@@ -1,75 +1,7 @@
-<div class="container mx-auto px-4 py-12" data-controller="services-filter" data-services-filter-category-value="<%= params[:category] %>">
+<div class="container mx-auto px-4" data-controller="services-filter" data-services-filter-category-value="<%= params[:category] %>">
   
 
-  <!-- 2. Section Notre Expertise (existante) -->
-  <div class="max-w-7xl mx-auto mb-24">
-    <div class="grid md:grid-cols-2 gap-12 items-center">
-      <div>
-        <h2 class="text-3xl font-bold text-gray-900 mb-6">Kaliteli Malzeme, Profesyonel İşçilik</h2>
-        <p class="text-lg text-gray-600 mb-8 leading-relaxed">
-          Sektörün önde gelen markalarıyla çalışıyor, en kaliteli malzemeleri kullanıyoruz. 
-          Her projede müşteri memnuniyetini ön planda tutarak, işimizi titizlikle yapıyoruz.
-        </p>
-        <div class="space-y-4">
-          <div class="flex items-start">
-            <div class="flex-shrink-0 p-2 bg-emerald-100 rounded-lg">
-              <svg class="w-6 h-6 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
-              </svg>
-            </div>
-            <div class="ml-4">
-              <h3 class="text-lg font-medium text-gray-900">TSE Standartlarına Uygun Malzemeler</h3>
-              <p class="mt-1 text-gray-600">Yalnızca sertifikalı ve garantili ürünler kullanıyoruz</p>
-            </div>
-          </div>
-          <div class="flex items-start">
-            <div class="flex-shrink-0 p-2 bg-emerald-100 rounded-lg">
-              <svg class="w-6 h-6 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
-              </svg>
-            </div>
-            <div class="ml-4">
-              <h3 class="text-lg font-medium text-gray-900">Modern Ekipman ve Teknoloji</h3>
-              <p class="mt-1 text-gray-600">En son teknoloji cihazlarla hızlı ve etkili çözümler</p>
-            </div>
-          </div>
-          <div class="flex items-start">
-            <div class="flex-shrink-0 p-2 bg-emerald-100 rounded-lg">
-              <svg class="w-6 h-6 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
-              </svg>
-            </div>
-            <div class="ml-4">
-              <h3 class="text-lg font-medium text-gray-900">Detaylı Keşif ve Planlama</h3>
-              <p class="mt-1 text-gray-600">Her projeye özel çözüm ve maliyet analizi</p>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="grid grid-cols-2 gap-4">
-        <div class="space-y-4">
-          <div class="rounded-lg overflow-hidden shadow-lg">
-            <%= image_tag "https://images.unsplash.com/photo-1621905252507-b35492cc74b4", 
-                class: "w-full h-48 object-cover" %>
-          </div>
-          <div class="rounded-lg overflow-hidden shadow-lg">
-            <%= image_tag "https://images.unsplash.com/photo-1595844730298-b960ff98fee0", 
-                class: "w-full h-64 object-cover" %>
-          </div>
-        </div>
-        <div class="space-y-4 pt-8">
-          <div class="rounded-lg overflow-hidden shadow-lg">
-            <%= image_tag "https://images.unsplash.com/photo-1534349762230-e0cadf78f5da", 
-                class: "w-full h-64 object-cover" %>
-          </div>
-          <div class="rounded-lg overflow-hidden shadow-lg">
-            <%= image_tag "https://images.unsplash.com/photo-1513694203232-719a280e022f", 
-                class: "w-full h-48 object-cover" %>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+  
 
   <!-- 3. Section Processus de Travail -->
   <%= render 'work_process' %>
