@@ -1,6 +1,10 @@
 <!DOCTYPE html>
 <html lang="tr">
   <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modern Layout with Tailwind CSS</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title><%= meta_title %></title>
@@ -45,5 +49,6 @@
       <%= render 'shared/sticky_cta' %>
       <%= render 'shared/whatsapp_widget' %>
     </div>
+    <%= yield :scripts %>
   </body>
 </html>
