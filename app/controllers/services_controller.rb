@@ -1,7 +1,11 @@
 class ServicesController < ApplicationController
   def index
-    @painting_services = Service.where(category: 'painting').order(:name)
-    @plumbing_services = Service.where(category: 'plumbing').order(:name)
+    @category = params[:category]
+    @services = if @category.present?
+      Service.where(category: @category)
+    else
+      Service.all
+    end
   end
 
   def update_categories
