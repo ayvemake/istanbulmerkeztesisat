@@ -80,10 +80,10 @@
   <main class="container mx-auto px-4 py-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
     <!-- Card 1 -->
     <div class="bg-white rounded-lg shadow-md overflow-hidden hover:scale-105 transition-transform duration-300">
-        <%= image_tag "services/sanitary1.webp", class: "rounded-lg shadow-lg w-full h-64 object-cover transform hover:scale-105 transition-transform duration-300" %>
+        <%= image_tag "services/sanitary1.png", class: "rounded-lg shadow-lg w-full h-64 object-cover transform hover:scale-105 transition-transform duration-300" %>
         <div class="p-4">
             <h3 class="text-xl font-semibold text-gray-800">Termik kamera ile tesisat kontrolü</h3>
-            <p class="text-gray-600 mt-2">This is a description related to the first image. Add more details here.</p>
+            <p class="text-gray-600 mt-2">Termal algılama teknolojisi, su ve gaz sızıntılarını hızlı ve doğru bir şekilde tespit etmek için sıcaklık farklarını kullanır. Bu, enerji verimliliğini artırır, potansiyel hasarları önler ve güvenli bir izleme sağlar.</p>
             <a href="#" class="text-blue-500 font-medium hover:underline mt-4 inline-block">Learn More</a>
         </div>
     </div>
@@ -376,6 +376,8 @@
 
   <% content_for :scripts do %>
     <script>
+      let currentImageIndex = 0;
+
       function showServiceDetails(name, description, type) {
         const modal = document.getElementById('service-modal');
         const content = document.getElementById('modal-content');
@@ -383,17 +385,34 @@
         const colorClass = type === 'tesisat' ? 'text-emerald-600' : 'text-amber-600';
         const bgClass = type === 'tesisat' ? 'bg-emerald-50' : 'bg-amber-50';
         const borderClass = type === 'tesisat' ? 'border-emerald-200' : 'border-amber-200';
-        const images = type === 'tesisat' ? 
-          ['sanitary1.webp', 'sanitary2.webp', 'sanitary3.webp'] :
-          ['paint1.webp', 'paint2.webp', 'paint3.webp'];
+        
+        // Préparer les images en HTML avec image_tag
+        const images = {
+          tesisat: {
+            cover: '<%= image_tag "services/sanitary1.png", class: "w-full h-full object-cover transform hover:scale-105 transition-transform duration-300", alt: "Su Tesisatı" %>',
+            gallery: [
+              '<%= image_tag "services/sanitary1.png", class: "w-full h-full object-cover transform hover:scale-110 transition-transform duration-300", alt: "Örnek çalışma 1" %>',
+              '<%= image_tag "services/sanitary2.png", class: "w-full h-full object-cover transform hover:scale-110 transition-transform duration-300", alt: "Örnek çalışma 2" %>',
+              '<%= image_tag "services/sanitary3.png", class: "w-full h-full object-cover transform hover:scale-110 transition-transform duration-300", alt: "Örnek çalışma 3" %>'
+            ]
+          },
+          boya: {
+            cover: '<%= image_tag "services/paint1.png", class: "w-full h-full object-cover transform hover:scale-105 transition-transform duration-300", alt: "Boya Hizmeti" %>',
+            gallery: [
+              '<%= image_tag "services/paint1.png", class: "w-full h-full object-cover transform hover:scale-110 transition-transform duration-300", alt: "Örnek çalışma 1" %>',
+              '<%= image_tag "services/paint2.png", class: "w-full h-full object-cover transform hover:scale-110 transition-transform duration-300", alt: "Örnek çalışma 2" %>',
+              '<%= image_tag "services/paint3.png", class: "w-full h-full object-cover transform hover:scale-110 transition-transform duration-300", alt: "Örnek çalışma 3" %>'
+            ]
+          }
+        };
+        
+        const selectedImages = type === 'tesisat' ? images.tesisat : images.boya;
         
         content.innerHTML = `
           <div>
             <!-- Image de couverture -->
             <div class="relative h-64 overflow-hidden rounded-t-xl">
-              <img src="/assets/services/${images[0]}" 
-                   class="w-full h-full object-cover" 
-                   alt="${name}">
+              ${selectedImages.cover}
               <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
               <h3 class="absolute bottom-6 left-8 text-3xl font-bold text-white">${name}</h3>
             </div>
@@ -404,40 +423,95 @@
                 <p class="text-gray-700 leading-relaxed">${description}</p>
               </div>
 
-              <!-- Galerie d'images -->
+              <!-- Galerie d'images améliorée -->
               <div>
                 <h4 class="text-lg font-semibold text-gray-900 mb-4">Örnek Çalışmalarımız</h4>
+                
+                <!-- Image principale -->
+                <div class="relative aspect-w-16 aspect-h-9 mb-4 rounded-lg overflow-hidden">
+                  <div id="main-image" class="relative">
+                    ${selectedImages.gallery[currentImageIndex]}
+                    
+                    <!-- Boutons navigation -->
+                    <button onclick="changeImage('prev')" class="absolute left-4 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/75 text-white p-2 rounded-full transition-colors">
+                      <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+                      </svg>
+                    </button>
+                    <button onclick="changeImage('next')" class="absolute right-4 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/75 text-white p-2 rounded-full transition-colors">
+                      <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                      </svg>
+                    </button>
+                  </div>
+                </div>
+
+                <!-- Miniatures -->
                 <div class="grid grid-cols-3 gap-4">
-                  ${images.map(img => `
-                    <div class="aspect-w-4 aspect-h-3 rounded-lg overflow-hidden">
-                      <img src="/assets/services/${img}" 
-                           class="w-full h-full object-cover transform hover:scale-110 transition-transform duration-300" 
-                           alt="Örnek çalışma">
+                  ${selectedImages.gallery.map((img, index) => `
+                    <div class="aspect-w-4 aspect-h-3 rounded-lg overflow-hidden cursor-pointer ${currentImageIndex === index ? 'ring-2 ring-offset-2 ring-emerald-500' : ''}"
+                         onclick="setImage(${index})">
+                      <div class="transform hover:scale-110 transition-transform duration-300">
+                        ${img}
+                      </div>
                     </div>
                   `).join('')}
                 </div>
               </div>
 
-              <!-- Caractéristiques du service -->
+              <!-- Caractéristiques spécifiques selon le type -->
               <div>
                 <h4 class="text-lg font-semibold text-gray-900 mb-4">Hizmet Özellikleri</h4>
                 <div class="grid md:grid-cols-2 gap-4">
-                  <div class="flex items-start space-x-3">
-                    <svg class="w-5 h-5 ${colorClass} mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
-                    </svg>
-                    <div>
-                      <h5 class="font-medium">Profesyonel Ekip</h5>
-                      <p class="text-sm text-gray-600">Deneyimli ustalarımızla kaliteli hizmet</p>
+                  ${type === 'tesisat' ? `
+                    <!-- Caractéristiques pour Tesisat -->
+                    <div class="flex items-start space-x-3">
+                      <svg class="w-5 h-5 ${colorClass} mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                      </svg>
+                      <div>
+                        <h5 class="font-medium">Kameralı Tespit</h5>
+                        <p class="text-sm text-gray-600">Modern cihazlarla hassas tespit</p>
+                      </div>
                     </div>
-                  </div>
+                    <div class="flex items-start space-x-3">
+                      <svg class="w-5 h-5 ${colorClass} mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                      </svg>
+                      <div>
+                        <h5 class="font-medium">Acil Müdahale</h5>
+                        <p class="text-sm text-gray-600">24 saat acil servis hizmeti</p>
+                      </div>
+                    </div>
+                  ` : `
+                    <!-- Caractéristiques pour Boya -->
+                    <div class="flex items-start space-x-3">
+                      <svg class="w-5 h-5 ${colorClass} mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                      </svg>
+                      <div>
+                        <h5 class="font-medium">Kaliteli Malzeme</h5>
+                        <p class="text-sm text-gray-600">A+ kalite boya malzemeleri</p>
+                      </div>
+                    </div>
+                    <div class="flex items-start space-x-3">
+                      <svg class="w-5 h-5 ${colorClass} mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                      </svg>
+                      <div>
+                        <h5 class="font-medium">Profesyonel Uygulama</h5>
+                        <p class="text-sm text-gray-600">Uzman boyacılarla kusursuz sonuç</p>
+                      </div>
+                    </div>
+                  `}
+                  <!-- Caractéristiques communes -->
                   <div class="flex items-start space-x-3">
                     <svg class="w-5 h-5 ${colorClass} mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
                     </svg>
                     <div>
                       <h5 class="font-medium">2 Yıl Garanti</h5>
-                      <p class="text-sm text-gray-600">Tüm işlerimiz 2 yıl garantilidir</p>
+                      <p class="text-sm text-gray-600">Tüm işlerimiz garantilidir</p>
                     </div>
                   </div>
                   <div class="flex items-start space-x-3">
@@ -449,44 +523,6 @@
                       <p class="text-sm text-gray-600">Detaylı inceleme ve fiyat teklifi</p>
                     </div>
                   </div>
-                  <div class="flex items-start space-x-3">
-                    <svg class="w-5 h-5 ${colorClass} mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
-                    </svg>
-                    <div>
-                      <h5 class="font-medium">7/24 Hizmet</h5>
-                      <p class="text-sm text-gray-600">Acil durumlar için her zaman hazır</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <!-- FAQ Section -->
-              <div>
-                <h4 class="text-lg font-semibold text-gray-900 mb-4">Sık Sorulan Sorular</h4>
-                <div class="space-y-4">
-                  <details class="group ${bgClass} rounded-lg">
-                    <summary class="flex justify-between items-center cursor-pointer p-4">
-                      <span class="font-medium">Hizmet süresi ne kadardır?</span>
-                      <svg class="w-5 h-5 ${colorClass} transform group-open:rotate-180 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
-                      </svg>
-                    </summary>
-                    <div class="px-4 pb-4">
-                      <p class="text-gray-600">İşin kapsamına göre değişmekle birlikte genellikle 1-3 gün içerisinde tamamlanır.</p>
-                    </div>
-                  </details>
-                  <details class="group ${bgClass} rounded-lg">
-                    <summary class="flex justify-between items-center cursor-pointer p-4">
-                      <span class="font-medium">Fiyatlandırma nasıl yapılıyor?</span>
-                      <svg class="w-5 h-5 ${colorClass} transform group-open:rotate-180 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
-                      </svg>
-                    </summary>
-                    <div class="px-4 pb-4">
-                      <p class="text-gray-600">Ücretsiz keşif sonrası detaylı fiyat teklifi sunuyoruz.</p>
-                    </div>
-                  </details>
                 </div>
               </div>
 
@@ -512,6 +548,40 @@
         modal.classList.remove('hidden');
         modal.classList.add('fade-in');
         document.body.style.overflow = 'hidden';
+      }
+
+      function changeImage(direction) {
+        const mainImage = document.getElementById('main-image');
+        const type = mainImage.dataset.type;
+        const images = type === 'tesisat' ? images.tesisat.gallery : images.boya.gallery;
+        
+        if (direction === 'next') {
+          currentImageIndex = (currentImageIndex + 1) % images.length;
+        } else {
+          currentImageIndex = (currentImageIndex - 1 + images.length) % images.length;
+        }
+        
+        updateGallery();
+        event.stopPropagation();
+      }
+
+      function setImage(index) {
+        currentImageIndex = index;
+        updateGallery();
+        event.stopPropagation();
+      }
+
+      function updateGallery() {
+        const mainImage = document.getElementById('main-image');
+        const type = mainImage.dataset.type;
+        const images = type === 'tesisat' ? images.tesisat.gallery : images.boya.gallery;
+        
+        mainImage.innerHTML = images[currentImageIndex];
+        
+        // Mise à jour des miniatures
+        document.querySelectorAll('.thumbnail').forEach((thumb, index) => {
+          thumb.classList.toggle('ring-2', index === currentImageIndex);
+        });
       }
 
       function closeModal() {
@@ -550,10 +620,33 @@
         from { opacity: 1; }
         to { opacity: 0; }
       }
+
+      .gallery-image {
+        transition: transform 0.3s ease-in-out;
+      }
+
+      .thumbnail {
+        transition: all 0.3s ease-in-out;
+      }
+
+      .thumbnail:hover {
+        transform: scale(1.05);
+      }
+
+      /* Animation pour le changement d'image */
+      @keyframes fadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
+      }
+
+      .image-fade {
+        animation: fadeIn 0.3s ease-in-out;
+      }
     </style>
   <% end %>
 
 </body>
+
 
 
 
