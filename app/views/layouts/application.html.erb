@@ -37,16 +37,13 @@
     
     <div class="min-h-screen flex flex-col bg-stone-50">
       <%= render 'shared/navbar' %>
-      <%= render 'shared/breadcrumbs' %>
       
       <main class="flex-grow container mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <%= render 'shared/flash' %>
         <%= yield %>
       </main>
-      
-      <%= render 'shared/contact_section' %>
+    
       <%= render 'shared/footer' %>
-      <%= render 'shared/sticky_cta' %>
       <%= render 'shared/whatsapp_widget' %>
     </div>
     <%= yield :scripts %>
