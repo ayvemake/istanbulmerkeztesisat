@@ -27,6 +27,7 @@ module ServiceWeb
     
     # Ajoutez cette ligne
     config.assets.paths << Rails.root.join("app", "assets", "images")
+    config.assets.paths << Rails.root.join("app", "assets", "images", "services")
     
     # Configuration des hôtes autorisés
     config.hosts << "healthcheck.railway.app"
@@ -35,5 +36,8 @@ module ServiceWeb
     config.hosts << ENV['RAILWAY_PUBLIC_DOMAIN'] if ENV['RAILWAY_PUBLIC_DOMAIN'].present?
     
     config.google_maps_api_key = ENV['GOOGLE_MAPS_API_KEY']
+    
+    # Configuration des assets
+    config.assets.precompile += %w( *.jpg )
   end
 end

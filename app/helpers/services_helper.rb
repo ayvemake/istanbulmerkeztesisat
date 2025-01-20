@@ -11,12 +11,28 @@ module ServicesHelper
     return 'Kategori Belirtilmemiş' if service.category.nil?
     
     case service.category
-    when 'painting'
-      'Boya ve Dekorasyon'
-    when 'plumbing'
+    when 'tesisat'
       'Su ve Tesisat'
+    when 'boya'
+      'Boya ve Dekorasyon'
     else
       service.category.titleize
     end
+  end
+
+  def service_image(service)
+    if service.image.attached?
+      service.image
+    else
+      service.category == 'tesisat' ? 'plumbing-default.jpg' : 'painting-default.jpg'
+    end
+  end
+
+  def service_tags(service)
+    tags = []
+    tags << "urgent" if service.urgent?
+    tags << "24/7" if service.available_24_7?
+    tags << "warranty" if service.warranty?
+    tags
   end
 end 
