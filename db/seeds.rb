@@ -2,32 +2,56 @@ puts "Création des services..."
 
 # Nettoyage des données existantes
 Service.destroy_all
+ServiceAdvantage.destroy_all
+
+# Fonction helper pour créer un service avec ses avantages
+def create_service_with_advantages(service_data)
+  advantages_data = service_data.delete(:advantages)
+  service = Service.create!(service_data)
+  
+  advantages_data.each do |advantage_data|
+    service.service_advantages.create!(advantage_data)
+  end
+  
+  puts "Created #{service.name}"
+end
 
 # Services de plomberie
-[
+tesisat_services = [
   {
     name: 'Su Kaçağı Tespiti',
-    description: 'Kameralı cihazlarla su kaçağı tespiti ve tamiri',
+    description: 'Kırmadan dökmeden son teknoloji cihazlarla su kaçağı tespiti yapıyoruz. Termal kamera ve akustik dinleme cihazları ile noktasal tespit.',
     category: 'tesisat',
-    detailed_description: 'Modern cihazlarla kırmadan su kaçağı tespiti yapıyoruz. Termal kamera ve akustik dinleme cihazları ile su kaçağının yerini hassas şekilde belirleyip, minimum müdahale ile tamir ediyoruz. Profesyonel ekibimiz, son teknoloji cihazlarla su kaçağını tespit eder ve en uygun çözümü sunar.',
-    work_steps: [
-      { title: 'Keşif', description: 'Ücretsiz keşif yapıyoruz' },
-      { title: 'Tespit', description: 'Kameralı cihazlarla kaçak tespiti' },
-      { title: 'Analiz', description: 'Sorunun kapsamını belirleme' },
-      { title: 'Tamir', description: 'Kırmadan su kaçağı tamiri' },
-      { title: 'Kontrol', description: 'Son kontroller ve test' }
-    ],
-    equipment: [
-      { name: 'Termal Kamera', description: 'Su kaçağı tespiti için' },
-      { name: 'Akustik Dinleme', description: 'Ses ile kaçak tespiti' },
-      { name: 'Nem Ölçer', description: 'Nem seviyesi ölçümü' },
-      { name: 'Endoskopik Kamera', description: 'Boru içi görüntüleme' }
-    ],
+    urgent: true,
+    available_24_7: true,
+    featured: true,
     advantages: [
-      { title: 'Kırmadan Tespit', description: 'Duvarlarınıza zarar vermeden tespit' },
-      { title: 'Garantili Hizmet', description: '2 yıl garanti' },
-      { title: 'Hızlı Müdahale', description: '30 dakika içinde yerindeyiz' },
-      { title: 'Uygun Fiyat', description: 'Rekabetçi fiyatlar' }
+      { title: 'Kırmadan Tespit', description: 'Duvarlara zarar vermeden tespit' },
+      { title: 'Termal Kamera', description: 'Son teknoloji cihazlarla tespit' },
+      { title: 'Aynı Gün Müdahale', description: 'Hızlı ve profesyonel çözüm' }
+    ]
+  },
+  {
+    name: 'Tıkanıklık Açma',
+    description: 'Robotik cihazlarla tüm tıkanıklıkları açıyoruz. Lavabo, tuvalet, gider ve kanal tıkanıklıkları için profesyonel çözüm.',
+    category: 'tesisat',
+    urgent: true,
+    available_24_7: true,
+    advantages: [
+      { title: 'Robot Cihaz', description: 'Profesyonel ekipmanlarla müdahale' },
+      { title: 'Garantili İşçilik', description: 'Kalıcı çözüm garantisi' },
+      { title: '7/24 Hizmet', description: 'Her an yanınızdayız' }
+    ]
+  },
+  {
+    name: 'Petek Temizleme',
+    description: 'Özel kimyasallar ve basınçlı su ile petek temizliği yapıyoruz. Isınma sorunlarına kesin çözüm.',
+    category: 'tesisat',
+    featured: true,
+    advantages: [
+      { title: 'Özel Kimyasal', description: 'Peteklere zarar vermeyen çözüm' },
+      { title: 'Tasarruf', description: 'Yakıt tasarrufu sağlar' },
+      { title: 'Tam Verim', description: 'Maksimum ısınma garantisi' }
     ]
   },
   {
@@ -51,28 +75,6 @@ Service.destroy_all
       { title: 'Hızlı Servis', description: '30 dakika içinde müdahale' },
       { title: 'Uygun Fiyat', description: 'Rekabetçi fiyatlar' },
       { title: 'Garantili İş', description: '1 yıl işçilik garantisi' }
-    ]
-  },
-  {
-    name: 'Petek Temizliği',
-    description: 'Kimyasal petek temizleme hizmeti',
-    category: 'tesisat',
-    detailed_description: 'Peteklerinizin verimini artırmak için profesyonel kimyasal temizlik hizmeti sunuyoruz. Özel ekipmanlar ve çevre dostu kimyasallarla peteklerinizi temizliyor, ısınma verimliliğini artırıyoruz.',
-    work_steps: [
-      { title: 'Kontrol', description: 'Sistem kontrolü' },
-      { title: 'Temizlik', description: 'Kimyasal temizlik' },
-      { title: 'Durulama', description: 'Sistem durulama' },
-      { title: 'Test', description: 'Verimlilik testi' }
-    ],
-    equipment: [
-      { name: 'Temizleme Pompası', description: 'Özel temizleme pompası' },
-      { name: 'Kimyasallar', description: 'Çevre dostu temizleyiciler' },
-      { name: 'Test Cihazı', description: 'Verim ölçüm cihazı' }
-    ],
-    advantages: [
-      { title: 'Enerji Tasarrufu', description: '%25\'e varan tasarruf' },
-      { title: 'Uzman Ekip', description: 'Deneyimli teknisyenler' },
-      { title: 'Garantili Hizmet', description: '1 yıl garanti' }
     ]
   },
   {
@@ -119,78 +121,40 @@ Service.destroy_all
       { title: '7/24 Destek', description: 'Acil müdahale hizmeti' }
     ]
   }
-].each do |service|
-  Service.create!(service)
-end
+]
 
 # Services de peinture
-[
+boya_services = [
   {
     name: 'İç Cephe Boyama',
-    description: 'Profesyonel iç mekan boyama hizmetleri',
+    description: 'Profesyonel ekibimizle evinizin iç cephesini boyuyoruz. Su bazlı, silinebilir ve anti-bakteriyel boya seçenekleri.',
     category: 'boya',
-    detailed_description: 'Evinizin iç mekanlarını profesyonel ekibimizle boyuyoruz. En kaliteli boyaları kullanarak, mobilyalarınızı koruyarak temiz ve titiz bir iş çıkarıyoruz. Duvar hazırlığından son kat boyaya kadar tüm işlemleri özenle yapıyoruz.',
-    work_steps: [
-      { title: 'Keşif', description: 'Ücretsiz keşif ve ölçüm' },
-      { title: 'Hazırlık', description: 'Yüzey hazırlığı ve temizlik' },
-      { title: 'Astar', description: 'Astar boya uygulaması' },
-      { title: 'Boyama', description: 'Son kat boya uygulaması' },
-      { title: 'Temizlik', description: 'Detaylı temizlik' }
-    ],
-    equipment: [
-      { name: 'Boya Makinesi', description: 'Profesyonel boya püskürtme' },
-      { name: 'El Aletleri', description: 'Kaliteli fırça ve rulolar' },
-      { name: 'Koruma Ekipmanları', description: 'Mobilya koruma malzemeleri' }
-    ],
+    featured: true,
     advantages: [
-      { title: 'Kaliteli Malzeme', description: 'A+ kalite boya kullanımı' },
-      { title: 'Temiz İş', description: 'Mobilyalarınızı koruyoruz' },
-      { title: 'Garantili Hizmet', description: '2 yıl garanti' },
-      { title: 'Hızlı Teslimat', description: 'Zamanında teslim' }
+      { title: 'Kaliteli Boya', description: 'A+ kalite boya kullanımı' },
+      { title: 'Temiz İşçilik', description: 'Titiz ve özenli çalışma' },
+      { title: 'Garanti', description: '2 yıl işçilik garantisi' }
     ]
   },
   {
     name: 'Dış Cephe Boyama',
-    description: 'Dış cephe boya ve mantolama hizmetleri',
+    description: 'Binanızın dış cephesini profesyonel ekipmanlarla boyuyoruz. Silikon ve su bazlı özel dış cephe boyaları.',
     category: 'boya',
-    detailed_description: 'Binanızın dış cephesini profesyonel ekibimizle boyuyor ve mantolama yapıyoruz. Hava koşullarına dayanıklı, uzun ömürlü boyalar kullanarak binanızın değerini artırıyoruz.',
-    work_steps: [
-      { title: 'Keşif', description: 'Detaylı keşif ve ölçüm' },
-      { title: 'Hazırlık', description: 'Yüzey hazırlığı' },
-      { title: 'Mantolama', description: 'Isı yalıtımı uygulaması' },
-      { title: 'Boyama', description: 'Dış cephe boyama' }
-    ],
-    equipment: [
-      { name: 'İskele Sistemi', description: 'Güvenli çalışma iskelesi' },
-      { name: 'Boya Makinesi', description: 'Endüstriyel boya makinesi' },
-      { name: 'Yalıtım Ekipmanları', description: 'Mantolama ekipmanları' }
-    ],
+    featured: true,
     advantages: [
-      { title: 'Enerji Tasarrufu', description: 'Isı yalıtımı ile tasarruf' },
-      { title: 'Uzun Ömür', description: '10 yıl dayanıklılık' },
-      { title: 'Profesyonel Ekip', description: 'Uzman uygulama ekibi' }
+      { title: 'Uzman Ekip', description: 'Deneyimli boyacılar' },
+      { title: 'Özel Boya', description: 'Dış etkenlere dayanıklı' },
+      { title: 'Uygun Fiyat', description: 'Rekabetçi fiyatlar' }
     ]
   },
   {
     name: 'Dekoratif Boya',
-    description: 'Özel efekt ve dekoratif boya uygulamaları',
+    description: 'İtalyan sıva, efekt boya ve özel desenli uygulamalar. Evinize özel tasarım ve renk seçenekleri.',
     category: 'boya',
-    detailed_description: 'İtalyan efekt boyası, lake boya ve özel desenli uygulamalar ile mekanlarınıza estetik bir görünüm kazandırıyoruz. Uzman ekibimizle modern ve klasik tarzda dekoratif boya hizmetleri sunuyoruz.',
-    work_steps: [
-      { title: 'Konsept Belirleme', description: 'Tasarım danışmanlığı' },
-      { title: 'Numune Uygulama', description: 'Örnek çalışma' },
-      { title: 'Yüzey Hazırlığı', description: 'Özel astar uygulaması' },
-      { title: 'Efekt Uygulama', description: 'Profesyonel uygulama' }
-    ],
-    equipment: [
-      { name: 'Özel Fırçalar', description: 'İtalyan efekt fırçaları' },
-      { name: 'Efekt Aletleri', description: 'Desen uygulama aletleri' },
-      { name: 'LED Aydınlatma', description: 'Detay çalışma ışıkları' }
-    ],
     advantages: [
       { title: 'Özel Tasarım', description: 'Size özel desenler' },
-      { title: 'Kaliteli Malzeme', description: 'İthal efekt boyaları' },
-      { title: 'Uzman Kadro', description: 'Sertifikalı ustalar' }
+      { title: 'Kaliteli Malzeme', description: 'İthal ürün kullanımı' },
+      { title: 'Profesyonel', description: 'Uzman uygulama' }
     ]
   },
   {
@@ -215,8 +179,14 @@ end
       { title: 'Çevre Dostu', description: 'Su bazlı ürünler' }
     ]
   }
-].each do |service|
-  Service.create!(service)
-end
+]
 
-puts "Services créés avec succès !" 
+# Création des services
+puts "Creating tesisat services..."
+tesisat_services.each { |service_data| create_service_with_advantages(service_data) }
+
+puts "Creating boya services..."
+boya_services.each { |service_data| create_service_with_advantages(service_data) }
+
+puts "Services créés avec succès !"
+puts "Created #{Service.count} services with #{ServiceAdvantage.count} advantages" 

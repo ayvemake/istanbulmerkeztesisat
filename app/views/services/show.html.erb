@@ -90,7 +90,7 @@
         <div class="border-t border-gray-200 pt-8">
           <h3 class="text-lg font-semibold text-gray-900 mb-4">Hizmet Avantajları</h3>
           <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <% @service.advantages&.each do |advantage| %>
+            <% @service.service_advantages.each do |advantage| %>
               <div class="flex items-start space-x-3">
                 <svg class="w-5 h-5 text-emerald-500 mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>

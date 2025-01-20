@@ -3,8 +3,8 @@ class Service < ApplicationRecord
 
   has_one_attached :image
   has_many_attached :gallery_images
-  has_many :advantages, dependent: :destroy
-  accepts_nested_attributes_for :advantages, allow_destroy: true
+  has_many :service_advantages, dependent: :destroy
+  accepts_nested_attributes_for :service_advantages, allow_destroy: true
 
   validates :name, :description, :category, presence: true
   validates :category, inclusion: { in: CATEGORIES }
