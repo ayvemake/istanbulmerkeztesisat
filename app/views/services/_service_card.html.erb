@@ -1,4 +1,6 @@
-<div class="bg-white rounded-xl shadow-sm overflow-hidden group hover:shadow-lg transition-shadow duration-300">
+<div class="bg-white rounded-xl shadow-sm overflow-hidden group hover:shadow-lg transition-shadow duration-300"
+     data-services-filter-target="serviceCard"
+     data-tags="<%= service_tags(service) %>">
   <!-- Image -->
   <div class="relative h-48 overflow-hidden">
     <%= image_tag service_image(service), 
@@ -24,16 +26,31 @@
       <%= service.description %>
     </p>
 
+    <!-- Avantages -->
+    <div class="space-y-2 mb-6">
+      <% service.service_advantages.first(3).each do |advantage| %>
+        <div class="flex items-center text-sm text-gray-600">
+          <svg class="w-4 h-4 text-emerald-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+          </svg>
+          <%= advantage.title %>
+        </div>
+      <% end %>
+    </div>
+
     <!-- Actions -->
     <div class="flex items-center justify-between">
-      <%= link_to service_path(service), 
-          class: "text-emerald-600 hover:text-emerald-700 font-medium text-sm" do %>
-        Detaylı Bilgi
-        <span aria-hidden="true"> &rarr;</span>
-      <% end %>
+      <button onclick="showServiceDetails('<%= service.name %>', '<%= service.description %>', '<%= service_image(service) %>')" 
+              class="inline-flex items-center text-emerald-600 hover:text-emerald-700">
+        <span class="font-medium">Detaylı Bilgi</span>
+        <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+        </svg>
+      </button>
 
       <%= link_to new_customer_inquiry_path(service: service.name), 
-          class: "inline-flex items-center px-4 py-2 bg-emerald-600 text-white text-sm font-medium rounded-lg hover:bg-emerald-700 transition-colors duration-200" do %>
+          class: "inline-flex items-center px-4 py-2 bg-emerald-600 text-white text-sm font-medium rounded-lg hover:bg-emerald-700 transition-colors duration-200",
+          data: { turbo: false } do %>
         Teklif Al
       <% end %>
     </div>

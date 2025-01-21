@@ -189,4 +189,27 @@ puts "Creating boya services..."
 boya_services.each { |service_data| create_service_with_advantages(service_data) }
 
 puts "Services créés avec succès !"
-puts "Created #{Service.count} services with #{ServiceAdvantage.count} advantages" 
+puts "Created #{Service.count} services with #{ServiceAdvantage.count} advantages"
+
+# Création de quelques demandes de test
+puts "Creating customer inquiries..."
+CustomerInquiry.create!([
+  {
+    name: "Ahmet Yılmaz",
+    phone: "0532 111 2233",
+    email: "ahmet@example.com",
+    service_type: "Tesisat",
+    message: "Mutfak lavabosunda tıkanıklık var",
+    urgent: true
+  },
+  {
+    name: "Ayşe Demir",
+    phone: "0533 444 5566",
+    email: "ayse@example.com",
+    service_type: "Boya",
+    message: "Salon duvarları için boya teklifi almak istiyorum",
+    urgent: false
+  }
+])
+
+puts "Created #{CustomerInquiry.count} customer inquiries" 

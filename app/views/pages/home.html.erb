@@ -35,27 +35,19 @@
         <div class="bg-white rounded-2xl shadow-lg overflow-hidden">
           <div class="relative h-64">
             <%= image_tag "services/sanitary1.png", class: "w-full h-full object-cover" %>
-            <div class="absolute inset-0 bg-gradient-to-t from-emerald-900/80 to-transparent"></div>
-          </div>
-          <div class="p-8">
-            <div class="flex items-start justify-between">
-              <div>
-                <h3 class="text-2xl font-bold text-gray-900 mb-2">Su Tesisatı ve Tıkanıklık Hizmetleri</h3>
-                <p class="text-gray-600 mb-6">
-                  İstanbul genelinde profesyonel tesisat çözümleri sunuyoruz. Kameralı cihazlarla tıkanıklık açma, robotik sistemlerle kaçak tespiti, son teknoloji ekipmanlarla gider açma ve tamir hizmetleri veriyoruz. Lavabo, tuvalet, mutfak gideri, pimaş borusu gibi her türlü tesisat sorununuza uzman ekibimizle 7/24 müdahale ediyoruz. Kırmadan dökmeden garantili çözümler üretiyoruz.
-                </p>
-              </div>
-              <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-emerald-100 text-emerald-800">
-                7/24 Hizmet
-              </span>
+            <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+            <div class="absolute bottom-0 left-0 p-6">
+              <h3 class="text-2xl font-bold text-white">Tesisat Hizmetleri</h3>
             </div>
-            
-            <button onclick="showServiceDetails('Su Tesisatı', 'description', 'tesisat')" 
-                    class="w-full inline-flex items-center justify-center px-6 py-4 bg-emerald-600 text-white rounded-xl hover:bg-emerald-700 transition-colors duration-200">
-              <span class="text-lg font-medium">Detaylı Bilgi</span>
-              <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
-              </svg>
+          </div>
+          <div class="p-6">
+            <p class="text-gray-600 mb-4">
+              Profesyonel tesisat çözümleri, su tesisatı, doğalgaz tesisatı ve diğer tesisat hizmetleri için uzman ekibimiz 7/24 hizmetinizdedir.
+            </p>
+            <button onclick="showHomeService('Tesisat Hizmetleri', 'Profesyonel tesisat çözümleri ve hizmetleri', 'tesisat')" 
+                    class="text-emerald-600 hover:text-emerald-700 font-medium">
+              Detaylı Bilgi
+              <span aria-hidden="true"> &rarr;</span>
             </button>
           </div>
         </div>
@@ -66,26 +58,20 @@
         <div class="bg-white rounded-2xl shadow-lg overflow-hidden">
           <div class="relative h-64">
             <%= image_tag "services/paint1.png", class: "w-full h-full object-cover" %>
-            <div class="absolute inset-0 bg-gradient-to-t from-amber-900/80 to-transparent"></div>
-          </div>
-          <div class="p-8">
-            <div class="flex items-start justify-between">
-              <div>
-                <h3 class="text-2xl font-bold text-gray-900 mb-2">Boya ve Dekorasyon Hizmetleri</h3>
-                <p class="text-gray-600 mb-6">
-                  İstanbul'da iç ve dış cephe boya işleriniz için profesyonel çözümler sunuyoruz. Alçı, macun, saten alçı, duvar kağıdı, dekoratif boya ve lake boya uygulamalarını titizlikle yapıyoruz. Uzman ekibimiz, yüksek kaliteli malzemeler ve modern tekniklerle evinizin veya iş yerinizin görünümünü tamamen yeniliyoruz. Her projeye özel renk danışmanlığı ve ücretsiz keşif hizmeti veriyoruz.
-                </p>
-              </div>
-              <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-amber-100 text-amber-800">
-                Garantili İşçilik
-              </span>
+            <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+            <div class="absolute bottom-0 left-0 p-6">
+              <h3 class="text-2xl font-bold text-white">Boya ve Dekorasyon</h3>
             </div>
-            
-            <button onclick="showServiceDetails('Boya Hizmetleri', 'İç ve dış cephe boya işleriniz için profesyonel çözümler sunuyoruz...', 'boya')" 
-                    class="w-full inline-flex items-center justify-center px-6 py-4 bg-amber-600 text-white rounded-xl hover:bg-amber-700 transition-colors duration-200">
-              <span class="text-lg font-medium">Detaylı Bilgi</span>
+          </div>
+          <div class="p-6">
+            <p class="text-gray-600 mb-4">
+              İç ve dış cephe boya işleriniz için profesyonel çözümler. Alçı, macun, saten alçı ve dekoratif boya uygulamaları için uzman ekibimiz yanınızda.
+            </p>
+            <button onclick="showHomeService('Boya ve Dekorasyon', 'Profesyonel boya ve dekorasyon çözümleri', 'boya')" 
+                    class="text-emerald-600 hover:text-emerald-700 font-medium">
+              Detaylı Bilgi
               <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/>
               </svg>
             </button>
           </div>
@@ -379,7 +365,7 @@
                     </li>
                   </ul>
                 </div>
-
+          
                 <!-- Tamir ve Bakım -->
                 <div class="space-y-3">
                   <h5 class="font-medium text-emerald-700">Tamir ve Bakım</h5>
@@ -561,8 +547,8 @@
         const content = document.getElementById('modal-content');
 
         const serviceUrl = type === 'tesisat' ? 
-          '<%= hizmetler_path(category: "tesisat") %>' : 
-          '<%= hizmetler_path(category: "boya") %>';
+          '<%= tesisat_services_path %>' : 
+          '<%= boya_services_path %>';
 
         currentImageIndex = 0;
         
@@ -620,13 +606,12 @@
                   <span class="font-medium">Hemen Arayın</span>
                 </a>
 
-                <a href="${serviceUrl}" 
-                   class="flex-1 inline-flex items-center justify-center px-6 py-4 border border-gray-300 rounded-xl hover:bg-gray-50 transition-colors duration-200">
+                <%= link_to services_path, class: "flex-1 inline-flex items-center justify-center px-6 py-4 border border-gray-300 rounded-xl hover:bg-gray-50 transition-colors duration-200" do %>
                   <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/>
                   </svg>
                   <span class="font-medium">Tüm ${type === 'tesisat' ? 'Tesisat' : 'Boya'} Hizmetleri</span>
-                </a>
+                <% end %>
               </div>
             </div>
           </div>

@@ -24,7 +24,8 @@ module ServicesHelper
     if service.image.attached?
       service.image
     else
-      service.category == 'tesisat' ? 'plumbing-default.jpg' : 'painting-default.jpg'
+      # Image par défaut basée sur la catégorie
+      service.category == 'tesisat' ? 'services/sanitary1.webp' : 'services/paint1.webp'
     end
   end
 
@@ -33,6 +34,30 @@ module ServicesHelper
     tags << "urgent" if service.urgent?
     tags << "24/7" if service.available_24_7?
     tags << "warranty" if service.warranty?
-    tags
+    tags.to_json
+  end
+
+  def category_color(category)
+    case category
+    when 'tesisat'
+      'emerald'
+    when 'boya'
+      'amber'
+    else
+      'gray'
+    end
+  end
+
+  def service_badge_class(type)
+    case type
+    when 'urgent'
+      'bg-red-100 text-red-800'
+    when '24/7'
+      'bg-emerald-100 text-emerald-800'
+    when 'warranty'
+      'bg-blue-100 text-blue-800'
+    else
+      'bg-gray-100 text-gray-800'
+    end
   end
 end 

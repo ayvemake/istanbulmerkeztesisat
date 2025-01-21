@@ -30,7 +30,7 @@
     <!-- Navigation des services -->
     <div class="container mx-auto px-4 mb-8">
       <div class="flex justify-center space-x-4">
-        <%= link_to hizmetler_path(category: 'tesisat'), 
+        <%= link_to tesisat_services_path, 
             class: "px-6 py-3 rounded-lg #{@category == 'tesisat' ? 'bg-emerald-600 text-white' : 'bg-white text-gray-700 border border-gray-300'} hover:shadow-md transition-all duration-200" do %>
           <div class="flex items-center space-x-2">
             <%= render 'shared/icons/pipe' %>
@@ -38,10 +38,10 @@
           </div>
         <% end %>
 
-        <%= link_to hizmetler_path(category: 'boya'), 
-            class: "px-6 py-3 rounded-lg #{@category == 'boya' ? 'bg-amber-600 text-white' : 'bg-white text-gray-700 border border-gray-300'} hover:shadow-md transition-all duration-200" do %>
+        <%= link_to boya_services_path, 
+            class: "px-6 py-3 rounded-lg #{@category == 'boya' ? 'bg-emerald-600 text-white' : 'bg-white text-gray-700 border border-gray-300'} hover:shadow-md transition-all duration-200" do %>
           <div class="flex items-center space-x-2">
-            <%= render 'shared/icons/paint_brush' %>
+            <%= render 'shared/icons/paint' %>
             <span>Boya Hizmetleri</span>
           </div>
         <% end %>
@@ -88,65 +88,16 @@
       </div>
     </div>
 
-    <!-- Grille des services -->
+    <!-- Affichage des services -->
     <div class="container mx-auto px-4 mb-16">
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        <% @services.where(category: @category).each do |service| %>
-          <div class="bg-white rounded-xl shadow-sm overflow-hidden group hover:shadow-lg transition-shadow duration-300"
-               data-services-filter-target="serviceCard"
-               data-tags="<%= service.tags.to_json %>">
-            <!-- Image du service -->
-            <div class="relative h-48 overflow-hidden">
-              <%= image_tag service_image(service), 
-                  class: "w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-300", 
-                  alt: service.name %>
-              <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
-              
-              <!-- Badge Urgence si applicable -->
-              <% if service.name.include?('Acil') || service.name.include?('Kaçak') %>
-                <div class="absolute top-4 right-4">
-                  <span class="px-3 py-1 bg-red-500 text-white text-sm font-medium rounded-full">
-                    Acil Servis
-                  </span>
-                </div>
-              <% end %>
-            </div>
-
-            <!-- Contenu -->
-            <div class="p-6">
-              <h3 class="text-xl font-semibold text-gray-900 mb-2 group-hover:text-emerald-600 transition-colors duration-200">
-                <%= service.name %>
-              </h3>
-              <p class="text-gray-600 mb-4 line-clamp-2">
-                <%= service.description %>
-              </p>
-
-              <!-- Caractéristiques -->
-              <div class="space-y-2 mb-6">
-                <% service.advantages&.first(3).each do |advantage| %>
-                  <div class="flex items-center text-sm text-gray-600">
-                    <svg class="w-4 h-4 text-emerald-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
-                    </svg>
-                    <%= advantage['title'] %>
-                  </div>
-                <% end %>
-              </div>
-
-              <!-- Actions -->
-              <div class="flex items-center justify-between">
-                <%= link_to service_path(service), 
-                    class: "text-emerald-600 hover:text-emerald-700 font-medium text-sm" do %>
-                  Detaylı Bilgi
-                  <span aria-hidden="true"> &rarr;</span>
-                <% end %>
-
-                <%= link_to new_customer_inquiry_path(service: service.name), 
-                    class: "inline-flex items-center px-4 py-2 bg-emerald-600 text-white text-sm font-medium rounded-lg hover:bg-emerald-700 transition-colors duration-200" do %>
-                  Teklif Al
-                <% end %>
-              </div>
-            </div>
+        <% if @services.any? %>
+          <% @services.each do |service| %>
+            <%= render 'service_card', service: service %>
+          <% end %>
+        <% else %>
+          <div class="col-span-3 text-center py-12">
+            <p class="text-gray-500">Henüz bu kategoride hizmet bulunmamaktadır.</p>
           </div>
         <% end %>
       </div>

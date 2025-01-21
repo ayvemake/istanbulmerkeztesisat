@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_01_20_230039) do
+ActiveRecord::Schema[7.1].define(version: 2024_03_19_000002) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -40,29 +40,53 @@ ActiveRecord::Schema[7.1].define(version: 2025_01_20_230039) do
   end
 
   create_table "customer_inquiries", force: :cascade do |t|
-    t.string "name"
+    t.string "name", null: false
+    t.string "phone", null: false
     t.string "email"
-    t.string "phone"
-    t.text "message"
     t.string "service_type"
+    t.text "message"
+    t.string "status", default: "pending"
+    t.string "preferred_contact_method"
+    t.string "preferred_time"
+    t.string "location"
+    t.boolean "urgent", default: false
+    t.datetime "scheduled_at"
+    t.datetime "completed_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["status"], name: "index_customer_inquiries_on_status"
+    t.index ["urgent"], name: "index_customer_inquiries_on_urgent"
+  end
+
+  create_table "service_advantages", force: :cascade do |t|
+    t.integer "service_id", null: false
+    t.string "title", null: false
+    t.text "description"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["service_id"], name: "index_service_advantages_on_service_id"
   end
 
   create_table "services", force: :cascade do |t|
-    t.string "name"
+    t.string "name", null: false
     t.text "description"
-    t.string "category"
-    t.boolean "active", default: true
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.text "detailed_description"
+    t.string "category", null: false
     t.boolean "featured", default: false
+    t.boolean "active", default: true
     t.boolean "urgent", default: false
     t.boolean "available_24_7", default: false
     t.boolean "warranty", default: true
+    t.json "work_steps"
+    t.json "equipment"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["active"], name: "index_services_on_active"
     t.index ["category"], name: "index_services_on_category"
+    t.index ["featured"], name: "index_services_on_featured"
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "service_advantages", "services"
 end
