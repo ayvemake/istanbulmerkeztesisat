@@ -95,7 +95,7 @@
     <% end %>
 
     <!-- Modal containers -->
-    <div id="home-modal" class="hidden fixed inset-0 bg-black bg-opacity-50 z-50 p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full flex items-center justify-center">
+    <div id="home-modal" class="hidden fixed inset-0 bg-black bg-opacity-50 z-50 p-4 flex items-center justify-center">
       <!-- Modal content will be injected here -->
     </div>
 
@@ -111,42 +111,120 @@
         
         if (type === 'tesisat' || type === 'boya') {
           const content = `
-            <div class="relative bg-white rounded-xl shadow-2xl max-w-4xl mx-auto w-full overflow-y-auto">
+            <div class="relative bg-white rounded-xl shadow-2xl max-w-4xl mx-auto w-full">
               <!-- Header avec Swiper -->
-              <div class="relative h-40 md:h-64">
+              <div class="relative h-40 md:h-64 overflow-hidden">
+                <!-- Texte fixe en superposition -->
+                <div class="absolute bottom-8 left-8 text-white z-10">
+                  <h3 class="text-2xl md:text-3xl font-bold mb-1">
+                    ${type === 'tesisat' ? 'Tesisat Hizmetleri' : 'Boya ve Dekorasyon'}
+                  </h3>
+                  <p class="text-base md:text-lg text-white/80">
+                    ${type === 'tesisat' ? 'Profesyonel tesisat çözümleri' : 'Profesyonel boya çözümleri'}
+                  </p>
+                </div>
+                
                 <div class="swiper-container h-full">
                   <div class="swiper-wrapper">
-                    <div class="swiper-slide relative">
-                      <img src="/assets/services/sanitary1.png" class="w-full h-full object-cover" alt="Tesisat Hizmetleri">
-                      <div class="absolute inset-0 bg-gradient-to-t from-black/75 to-transparent"></div>
-                      <div class="absolute bottom-8 left-8 text-white">
-                        <h3 class="text-2xl md:text-3xl font-bold mb-1">Tesisat Hizmetleri</h3>
-                        <p class="text-base md:text-lg text-white/80">Profesyonel tesisat çözümleri</p>
+                    ${type === 'tesisat' ? `
+                      <div class="swiper-slide relative">
+                        <img src="/assets/services/sanitary1.png" class="w-full h-full object-cover" alt="Tesisat Hizmetleri">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/75 to-transparent"></div>
                       </div>
-                    </div>
-                    <div class="swiper-slide relative">
-                      <img src="/assets/services/sanitary2.webp" class="w-full h-full object-cover" alt="Tesisat 2">
-                      <div class="absolute inset-0 bg-gradient-to-t from-black/75 to-transparent"></div>
-                    </div>
-                    <div class="swiper-slide relative">
-                      <img src="/assets/services/sanitary3.webp" class="w-full h-full object-cover" alt="Tesisat 3">
-                      <div class="absolute inset-0 bg-gradient-to-t from-black/75 to-transparent"></div>
-                    </div>
+                      <div class="swiper-slide relative">
+                        <img src="/assets/services/sanitary2.webp" class="w-full h-full object-cover" alt="Tesisat 2">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/75 to-transparent"></div>
+                      </div>
+                      <div class="swiper-slide relative">
+                        <img src="/assets/services/sanitary3.webp" class="w-full h-full object-cover" alt="Tesisat 3">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/75 to-transparent"></div>
+                      </div>
+                    ` : `
+                      <div class="swiper-slide relative">
+                        <img src="/assets/services/paint1.png" class="w-full h-full object-cover" alt="Boya Hizmetleri">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/75 to-transparent"></div>
+                      </div>
+                      <div class="swiper-slide relative">
+                        <img src="/assets/services/paint2.webp" class="w-full h-full object-cover" alt="Boya 2">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/75 to-transparent"></div>
+                      </div>
+                      <div class="swiper-slide relative">
+                        <img src="/assets/services/paint3.webp" class="w-full h-full object-cover" alt="Boya 3">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/75 to-transparent"></div>
+                      </div>
+                    `}
                   </div>
-                  <div class="swiper-pagination"></div>
-                  <div class="swiper-button-next hidden md:flex"></div>
-                  <div class="swiper-button-prev hidden md:flex"></div>
+                  <div class="swiper-pagination !bottom-2"></div>
+                  <div class="swiper-button-next !text-white !right-2"></div>
+                  <div class="swiper-button-prev !text-white !left-2"></div>
                 </div>
               </div>
 
               <!-- Content -->
-              <div class="p-4 md:p-6">
+              <div class="p-4 md:p-6 max-h-[calc(100vh-24rem)] overflow-y-auto">
                 <!-- Services Grid -->
                 <div class="mb-4 md:mb-6">
                   <h4 class="text-base md:text-lg font-semibold text-gray-900 mb-3 md:mb-4">
                     ${type === 'tesisat' ? 'Tesisat' : 'Boya'} Hizmetlerimiz
                   </h4>
-                  <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-6">
+                  <!-- Liste pour mobile -->
+                  <div class="block md:hidden">
+                    <ul class="space-y-3">
+                      ${type === 'tesisat' ? `
+                        <li class="flex items-center text-gray-700">
+                          <svg class="w-5 h-5 text-emerald-500 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                          </svg>
+                          <span>Su kaçağı tespiti ve onarımı</span>
+                        </li>
+                        <li class="flex items-center text-gray-700">
+                          <svg class="w-5 h-5 text-emerald-500 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                          </svg>
+                          <span>Kırmadan tıkanıklık açma</span>
+                        </li>
+                        <li class="flex items-center text-gray-700">
+                          <svg class="w-5 h-5 text-emerald-500 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                          </svg>
+                          <span>Cihazla kaçak tespiti</span>
+                        </li>
+                        <li class="flex items-center text-gray-700">
+                          <svg class="w-5 h-5 text-emerald-500 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                          </svg>
+                          <span>Gider ve kanal temizliği</span>
+                        </li>
+                      ` : `
+                        <li class="flex items-center text-gray-700">
+                          <svg class="w-5 h-5 text-emerald-500 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                          </svg>
+                          <span>İç cephe boyama</span>
+                        </li>
+                        <li class="flex items-center text-gray-700">
+                          <svg class="w-5 h-5 text-emerald-500 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                          </svg>
+                          <span>Dış cephe boyama</span>
+                        </li>
+                        <li class="flex items-center text-gray-700">
+                          <svg class="w-5 h-5 text-emerald-500 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                          </svg>
+                          <span>Dekoratif boya uygulamaları</span>
+                        </li>
+                        <li class="flex items-center text-gray-700">
+                          <svg class="w-5 h-5 text-emerald-500 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                          </svg>
+                          <span>Alçı ve macun işleri</span>
+                        </li>
+                      `}
+                    </ul>
+                  </div>
+                  <!-- Grid pour desktop -->
+                  <div class="hidden md:grid grid-cols-2 gap-6">
                     <div class="bg-gray-50 rounded-lg p-4 md:p-6 hover:bg-emerald-50 transition-all duration-300">
                       <div class="flex items-start space-x-4">
                         <div class="flex-shrink-0">
@@ -214,7 +292,7 @@
                 </div>
 
                 <!-- Actions -->
-                <div class="flex flex-col md:flex-row md:items-center justify-between gap-3 pt-3 md:pt-4 border-t border-gray-200">
+                <div class="flex flex-col md:flex-row md:items-center justify-between gap-3 p-4 md:p-6 border-t border-gray-200">
                   <a href="${type === 'tesisat' ? '/hizmetler/tesisat' : '/hizmetler/boya'}" 
                      class="group inline-flex items-center justify-center px-4 md:px-6 py-3 bg-emerald-600 text-white text-base md:text-lg font-medium rounded-lg hover:bg-emerald-700 transition-all duration-300 w-full md:w-auto">
                     <span>Tüm ${type === 'tesisat' ? 'Tesisat' : 'Boya'} Hizmetleri</span>
@@ -253,7 +331,7 @@
 
           modal.innerHTML = content;
           modal.classList.remove('hidden');
-          document.body.classList.add('overflow-hidden');
+          document.body.style.overflow = 'hidden';
 
           // Initialize Swiper with responsive options
           new Swiper('.swiper-container', {
@@ -340,7 +418,6 @@
       function closeModal(modalId) {
         const modal = document.getElementById(modalId);
         modal.classList.add('hidden');
-        document.body.classList.remove('overflow-hidden');
         document.body.style.overflow = '';
       }
 

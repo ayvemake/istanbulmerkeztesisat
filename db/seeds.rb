@@ -213,3 +213,4 @@ CustomerInquiry.create!([
 ])
 
 puts "Created #{CustomerInquiry.count} customer inquiries" 
+
