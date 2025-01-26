@@ -10,6 +10,39 @@
   .safe-bottom {
     padding-bottom: env(safe-area-inset-bottom);
   }
+
+  .animate-fade-in {
+    animation: fadeIn 0.5s ease-out;
+  }
+
+  .whatsapp-sticky {
+    @apply fixed right-4 z-40 transition-all duration-300;
+  }
+
+  /* Ajustement pour les appareils mobiles */
+  @media (max-width: 640px) {
+    .whatsapp-sticky {
+      right: 1rem;
+    }
+  }
+
+  /* Ajustement pour éviter le chevauchement avec la barre de navigation iOS */
+  @supports (-webkit-touch-callout: none) {
+    .whatsapp-sticky {
+      bottom: calc(env(safe-area-inset-bottom) + 24px) !important;
+    }
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 /* Styles spécifiques pour le menu mobile */

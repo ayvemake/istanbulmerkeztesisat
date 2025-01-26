@@ -1,0 +1,25 @@
+<div class="space-y-6">
+  <div class="flex items-center gap-4">
+    <div class="w-12 h-12 rounded-lg bg-blue-50 flex items-center justify-center flex-shrink-0">
+      <%= render_service_icon(service.name, "w-6 h-6 text-blue-800") %>
+    </div>
+    <h3 class="text-2xl font-semibold text-blue-800"><%= service.name %></h3>
+  </div>
+
+  <div class="prose prose-lg max-w-none">
+    <p class="text-gray-600 leading-relaxed"><%= service.description %></p>
+  </div>
+
+  <%= render 'shared/service_advantages', service: service if service.service_advantages.any? %>
+
+  <!-- Bouton d'action -->
+  <div class="pt-4">
+    <%= link_to new_customer_inquiry_path(service: service.id), 
+        class: "inline-flex items-center px-6 py-3 rounded-lg text-white bg-blue-800 hover:bg-blue-700 transition-colors" do %>
+      <span>Teklif Alın</span>
+      <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+      </svg>
+    <% end %>
+  </div>
+</div> 

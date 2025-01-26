@@ -1,153 +1,173 @@
-<!-- Navbar fixe -->
-<nav class="bg-white shadow-lg fixed w-full top-0 z-50">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <!-- Desktop Navigation -->
+<!-- Navbar sticky -->
+<nav class="bg-white shadow-lg fixed top-0 left-0 right-0 z-40">
+  <div class="max-w-7xl mx-auto px-4">
     <div class="flex justify-between h-16">
       <!-- Logo -->
-      <div class="flex-shrink-0 flex items-center">
-        <%= link_to root_path, class: "text-2xl font-bold text-gray-600" do %>
-          İstanbul Merkez Tesisat
+      <div class="flex items-center">
+        <%= link_to root_path, class: "flex-shrink-0 flex items-center group" do %>
+          <%= image_tag "logo/logo_only.png", 
+              class: "h-10 w-auto transform transition-transform duration-300 group-hover:scale-105",
+              alt: "İstanbul Merkez Tesisat Logo" %>
         <% end %>
       </div>
 
-      <!-- Desktop Links -->
-      <div class="hidden sm:flex sm:items-center sm:space-x-8">
-        <%= link_to "Ana Sayfa", root_path, 
-            class: "#{current_page?(root_path) ? 'text-gray-800 nav-link-active' : 'text-gray-600 hover:text-gray-800 nav-link'} 
-                   px-3 h-16 flex items-center text-sm font-medium transition-all duration-200" %>
+      <!-- Navigation Links -->
+      <div class="hidden sm:ml-6 sm:flex sm:space-x-8">
+        <%= link_to "Anasayfa", root_path, 
+            class: "#{current_page?(root_path) ? 'border-blue-500' : 'border-transparent'} 
+                   inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium text-gray-900" %>
         
-        <%= link_to "Hizmetlerimiz", services_path,
-            class: "#{current_page?(services_path) ? 'text-gray-800 border-b-2 border-gray-800' : 'text-gray-600 hover:text-gray-800 border-b-2 border-transparent hover:border-gray-300'} 
-                   px-3 py-2 text-sm font-medium transition-all duration-200" %>
+        <%# Hizmetlerimiz temporairement retiré %>
+        
+        <%= link_to "Teknikler", technical_info_path,
+            class: "#{current_page?(technical_info_path) ? 'border-blue-500' : 'border-transparent'} 
+                   inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium text-gray-900" %>
         
         <%= link_to "Hakkımızda", about_path,
-            class: "#{current_page?(about_path) ? 'text-gray-800 border-b-2 border-gray-800' : 'text-gray-600 hover:text-gray-800 border-b-2 border-transparent hover:border-gray-300'} 
-                   px-3 py-2 text-sm font-medium transition-all duration-200" %>
-        
-        <%= link_to "İletişim", new_customer_inquiry_path,
-            class: "#{current_page?(new_customer_inquiry_path) ? 'text-gray-800 border-b-2 border-gray-800' : 'text-gray-600 hover:text-gray-800 border-b-2 border-transparent hover:border-gray-300'} 
-                   px-3 py-2 text-sm font-medium transition-all duration-200" %>
-        
-        <%= link_to "Teknik Bilgiler", technical_info_path,
-            class: "#{current_page?(technical_info_path) ? 'text-gray-800 border-b-2 border-gray-800' : 'text-gray-600 hover:text-gray-800 border-b-2 border-transparent hover:border-gray-300'} 
-                   px-3 py-2 text-sm font-medium transition-all duration-200" %>
-
-        <!-- Desktop Call Button -->
-        <a href="tel:+905555555555" class="ml-8 inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-gray-600 hover:bg-gray-700">
-          <svg class="h-4 w-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
-          </svg>
-          7/24 Acil Servis
-        </a>
+            class: "#{current_page?(about_path) ? 'border-blue-500' : 'border-transparent'} 
+                   inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium text-gray-900" %>
+                   
+        <%= link_to "İletişim", new_contact_path,
+            class: "#{current_page?(new_contact_path) ? 'border-blue-500' : 'border-transparent'} 
+                   inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium text-gray-900" %>
       </div>
 
-      <!-- Mobile menu button -->
-      <div class="sm:hidden flex items-center">
-        <button type="button" class="mobile-menu-button inline-flex items-center justify-center p-2 rounded-md text-gray-700 hover:text-gray-600 hover:bg-gray-100">
-          <span class="sr-only menu-button-text">Menüyü aç</span>
-          <!-- Icône menu (hamburger) -->
-          <svg class="menu-open-icon block h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+      <!-- Instagram et Mobile menu button -->
+      <div class="flex items-center gap-4">
+        <!-- Instagram officiel -->
+        <a href="https://www.instagram.com/istanbulmerkeztesisat/" 
+           target="_blank"
+           class="text-gray-400 hover:text-[#833AB4] transition-colors duration-300">
+          <svg class="w-6 h-6" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 0C8.74 0 8.333.015 7.053.072 5.775.132 4.905.333 4.14.63c-.789.306-1.459.717-2.126 1.384S.935 3.35.63 4.14C.333 4.905.131 5.775.072 7.053.012 8.333 0 8.74 0 12s.015 3.667.072 4.947c.06 1.277.261 2.148.558 2.913.306.788.717 1.384 1.384 2.126.667.666 1.336 1.079 2.126 1.384.766.296 1.636.499 2.913.558C8.333 23.988 8.74 24 12 24s3.667-.015 4.947-.072c1.277-.06 2.148-.262 2.913-.558.788-.306 1.459-.718 2.126-1.384.666-.667 1.079-1.335 1.384-2.126.296-.765.499-1.636.558-2.913.06-1.28.072-1.687.072-4.947s-.015-3.667-.072-4.947c-.06-1.277-.262-2.149-.558-2.913-.306-.789-.718-1.459-1.384-2.126C21.319 1.347 20.651.935 19.86.63c-.765-.297-1.636-.499-2.913-.558C15.667.012 15.26 0 12 0zm0 2.16c3.203 0 3.585.016 4.85.071 1.17.055 1.805.249 2.227.415.562.217.96.477 1.382.896.419.42.679.819.896 1.381.164.422.36 1.057.413 2.227.057 1.266.07 1.646.07 4.85s-.015 3.585-.074 4.85c-.061 1.17-.256 1.805-.421 2.227-.224.562-.479.96-.899 1.382-.419.419-.824.679-1.38.896-.42.164-1.065.36-2.235.413-1.274.057-1.649.07-4.859.07-3.211 0-3.586-.015-4.859-.074-1.171-.061-1.816-.256-2.236-.421-.569-.224-.96-.479-1.379-.899-.421-.419-.69-.824-.9-1.38-.165-.42-.359-1.065-.42-2.235-.045-1.26-.061-1.649-.061-4.844 0-3.196.016-3.586.061-4.861.061-1.17.255-1.814.42-2.234.21-.57.479-.96.9-1.381.419-.419.81-.689 1.379-.898.42-.166 1.051-.361 2.221-.421 1.275-.045 1.65-.06 4.859-.06l.045.03zm0 3.678c-3.405 0-6.162 2.76-6.162 6.162 0 3.405 2.76 6.162 6.162 6.162 3.405 0 6.162-2.76 6.162-6.162 0-3.405-2.76-6.162-6.162-6.162zM12 16c-2.21 0-4-1.79-4-4s1.79-4 4-4 4 1.79 4 4-1.79 4-4 4zm7.846-10.405c0 .795-.646 1.44-1.44 1.44-.795 0-1.44-.646-1.44-1.44 0-.794.646-1.439 1.44-1.439.793-.001 1.44.645 1.44 1.439z"/>
           </svg>
-          <!-- Icône fermer (X) - cachée par défaut -->
-          <svg class="menu-close-icon hidden h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-          </svg>
-        </button>
+        </a>
+
+        <!-- Mobile menu button -->
+        <div class="sm:hidden">
+          <button type="button" 
+                  class="mobile-menu-button inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-600 hover:bg-gray-100 transition-colors duration-200"
+                  aria-expanded="false">
+            <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Mobile menu avec animation depuis le haut -->
+  <div class="mobile-menu hidden sm:hidden fixed inset-0 z-[9999]">
+    <!-- Overlay avec flou -->
+    <div class="mobile-menu-overlay fixed inset-0 bg-black/20 backdrop-blur-sm transition-opacity duration-300 opacity-0"></div>
+    
+    <!-- Menu content avec animation depuis le haut -->
+    <div class="fixed top-0 left-0 w-full bg-white shadow-sm transform -translate-y-full transition-transform duration-300 ease-out">
+      <div class="flex justify-between items-center p-4 border-b border-gray-200">
+        <div class="flex-1"></div>
+        <span class="flex-1 text-center font-medium text-gray-700 text-lg tracking-wide">Menü</span>
+        <div class="flex-1 flex justify-end">
+          <button class="mobile-close-button p-2.5 rounded-lg text-gray-400 hover:text-gray-600 hover:bg-gray-50 transition-all duration-200 active:scale-95">
+            <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+      
+      <div class="px-4 pt-3 pb-4">
+        <div class="space-y-3">
+          <div class="group relative">
+            <%= link_to root_path,
+                class: "block px-4 py-5 text-base font-medium transition-all duration-200 
+                       #{current_page?(root_path) ? 'bg-blue-50 text-blue-700' : 'text-gray-600'} 
+                       hover:bg-gray-50 active:bg-gray-100 text-center rounded-lg" do %>
+              <span class="relative z-10">Anasayfa</span>
+              <div class="absolute inset-0 rounded-lg border border-gray-200 opacity-0 group-hover:opacity-100 transition-opacity duration-200"></div>
+            <% end %>
+          </div>
+          
+          <div class="group relative">
+            <%= link_to technical_info_path,
+                class: "block px-4 py-5 text-base font-medium transition-all duration-200 
+                       #{current_page?(technical_info_path) ? 'bg-blue-50 text-blue-700' : 'text-gray-600'} 
+                       hover:bg-gray-50 active:bg-gray-100 text-center rounded-lg" do %>
+              <span class="relative z-10">Teknikler</span>
+              <div class="absolute inset-0 rounded-lg border border-gray-200 opacity-0 group-hover:opacity-100 transition-opacity duration-200"></div>
+            <% end %>
+          </div>
+          
+          <div class="group relative">
+            <%= link_to about_path,
+                class: "block px-4 py-5 text-base font-medium transition-all duration-200 
+                       #{current_page?(about_path) ? 'bg-blue-50 text-blue-700' : 'text-gray-600'} 
+                       hover:bg-gray-50 active:bg-gray-100 text-center rounded-lg" do %>
+              <span class="relative z-10">Hakkımızda</span>
+              <div class="absolute inset-0 rounded-lg border border-gray-200 opacity-0 group-hover:opacity-100 transition-opacity duration-200"></div>
+            <% end %>
+          </div>
+          
+          <div class="group relative">
+            <%= link_to new_contact_path,
+                class: "block px-4 py-5 text-base font-medium transition-all duration-200 
+                       #{current_page?(new_contact_path) ? 'bg-blue-50 text-blue-700' : 'text-gray-600'} 
+                       hover:bg-gray-50 active:bg-gray-100 text-center rounded-lg" do %>
+              <span class="relative z-10">İletişim</span>
+              <div class="absolute inset-0 rounded-lg border border-gray-200 opacity-0 group-hover:opacity-100 transition-opacity duration-200"></div>
+            <% end %>
+          </div>
+          
+          <!-- Séparateur -->
+          <div class="my-6 border-t border-gray-200"></div>
+          
+          <!-- Logo en bas -->
+          <div class="flex justify-center items-center py-4">
+            <%= image_tag "logo/logo.png", 
+                class: "h-40 w-auto opacity-60",
+                alt: "İstanbul Merkez Tesisat Logo" %>
+          </div>
+        </div>
       </div>
     </div>
   </div>
 </nav>
 
-<!-- Spacer pour compenser la navbar fixe -->
+<!-- Spacer pour compenser la navbar sticky -->
 <div class="h-16"></div>
-
-<!-- Mobile menu -->
-<div class="mobile-menu hidden sm:hidden fixed top-0 right-0 w-64 h-screen bg-white shadow-lg z-40 transform transition-transform duration-300 ease-in-out rounded-l-2xl border-l border-gray-200">
-  <!-- Spacer pour le menu mobile -->
-  <div class="h-16"></div>
-  
-  <div class="px-2 pt-2 pb-3 divide-y divide-gray-200">
-    <%= link_to "Ana Sayfa", root_path, 
-        class: "#{current_page?(root_path) ? 'bg-gray-50 text-gray-600' : 'text-gray-700'} 
-               block px-3 py-3 text-base font-medium hover:bg-gray-50" %>
-    
-    <%= link_to "Hizmetlerimiz", services_path,
-        class: "#{current_page?(services_path) ? 'bg-gray-50 text-gray-600' : 'text-gray-700'} 
-               block px-3 py-3 text-base font-medium hover:bg-gray-50" %>
-    
-    <%= link_to "Hakkımızda", about_path,
-        class: "#{current_page?(about_path) ? 'bg-gray-50 text-gray-600' : 'text-gray-700'} 
-               block px-3 py-3 text-base font-medium hover:bg-gray-50" %>
-    
-    <%= link_to "İletişim", new_customer_inquiry_path,
-        class: "#{current_page?(new_customer_inquiry_path) ? 'bg-gray-50 text-gray-600' : 'text-gray-700'} 
-               block px-3 py-3 text-base font-medium hover:bg-gray-50" %>
-    
-    <%= link_to "Teknik Bilgiler", technical_info_path,
-        class: "#{current_page?(technical_info_path) ? 'bg-gray-50 text-gray-600' : 'text-gray-700'} 
-               block px-3 py-3 text-base font-medium hover:bg-gray-50" %>
-
-    <!-- Mobile Call Button -->
-    <div class="px-3 py-3">
-      <a href="tel:+905555555555" class="flex items-center justify-center w-full px-4 py-2 border border-transparent text-base font-medium rounded-md text-white bg-gray-600 hover:bg-gray-700">
-        <svg class="h-5 w-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
-        </svg>
-        7/24 Acil Servis
-      </a>
-    </div>
-  </div>
-</div>
-
-<!-- Overlay pour le menu mobile -->
-<div class="mobile-menu-overlay hidden sm:hidden fixed inset-0 bg-black/40 backdrop-blur-sm transition-all duration-300 z-30"></div>
 
 <%= javascript_tag do %>
   document.addEventListener('DOMContentLoaded', function() {
-    const btn = document.querySelector('.mobile-menu-button');
-    const menu = document.querySelector('.mobile-menu');
-    const overlay = document.querySelector('.mobile-menu-overlay');
-    const menuOpenIcon = document.querySelector('.menu-open-icon');
-    const menuCloseIcon = document.querySelector('.menu-close-icon');
-    const menuButtonText = document.querySelector('.menu-button-text');
-
-    btn.addEventListener('click', () => {
-      menu.classList.toggle('hidden');
-      overlay.classList.toggle('hidden');
-      document.body.classList.toggle('overflow-hidden');
-      
-      // Changer l'icône et le texte
-      menuOpenIcon.classList.toggle('hidden');
-      menuCloseIcon.classList.toggle('hidden');
-      menuButtonText.textContent = menuOpenIcon.classList.contains('hidden') ? 'Menüyü kapat' : 'Menüyü aç';
-      
-      // Animation du menu
-      if (!menu.classList.contains('hidden')) {
-        menu.classList.add('translate-x-0');
-        menu.classList.remove('translate-x-full');
-        overlay.classList.add('opacity-100');
-        overlay.classList.remove('opacity-0');
-      } else {
-        menu.classList.remove('translate-x-0');
-        menu.classList.add('translate-x-full');
-        overlay.classList.remove('opacity-100');
-        overlay.classList.add('opacity-0');
+    const mobileMenuButton = document.querySelector('.mobile-menu-button');
+    const mobileCloseButton = document.querySelector('.mobile-close-button');
+    const mobileMenu = document.querySelector('.mobile-menu');
+    const mobileMenuOverlay = document.querySelector('.mobile-menu-overlay');
+    const mobileMenuContent = mobileMenu.querySelector('.transform');
+    
+    function openMenu() {
+      mobileMenu.classList.remove('hidden');
+      document.body.classList.add('overflow-hidden');
+      requestAnimationFrame(() => {
+        mobileMenuOverlay.classList.add('opacity-100');
+        mobileMenuContent.classList.remove('-translate-y-full');
+      });
+    }
+    
+    function closeMenu() {
+      mobileMenuOverlay.classList.remove('opacity-100');
+      mobileMenuContent.classList.add('-translate-y-full');
+      setTimeout(() => {
+        mobileMenu.classList.add('hidden');
+        document.body.classList.remove('overflow-hidden');
+      }, 300);
+    }
+    
+    mobileMenuButton.addEventListener('click', openMenu);
+    mobileCloseButton.addEventListener('click', closeMenu);
+    mobileMenu.addEventListener('click', (e) => {
+      if (e.target === mobileMenu || e.target === mobileMenuOverlay) {
+        closeMenu();
       }
-    });
-
-    // Fermer le menu en cliquant sur l'overlay
-    overlay.addEventListener('click', () => {
-      menu.classList.add('hidden', 'translate-x-full');
-      menu.classList.remove('translate-x-0');
-      overlay.classList.add('hidden', 'opacity-0');
-      overlay.classList.remove('opacity-100');
-      document.body.classList.remove('overflow-hidden');
-      
-      // Remettre l'icône et le texte initial
-      menuOpenIcon.classList.remove('hidden');
-      menuCloseIcon.classList.add('hidden');
-      menuButtonText.textContent = 'Menüyü aç';
     });
   });
 <% end %> 

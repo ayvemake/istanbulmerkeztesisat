@@ -5,39 +5,21 @@ class ContactsController < ApplicationController
 
   def create
     @contact = Contact.new(contact_params)
-
-    respond_to do |format|
-      if @contact.save
-        format.turbo_stream do
-          render turbo_stream: [
-            turbo_stream.replace('contact_form', 
-              partial: 'contacts/success', 
-              locals: { message: 'Mesajınız başarıyla gönderildi.' }
-            ),
-            turbo_stream.append('notifications', 
-              partial: 'shared/toast', 
-              locals: { type: 'success', message: 'İletişim formunuz alındı.' }
-            )
-          ]
-        end
-        format.html { redirect_to root_path, notice: 'Mesajınız başarıyla gönderildi.' }
-      else
-        format.turbo_stream do
-          render turbo_stream: turbo_stream.replace(
-            'contact_form', 
-            partial: 'contacts/form', 
-            locals: { contact: @contact }
-          )
-        end
-        format.html { render :new }
-      end
+    
+    if @contact.save
+      # Envoyer un email de notification (à configurer)
+      # ContactMailer.new_contact_notification(@contact).deliver_later
+      
+      redirect_to root_path, notice: 'Mesajınız başarıyla gönderildi. En kısa sürede size dönüş yapacağız.'
+    else
+      render :new, status: :unprocessable_entity
     end
   end
 
   private
 
   def contact_params
-    params.require(:contact).permit(:name, :phone, :email, :message)
+    params.require(:contact).permit(:name, :email, :phone, :message)
   end
 end 
 

@@ -8,47 +8,59 @@ export default class extends Controller {
   }
   
   connect() {
-    this.showSlide(this.currentValue)
+    if (this.slideTargets.length > 0) {
+      this.currentValue = 0
+      this.showSlide(0)
+    }
     this.startAutoRotation()
     this.handleImageLoading()
     this.touchStartX = null
     this.touchStartY = null
     this.initialX = null
     this.initialY = null
+    if (this.hasIndicatorTarget) {
+      this.updateIndicators()
+    }
+    
+    // Auto-play
+    this.startAutoPlay()
   }
 
   disconnect() {
     this.stopAutoRotation()
+    this.stopAutoPlay()
   }
 
   next() {
-    const nextIndex = (this.currentValue + 1) % this.slideTargets.length
-    this.showSlide(nextIndex)
+    this.currentValue = (this.currentValue + 1) % this.slideTargets.length
+    this.showSlide(this.currentValue)
   }
 
   previous() {
-    const prevIndex = (this.currentValue - 1 + this.slideTargets.length) % this.slideTargets.length
-    this.showSlide(prevIndex)
+    this.currentValue = (this.currentValue - 1 + this.slideTargets.length) % this.slideTargets.length
+    this.showSlide(this.currentValue)
   }
 
   showSlide(index) {
     this.slideTargets.forEach((slide, i) => {
-      slide.style.transition = 'transform 0.5s ease-out'
       if (i === index) {
-        slide.style.transform = 'translateX(0)'
-      } else if (i < index) {
-        slide.style.transform = 'translateX(-100%)'
+        slide.classList.remove('hidden')
+        slide.classList.add('block')
       } else {
-        slide.style.transform = 'translateX(100%)'
+        slide.classList.add('hidden')
+        slide.classList.remove('block')
       }
     })
+    this.updateIndicators()
+  }
 
-    this.indicatorTargets.forEach((indicator, i) => {
-      indicator.classList.toggle('bg-white', i === index)
-      indicator.classList.toggle('bg-white/60', i !== index)
-    })
-
-    this.currentValue = index
+  updateIndicators() {
+    if (this.hasIndicatorTarget) {
+      this.indicatorTargets.forEach((indicator, index) => {
+        indicator.classList.toggle('bg-white', index === this.currentValue)
+        indicator.classList.toggle('bg-white/50', index !== this.currentValue)
+      })
+    }
   }
 
   select(event) {
@@ -77,10 +89,12 @@ export default class extends Controller {
 
   mouseEnter() {
     this.stopAutoRotation()
+    this.stopAutoPlay()
   }
 
   mouseLeave() {
     this.startAutoRotation()
+    this.startAutoPlay()
   }
 
   touchStart(event) {
@@ -161,5 +175,17 @@ export default class extends Controller {
     setTimeout(() => {
       this.placeholderTarget.remove()
     }, 300)
+  }
+
+  startAutoPlay() {
+    this.autoPlayInterval = setInterval(() => {
+      this.next()
+    }, 5000)
+  }
+
+  stopAutoPlay() {
+    if (this.autoPlayInterval) {
+      clearInterval(this.autoPlayInterval)
+    }
   }
 } 

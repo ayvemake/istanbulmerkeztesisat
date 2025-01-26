@@ -13,8 +13,8 @@ class ServicesController < ApplicationController
     # Ordonner les services
     @services = @services.order(featured: :desc, created_at: :desc)
 
-    @tesisat_services = Service.where(category: 'tesisat')
-    @boya_services = Service.where(category: 'boya')
+    @tesisat_services = Service.tesisat
+    @boya_services = Service.boya
   end
 
   def tesisat_services
@@ -77,7 +77,7 @@ class ServicesController < ApplicationController
     params.require(:service).permit(
       :name, :description, :category, :featured,
       :urgent, :available_24_7, :warranty,
-      :image, gallery_images: [], 
+      gallery_images: [], 
       advantages_attributes: [:id, :title, :description, :_destroy]
     )
   end

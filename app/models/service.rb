@@ -8,13 +8,25 @@ class Service < ApplicationRecord
 
   validates :name, :description, :category, presence: true
   validates :category, inclusion: { in: CATEGORIES }
+  validates :gallery_images, presence: true, if: :published?
   
+  EXCLUDED_SERVICES = ['Kalorifer Tesisatı', 'Doğalgaz Tesisatı', 'Ahşap Boyama'].freeze
+
   scope :active, -> { where(active: true) }
   scope :featured, -> { where(featured: true) }
   scope :by_category, ->(category) { where(category: category) if category.present? }
-  scope :tesisat, -> { where(category: 'tesisat') }
-  scope :boya, -> { where(category: 'boya') }
+  scope :tesisat, -> { 
+    where(category: 'tesisat')
+    .where.not(name: EXCLUDED_SERVICES)
+  }
+  scope :boya, -> { 
+    where(category: 'boya')
+    .where.not(name: EXCLUDED_SERVICES)
+  }
   scope :urgent, -> { where(urgent: true) }
+  scope :available_services, -> { 
+    where.not(name: EXCLUDED_SERVICES)
+  }
 
   def default_image
     "services/#{category}_default.jpg"
@@ -61,5 +73,22 @@ class Service < ApplicationRecord
         height: 800
       }
     end
+  end
+
+  def gallery_images_or_default
+    if gallery_images.attached?
+      gallery_images
+    else
+      case category
+      when 'tesisat'
+        ['services/sanitary1.webp', 'services/sanitary2.webp', 'services/sanitary3.webp']
+      when 'boya'
+        ['services/paint1.webp', 'services/paint2.webp', 'services/paint3.webp']
+      end
+    end
+  end
+
+  def display_images
+    gallery_images_or_default
   end
 end 
