@@ -1,117 +1,97 @@
+<div class="container mx-auto px-4 py-12">
+  <!-- En-tête de la page -->
+  <div class="text-center max-w-4xl mx-auto mb-16">
+    <h1 class="text-4xl lg:text-5xl font-bold text-gray-900 mb-4">Hakkımızda</h1>
+    <div class="h-1 w-24 bg-gray-600 mx-auto mb-8"></div>
+    <p class="text-xl text-gray-600">2010'dan beri İstanbul'da kaliteli hizmet</p>
+  </div>
 
-
-<div class="bg-gradient-to-b from-gray-50 to-white">
-  <!-- Hero Section -->
-  <div class="relative overflow-hidden bg-gradient-to-r from-emerald-800 to-emerald-600">
-    <div class="absolute inset-0">
-      <div class="absolute inset-0 bg-emerald-900 mix-blend-multiply opacity-20"></div>
-      <div class="absolute inset-0 bg-gradient-to-r from-transparent to-emerald-900/30"></div>
-    </div>
-    <div class="relative max-w-7xl mx-auto px-8 py-24">
-      <h1 class="text-5xl font-bold text-white mb-6">Hakkımızda</h1>
-      <p class="text-2xl text-emerald-100 max-w-3xl font-light">
-        20 yıllık tecrübemizle İstanbul'un güvenilir tesisat ve boya hizmetleri firmasıyız
+  <!-- Section Introduction -->
+  <div class="max-w-4xl mx-auto mb-24">
+    <div class="prose prose-lg max-w-none">
+      <p class="text-lg text-gray-600 leading-relaxed mb-6">
+        İstanbul Merkez Tesisat olarak, 2010 yılından bu yana İstanbul'un tüm ilçelerinde su tesisatı ve boya hizmetleri sunmaktayız. Deneyimli ekibimiz ve modern ekipmanlarımızla, müşterilerimize en kaliteli hizmeti sunmayı hedefliyoruz.
+      </p>
+      <p class="text-lg text-gray-600 leading-relaxed">
+        7/24 acil servis hizmetimiz ile su tesisatı sorunlarınıza anında müdahale ediyoruz. Profesyonel ekibimiz, modern cihazlarla donatılmış ve her türlü soruna hızlı çözüm üretmek için hazır.
       </p>
     </div>
   </div>
 
-  <div class="max-w-7xl mx-auto px-8 py-16">
-    <!-- Notre Histoire -->
-    <div class="mb-24">
-      <h2 class="text-4xl font-bold text-gray-900 mb-8">Hikayemiz</h2>
-      <div class="grid md:grid-cols-2 gap-12 items-center">
-        <div class="prose prose-lg">
-          <p class="text-xl text-gray-600 leading-relaxed">
-            2003 yılında küçük bir aile şirketi olarak başladığımız yolculuğumuzda, 
-            bugün İstanbul'un önde gelen tesisat firmalarından biri haline geldik. 
-            Müşteri memnuniyetini her zaman ön planda tutarak, kaliteli hizmet 
-            anlayışımızdan hiç taviz vermedik.
-          </p>
+  <!-- Section Valeurs -->
+  <div class="max-w-4xl mx-auto space-y-24">
+    <!-- Qualité -->
+    <div class="flex flex-col md:flex-row items-start gap-8">
+      <div class="md:w-1/3">
+        <div class="sticky top-24">
+          <h2 class="text-3xl font-bold text-gray-900 mb-4">Kalite</h2>
+          <div class="h-1 w-12 bg-blue-800"></div>
         </div>
-        <div class="bg-emerald-50 rounded-xl p-8">
-          <div class="grid grid-cols-2 gap-6">
-            <div class="text-center">
-              <div class="text-4xl font-bold text-emerald-600 mb-2">20+</div>
-              <div class="text-gray-600">Yıllık Tecrübe</div>
-            </div>
-            <div class="text-center">
-              <div class="text-4xl font-bold text-emerald-600 mb-2">50K+</div>
-              <div class="text-gray-600">Mutlu Müşteri</div>
-            </div>
-            <div class="text-center">
-              <div class="text-4xl font-bold text-emerald-600 mb-2">24/7</div>
-              <div class="text-gray-600">Hizmet</div>
-            </div>
-            <div class="text-center">
-              <div class="text-4xl font-bold text-emerald-600 mb-2">100+</div>
-              <div class="text-gray-600">Uzman Personel</div>
-            </div>
-          </div>
-        </div>
+      </div>
+      <div class="md:w-2/3 prose prose-lg">
+        <p class="text-gray-600 leading-relaxed">
+          Kalite bizim için sadece bir söz değil, bir taahhüttür. Her projede en yüksek kalitede malzeme kullanıyor, en son teknoloji ekipmanlarla çalışıyoruz. Müşterilerimize sunduğumuz hizmetin arkasında duruyoruz ve işimizi ilk seferde doğru yapmayı hedefliyoruz.
+        </p>
       </div>
     </div>
 
-    <!-- Notre Équipe -->
-    <div class="mb-24">
-      <h2 class="text-4xl font-bold text-gray-900 mb-12">Ekibimiz</h2>
-      <div class="grid md:grid-cols-3 gap-8">
-        <% @team_members&.each do |member| %>
-          <div class="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
-            <%= image_tag member.image_url || "default_avatar.jpg", 
-                class: "w-full h-64 object-cover" %>
-            <div class="p-6">
-              <h3 class="text-xl font-bold text-gray-900 mb-2"><%= member.name %></h3>
-              <p class="text-emerald-600 font-medium mb-4"><%= member.position %></p>
-              <p class="text-gray-600"><%= member.description %></p>
-            </div>
-          </div>
-        <% end %>
+    <!-- Expertise -->
+    <div class="flex flex-col md:flex-row items-start gap-8">
+      <div class="md:w-1/3">
+        <div class="sticky top-24">
+          <h2 class="text-3xl font-bold text-gray-900 mb-4">Uzmanlık</h2>
+          <div class="h-1 w-12 bg-amber-600"></div>
+        </div>
+      </div>
+      <div class="md:w-2/3 prose prose-lg">
+        <p class="text-gray-600 leading-relaxed">
+          Ekibimiz, yılların deneyimine sahip uzman ustalardan oluşmaktadır. Sürekli eğitim ve gelişim programlarımızla, en son teknolojileri ve teknikleri takip ediyor, bu bilgileri sahada uyguluyoruz. Her ustamız kendi alanında uzmanlaşmış ve gerekli sertifikalara sahiptir.
+        </p>
       </div>
     </div>
 
-    <!-- Nos Valeurs -->
-    <div>
-      <h2 class="text-4xl font-bold text-gray-900 mb-12">Değerlerimiz</h2>
-      <div class="grid md:grid-cols-3 gap-8">
-        <div class="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transition-shadow">
-          <div class="w-16 h-16 bg-emerald-100 rounded-full flex items-center justify-center mb-6">
-            <svg class="w-8 h-8 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
-                    d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
-            </svg>
-          </div>
-          <h3 class="text-xl font-bold text-gray-900 mb-4">Güvenilirlik</h3>
-          <p class="text-gray-600">
-            Müşterilerimizin güvenini kazanmak ve korumak en önemli önceliğimizdir.
-          </p>
-        </div>
-
-        <div class="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transition-shadow">
-          <div class="w-16 h-16 bg-emerald-100 rounded-full flex items-center justify-center mb-6">
-            <svg class="w-8 h-8 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
-                    d="M13 10V3L4 14h7v7l9-11h-7z"/>
-            </svg>
-          </div>
-          <h3 class="text-xl font-bold text-gray-900 mb-4">Hızlı Çözüm</h3>
-          <p class="text-gray-600">
-            Sorunlarınıza en kısa sürede profesyonel çözümler üretiyoruz.
-          </p>
-        </div>
-
-        <div class="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transition-shadow">
-          <div class="w-16 h-16 bg-emerald-100 rounded-full flex items-center justify-center mb-6">
-            <svg class="w-8 h-8 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
-                    d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/>
-            </svg>
-          </div>
-          <h3 class="text-xl font-bold text-gray-900 mb-4">Kaliteli Hizmet</h3>
-          <p class="text-gray-600">
-            En iyi malzemeler ve uzman ekibimizle kaliteli hizmet sunuyoruz.
-          </p>
+    <!-- Confiance -->
+    <div class="flex flex-col md:flex-row items-start gap-8">
+      <div class="md:w-1/3">
+        <div class="sticky top-24">
+          <h2 class="text-3xl font-bold text-gray-900 mb-4">Güven</h2>
+          <div class="h-1 w-12 bg-blue-800"></div>
         </div>
       </div>
+      <div class="md:w-2/3 prose prose-lg">
+        <p class="text-gray-600 leading-relaxed">
+          Müşterilerimizle kurduğumuz güven ilişkisi, işimizin temelidir. Şeffaf fiyatlandırma politikamız, detaylı iş planlarımız ve profesyonel yaklaşımımızla, müşterilerimize her adımda güven veriyoruz. İşimizi söz verdiğimiz zamanda ve bütçede tamamlamayı ilke ediniyoruz.
+        </p>
+      </div>
+    </div>
+
+    <!-- Rapidité -->
+    <div class="flex flex-col md:flex-row items-start gap-8">
+      <div class="md:w-1/3">
+        <div class="sticky top-24">
+          <h2 class="text-3xl font-bold text-gray-900 mb-4">Hız</h2>
+          <div class="h-1 w-12 bg-amber-600"></div>
+        </div>
+      </div>
+      <div class="md:w-2/3 prose prose-lg">
+        <p class="text-gray-600 leading-relaxed">
+          Acil durumların önemini biliyoruz. 7/24 hizmet anlayışımızla, İstanbul'un her noktasına en kısa sürede ulaşıyor ve sorununuzu çözüyoruz. Hızlı olmak kadar, işi doğru yapmak da önemlidir. Bu nedenle, hız ve kaliteyi bir arada sunuyoruz.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Call to Action -->
+  <div class="max-w-4xl mx-auto mt-24 text-center">
+    <h2 class="text-3xl font-bold text-gray-900 mb-8">Profesyonel Hizmet İçin Bizi Arayın</h2>
+    <div class="flex flex-col sm:flex-row justify-center gap-4">
+      <a href="tel:+905555555555" 
+         class="inline-flex items-center justify-center px-6 py-3 border border-transparent text-lg font-medium rounded-lg text-white bg-gray-600 hover:bg-gray-700 transition-colors">
+        <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
+        </svg>
+        7/24 Acil Servis
+      </a>
     </div>
   </div>
 </div>

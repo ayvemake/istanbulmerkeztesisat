@@ -12,6 +12,9 @@ class ServicesController < ApplicationController
     
     # Ordonner les services
     @services = @services.order(featured: :desc, created_at: :desc)
+
+    @tesisat_services = Service.where(category: 'tesisat')
+    @boya_services = Service.where(category: 'boya')
   end
 
   def tesisat_services

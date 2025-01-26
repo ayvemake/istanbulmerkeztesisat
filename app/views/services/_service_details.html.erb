@@ -28,7 +28,7 @@
       <% service.service_advantages.each do |advantage| %>
         <div class="flex items-start space-x-3">
           <div class="flex-shrink-0">
-            <svg class="h-6 w-6 text-emerald-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <svg class="h-6 w-6 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
             </svg>
           </div>
@@ -43,7 +43,7 @@
     <!-- Actions -->
     <div class="flex justify-end space-x-4 mt-6">
       <%= link_to new_customer_inquiry_path(service: service.name), 
-          class: "inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-emerald-600 hover:bg-emerald-700" do %>
+          class: "inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700" do %>
         Teklif Al
       <% end %>
     </div>
