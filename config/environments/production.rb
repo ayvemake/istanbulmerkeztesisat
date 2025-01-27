@@ -80,4 +80,9 @@ Rails.application.configure do
 
   config.action_mailer.default_url_options = { host: 'istanbultesisat.com' }
 
+  config.action_controller.asset_host = 'https://your-cdn.com'
+  config.public_file_server.headers = {
+    'Cache-Control' => 'public, max-age=31536000'
+  }
+
 end

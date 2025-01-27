@@ -24,8 +24,25 @@ module ServicesHelper
     if service.image.attached?
       service.image
     else
-      # Image par défaut basée sur la catégorie
-      service.category == 'tesisat' ? 'services/sanitary1.webp' : 'services/paint1.webp'
+      case service.category
+      when 'tesisat'
+        'sanitary/general/general1.webp'
+      when 'boya'
+        'paint/renovate/renovate1.webp'
+      end
+    end
+  end
+
+  def service_gallery_images(service)
+    if service.gallery_images.attached?
+      service.gallery_images
+    else
+      case service.category
+      when 'tesisat'
+        ['sanitary/general/general1.webp', 'sanitary/general/general2.webp', 'sanitary/general/general3.webp']
+      when 'boya'
+        ['paint/renovate/renovate1.webp', 'paint/renovate/renovate2.webp', 'paint/renovate/renovate3.webp']
+      end
     end
   end
 

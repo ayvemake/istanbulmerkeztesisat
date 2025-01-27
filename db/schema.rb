@@ -91,6 +91,18 @@ ActiveRecord::Schema[7.1].define(version: 2025_01_26_220823) do
     t.index ["featured"], name: "index_services_on_featured"
   end
 
+  create_table "thermal_images", force: :cascade do |t|
+    t.string "title", null: false
+    t.text "description"
+    t.string "image_url"
+    t.boolean "featured", default: false
+    t.integer "display_order", default: 0
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["display_order"], name: "index_thermal_images_on_display_order"
+    t.index ["featured"], name: "index_thermal_images_on_featured"
+  end
+
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "service_advantages", "services"

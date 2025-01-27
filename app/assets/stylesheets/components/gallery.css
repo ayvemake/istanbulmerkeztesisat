@@ -1,0 +1,24 @@
+.gallery-item {
+  @apply transition-transform duration-300;
+}
+
+.gallery-item:hover {
+  @apply -translate-y-1;
+}
+
+.gallery-filter {
+  @apply transition-colors duration-200;
+}
+
+/* PhotoSwipe customization */
+.pswp__bg {
+  @apply bg-black/95;
+}
+
+.pswp__button {
+  @apply bg-white/10 hover:bg-white/20 transition-colors;
+}
+
+.pswp__caption__center {
+  @apply text-center text-lg;
+} 

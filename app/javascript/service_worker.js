@@ -1,5 +1,5 @@
 const CACHE_VERSION = 'v1';
-const CACHE_NAME = `istanbul-tesisat-${CACHE_VERSION}`;
+const CACHE_NAME = `my-site-cache-${CACHE_VERSION}`;
 
 self.addEventListener('install', event => {
   event.waitUntil(

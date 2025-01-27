@@ -1,10 +1,6 @@
 <!DOCTYPE html>
 <html lang="tr">
   <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Modern Layout with Tailwind CSS</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title><%= meta_title %></title>
@@ -32,9 +28,23 @@
     <%= javascript_importmap_tags %>
     <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
     <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+
+    <link rel="preload" href="<%= asset_path('sanitary/general/general1.webp') %>" as="image">
+    <link rel="preload" href="<%= asset_path('sanitary/thermal/thermal1.webp') %>" as="image">
+    <link rel="preload" href="<%= asset_path('sanitary/unblock/unblock1.webp') %>" as="image">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+
+    <!-- PhotoSwipe CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/5.3.7/photoswipe.min.css">
+
+    <!-- Preload des fonts -->
+    <link rel="preload" href="/fonts/your-font.woff2" as="font" type="font/woff2" crossorigin>
+    
+    <!-- Preload des images critiques -->
+    <!-- Preconnect aux origines externes -->
   </head>
 
-  <body class="bg-amber-50/10 text-gray-900 font-sans antialiased">
+  <body class="<%= yield :body_class %>">
     <div id="notifications" class="fixed top-4 right-4 z-50 space-y-2"></div>
     
     <div class="w-full">
@@ -49,6 +59,7 @@
       <%= render 'shared/whatsapp_widget' %>
     </div>
     <%= yield :scripts %>
+    <%= yield :styles %>
 
     <!-- Root element of PhotoSwipe -->
     <div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
@@ -435,5 +446,9 @@
         });
       });
     </script>
+
+    <!-- PhotoSwipe JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/5.3.7/photoswipe.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/5.3.7/photoswipe-lightbox.min.js"></script>
   </body>
 </html>

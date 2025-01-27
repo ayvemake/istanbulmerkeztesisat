@@ -1,0 +1,341 @@
+<% cache ['tesisat_section', ThermalImage.maximum(:updated_at)] do %>
+  <section class="py-8 md:py-16 bg-gradient-to-b from-gray-50">
+    <div class="container mx-auto px-4 max-w-7xl">
+      <!-- En-tête de Section -->
+      <div class="text-center max-w-3xl mx-auto mb-16 md:mb-24">
+        <span class="text-gray-800 font-semibold tracking-wider uppercase bg-gray-100 px-4 py-1 rounded-full inline-block mb-4">
+          Profesyonel Tesisat Çözümleri
+        </span>
+        <h2 class="text-3xl md:text-5xl font-bold">
+          <span class="bg-gradient-to-r from-gray-900 to-gray-700 bg-clip-text text-transparent">
+            Su ve Tesisat Hizmetleri
+          </span>
+        </h2>
+      </div>
+
+      <!-- Section Générale -->
+      <div class="flex flex-col lg:flex-row gap-8 lg:gap-12 items-start max-w-6xl mx-auto mb-32">
+        <!-- Texte à gauche -->
+        <div class="w-full lg:w-5/12 lg:sticky lg:top-8">
+          <h3 class="text-2xl md:text-3xl font-bold text-gray-900 mb-4">
+            Genel Tesisat Hizmetleri
+          </h3>
+          <p class="text-gray-600 text-lg mb-8">
+            Su tesisatı, pis su gideri, lavabo ve mutfak tesisatı tamiri ve yenileme işlemleri. Profesyonel ekibimizle kaliteli ve garantili hizmet sunuyoruz.
+          </p>
+
+          <!-- Avantages -->
+          <div class="space-y-4 mb-8">
+            <div class="flex items-start gap-4 bg-white p-4 rounded-xl shadow-sm">
+              <div class="w-10 h-10 bg-gray-100 rounded-lg flex items-center justify-center flex-shrink-0">
+                <svg class="w-6 h-6 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                </svg>
+              </div>
+              <div>
+                <h4 class="font-semibold text-gray-900">Hızlı Müdahale</h4>
+                <p class="text-gray-600">7/24 acil servis hizmeti</p>
+              </div>
+            </div>
+
+            <div class="flex items-start gap-4 bg-white p-4 rounded-xl shadow-sm">
+              <div class="w-10 h-10 bg-gray-100 rounded-lg flex items-center justify-center flex-shrink-0">
+                <svg class="w-6 h-6 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
+                </svg>
+              </div>
+              <div>
+                <h4 class="font-semibold text-gray-900">Garantili İşçilik</h4>
+                <p class="text-gray-600">Tüm tesisat işlerinde garanti</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Boutons -->
+          <div class="flex flex-col sm:flex-row gap-4">
+            <a href="tel:+905555555555" 
+               class="flex-1 px-6 py-3 bg-gray-900 text-white rounded-xl text-center font-medium hover:bg-gray-800 transition-colors">
+              Hemen Arayın
+            </a>
+            <button class="flex-1 px-6 py-3 border-2 border-gray-900 text-gray-900 rounded-xl font-medium hover:bg-gray-50 transition-colors">
+              Detaylı Bilgi
+            </button>
+          </div>
+        </div>
+
+        <!-- Images à droite - Tailles réduites -->
+        <div class="w-full lg:w-7/12">
+          <!-- Desktop Grid -->
+          <div class="hidden lg:grid grid-cols-4 gap-4 max-w-3xl mx-auto">
+            <div class="col-span-2 row-span-2 aspect-square relative rounded-xl overflow-hidden group">
+              <%= image_tag "sanitary/general/general1.webp",
+                  class: "w-full h-full object-cover transition-transform duration-500 group-hover:scale-105",
+                  alt: "Tesisat Tamiri",
+                  loading: "lazy" %>
+              <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                <div class="absolute bottom-4 left-4">
+                  <p class="text-white font-medium">Tesisat Tamiri</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-span-2 aspect-[4/3] relative rounded-xl overflow-hidden group">
+              <%= image_tag "sanitary/general/general2.webp",
+                  class: "w-full h-full object-cover transition-transform duration-500 group-hover:scale-105",
+                  alt: "Lavabo Montajı",
+                  loading: "lazy" %>
+              <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                <div class="absolute bottom-4 left-4">
+                  <p class="text-white font-medium">Lavabo Montajı</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-span-2 aspect-[4/3] relative rounded-xl overflow-hidden group">
+              <%= image_tag "sanitary/general/general3.webp",
+                  class: "w-full h-full object-cover transition-transform duration-500 group-hover:scale-105",
+                  alt: "Tesisat Bakımı",
+                  loading: "lazy" %>
+              <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                <div class="absolute bottom-4 left-4">
+                  <p class="text-white font-medium">Tesisat Bakımı</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Mobile Carousel -->
+          <div class="block lg:hidden">
+            <%= render 'shared/image_carousel', images: [
+              { url: "sanitary/general/general1.webp", title: "Tesisat Tamiri" },
+              { url: "sanitary/general/general2.webp", title: "Lavabo Montajı" },
+              { url: "sanitary/general/general3.webp", title: "Tesisat Bakımı" }
+            ] %>
+          </div>
+        </div>
+      </div>
+
+      <!-- Séparateur visuel -->
+      <div class="w-full max-w-2xl mx-auto border-t border-gray-200 mb-32"></div>
+
+      <!-- Section Thermique -->
+      <div class="flex flex-col lg:flex-row-reverse gap-8 lg:gap-12 items-start max-w-6xl mx-auto">
+        <!-- Texte à droite -->
+        <div class="w-full lg:w-5/12 lg:sticky lg:top-8">
+          <span class="text-gray-800 font-semibold tracking-wider uppercase bg-gray-100 px-4 py-1 rounded-full inline-block mb-6">
+            Termal Kamera
+          </span>
+          <h3 class="text-2xl md:text-3xl font-bold text-gray-900 mb-4">
+            Kameralı Su Kaçağı Tespiti
+          </h3>
+          <p class="text-gray-600 text-lg mb-8">
+            Termal kamera ve akustik dinleme cihazları ile noktasal tespit, kırmadan dökmeden çözüm. Son teknoloji cihazlarla hassas tespit.
+          </p>
+
+          <!-- Avantages -->
+          <div class="space-y-4 mb-8">
+            <div class="flex items-start gap-4 bg-white p-4 rounded-xl shadow-sm">
+              <div class="w-10 h-10 bg-gray-100 rounded-lg flex items-center justify-center flex-shrink-0">
+                <svg class="w-6 h-6 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z"/>
+                </svg>
+              </div>
+              <div>
+                <h4 class="font-semibold text-gray-900">Termal Kamera</h4>
+                <p class="text-gray-600">Son teknoloji cihazlarla tespit</p>
+              </div>
+            </div>
+
+            <div class="flex items-start gap-4 bg-white p-4 rounded-xl shadow-sm">
+              <div class="w-10 h-10 bg-gray-100 rounded-lg flex items-center justify-center flex-shrink-0">
+                <svg class="w-6 h-6 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 10l-2 1m0 0l-2-1m2 1v2.5M20 7l-2 1m2-1l-2-1m2 1v2.5M14 4l-2-1-2 1M4 7l2-1M4 7l2 1M4 7v2.5M12 21l-2-1m2 1l2-1m-2 1v-2.5M6 18l-2-1v-2.5M18 18l2-1v-2.5"/>
+                </svg>
+              </div>
+              <div>
+                <h4 class="font-semibold text-gray-900">Kırmadan Tespit</h4>
+                <p class="text-gray-600">Duvarlara zarar vermeden tespit</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Boutons -->
+          <div class="flex flex-col sm:flex-row gap-4">
+            <a href="tel:+905555555555" 
+               class="flex-1 px-6 py-3 bg-gray-900 text-white rounded-xl text-center font-medium hover:bg-gray-800 transition-colors">
+              Hemen Arayın
+            </a>
+            <button class="flex-1 px-6 py-3 border-2 border-gray-900 text-gray-900 rounded-xl font-medium hover:bg-gray-50 transition-colors">
+              Detaylı Bilgi
+            </button>
+          </div>
+        </div>
+
+        <!-- Images à gauche - Tailles réduites -->
+        <div class="w-full lg:w-7/12">
+          <!-- Desktop Grid -->
+          <% thermal_images = ThermalImage.ordered.to_a %>
+          
+          <div class="hidden lg:grid grid-cols-3 gap-4 max-w-3xl mx-auto">
+            <% if thermal_images.any? %>
+              <!-- Premier image -->
+              <div class="col-span-2 aspect-video relative rounded-xl overflow-hidden group">
+                <%= image_tag asset_path(thermal_images[0].image_url),
+                    class: "w-full h-full object-cover transition-transform duration-500 group-hover:scale-105",
+                    alt: thermal_images[0].title,
+                    loading: "lazy" %>
+                <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                  <div class="absolute bottom-4 left-4">
+                    <p class="text-white font-medium"><%= thermal_images[0].title %></p>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Deuxième image -->
+              <div class="aspect-square relative rounded-xl overflow-hidden group">
+                <%= image_tag asset_path(thermal_images[1].image_url),
+                    class: "w-full h-full object-cover transition-transform duration-500 group-hover:scale-105",
+                    alt: thermal_images[1].title,
+                    loading: "lazy" %>
+                <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                  <div class="absolute bottom-4 left-4">
+                    <p class="text-white font-medium"><%= thermal_images[1].title %></p>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Troisième image -->
+              <div class="col-span-3 aspect-[21/9] relative rounded-xl overflow-hidden group">
+                <%= image_tag asset_path(thermal_images[2].image_url),
+                    class: "w-full h-full object-cover transition-transform duration-500 group-hover:scale-105",
+                    alt: thermal_images[2].title,
+                    loading: "lazy" %>
+                <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                  <div class="absolute bottom-4 left-4">
+                    <p class="text-white font-medium"><%= thermal_images[2].title %></p>
+                  </div>
+                </div>
+              </div>
+            <% else %>
+              <!-- Fallback content -->
+              <div class="col-span-3 aspect-video bg-gray-100 rounded-xl animate-pulse"></div>
+            <% end %>
+          </div>
+
+          <!-- Mobile Carousel -->
+          <div class="block lg:hidden">
+            <%= render 'shared/image_carousel', images: thermal_images %>
+          </div>
+        </div>
+      </div>
+
+      <!-- Séparateur visuel -->
+      <div class="w-full max-w-2xl mx-auto border-t border-gray-200 my-32"></div>
+
+      <!-- Section Débouchage -->
+      <div class="flex flex-col lg:flex-row gap-8 lg:gap-12 items-start max-w-6xl mx-auto">
+        <!-- Texte à gauche -->
+        <div class="w-full lg:w-5/12 lg:sticky lg:top-8">
+          <span class="text-gray-800 font-semibold tracking-wider uppercase bg-gray-100 px-4 py-1 rounded-full inline-block mb-6">
+            Robotlu Çözümler
+          </span>
+          <h3 class="text-2xl md:text-3xl font-bold text-gray-900 mb-4">
+            Tıkanıklık Açma Servisi
+          </h3>
+          <p class="text-gray-600 text-lg mb-8">
+            Robotlu ve kameralı tıkanıklık açma, gider açma ve kanal temizleme hizmetleri. Modern cihazlarla garantili çözüm.
+          </p>
+
+          <!-- Avantages -->
+          <div class="space-y-4 mb-8">
+            <div class="flex items-start gap-4 bg-white p-4 rounded-xl shadow-sm">
+              <div class="w-10 h-10 bg-gray-100 rounded-lg flex items-center justify-center flex-shrink-0">
+                <svg class="w-6 h-6 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z"/>
+                </svg>
+              </div>
+              <div>
+                <h4 class="font-semibold text-gray-900">Robotlu Açma</h4>
+                <p class="text-gray-600">Modern cihazlarla tıkanıklık açma</p>
+              </div>
+            </div>
+
+            <div class="flex items-start gap-4 bg-white p-4 rounded-xl shadow-sm">
+              <div class="w-10 h-10 bg-gray-100 rounded-lg flex items-center justify-center flex-shrink-0">
+                <svg class="w-6 h-6 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l-4 4l-2-2m6 0l4 4m0-12L15 6m0 0l-4-4m4 4l4-4"/>
+                </svg>
+              </div>
+              <div>
+                <h4 class="font-semibold text-gray-900">Kameralı Tespit</h4>
+                <p class="text-gray-600">Görüntülü tespit ve müdahale</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Boutons -->
+          <div class="flex flex-col sm:flex-row gap-4">
+            <a href="tel:+905555555555" 
+               class="flex-1 px-6 py-3 bg-gray-900 text-white rounded-xl text-center font-medium hover:bg-gray-800 transition-colors">
+              Hemen Arayın
+            </a>
+            <button class="flex-1 px-6 py-3 border-2 border-gray-900 text-gray-900 rounded-xl font-medium hover:bg-gray-50 transition-colors">
+              Detaylı Bilgi
+            </button>
+          </div>
+        </div>
+
+        <!-- Images à droite -->
+        <div class="w-full lg:w-7/12">
+          <!-- Desktop Grid -->
+          <div class="hidden lg:grid grid-cols-4 gap-4 max-w-3xl mx-auto">
+            <div class="col-span-2 row-span-2 aspect-square relative rounded-xl overflow-hidden group">
+              <%= image_tag "sanitary/unblock/unblock1.webp",
+                  class: "w-full h-full object-cover transition-transform duration-500 group-hover:scale-105",
+                  alt: "Robotlu Tıkanıklık Açma",
+                  loading: "lazy" %>
+              <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                <div class="absolute bottom-4 left-4">
+                  <p class="text-white font-medium">Robotlu Tıkanıklık Açma</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-span-2 aspect-[4/3] relative rounded-xl overflow-hidden group">
+              <%= image_tag "sanitary/unblock/unblock2.webp",
+                  class: "w-full h-full object-cover transition-transform duration-500 group-hover:scale-105",
+                  alt: "Kameralı Görüntüleme",
+                  loading: "lazy" %>
+              <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                <div class="absolute bottom-4 left-4">
+                  <p class="text-white font-medium">Kameralı Görüntüleme</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-span-2 aspect-[4/3] relative rounded-xl overflow-hidden group">
+              <%= image_tag "sanitary/unblock/unblock3.webp",
+                  class: "w-full h-full object-cover transition-transform duration-500 group-hover:scale-105",
+                  alt: "Gider Temizleme",
+                  loading: "lazy" %>
+              <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                <div class="absolute bottom-4 left-4">
+                  <p class="text-white font-medium">Gider Temizleme</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Mobile Carousel -->
+          <div class="block lg:hidden">
+            <%= render 'shared/image_carousel', images: [
+              { url: "sanitary/unblock/unblock1.webp", title: "Robotlu Tıkanıklık Açma" },
+              { url: "sanitary/unblock/unblock2.webp", title: "Kameralı Görüntüleme" },
+              { url: "sanitary/unblock/unblock3.webp", title: "Gider Temizleme" }
+            ] %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+<% end %> 

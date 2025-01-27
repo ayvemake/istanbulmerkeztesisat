@@ -1,0 +1,22 @@
+<div id="service-modal" class="fixed inset-0 bg-black/50 flex items-center justify-center hidden z-50">
+  <div id="modal-content" class="bg-white w-full max-w-4xl max-h-[90vh] overflow-y-auto rounded-xl relative">
+    <!-- Le contenu sera injecté par JavaScript -->
+  </div>
+</div>
+
+<%= content_for :scripts do %>
+  <script>
+    let currentImageIndex = 0;
+    let modalImages = null;
+
+    function showServiceDetails(name, description, type) {
+      // ... code JavaScript existant ...
+    }
+
+    function closeModal() {
+      const modal = document.getElementById('service-modal');
+      modal.classList.add('hidden');
+      document.body.style.overflow = '';
+    }
+  </script>
+<% end %> 

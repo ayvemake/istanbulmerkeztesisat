@@ -212,5 +212,31 @@ CustomerInquiry.create!([
   }
 ])
 
-puts "Created #{CustomerInquiry.count} customer inquiries" 
+puts "Created #{CustomerInquiry.count} customer inquiries"
+
+puts "Creating thermal images..."
+ThermalImage.create!([
+  {
+    title: 'Termal Kamera ile Su Kaçağı Tespiti',
+    description: 'Duvar içindeki su kaçağının termal kamera ile tespiti',
+    image_url: 'sanitary/thermal/thermal1.webp',
+    featured: true,
+    display_order: 1
+  },
+  {
+    title: 'Hassas Kaçak Tespiti',
+    description: 'Milimetrik hassasiyette su kaçağı tespiti',
+    image_url: 'sanitary/thermal/thermal2.webp',
+    featured: true,
+    display_order: 2
+  },
+  {
+    title: 'Noktasal Tespit',
+    description: 'Su kaçağının tam yerinin belirlenmesi',
+    image_url: 'sanitary/thermal/thermal3.webp',
+    featured: false,
+    display_order: 3
+  }
+])
+puts "Created #{ThermalImage.count} thermal images" 
 

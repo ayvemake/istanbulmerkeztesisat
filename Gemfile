@@ -6,6 +6,7 @@ ruby '3.2.2'
 # Rails et dépendances de base
 gem "rails", "~> 7.1.0"  # Version spécifique
 gem "puma", ">= 5.0"
+gem "sqlite3"  # On garde SQLite pour tous les environnements
 
 # Environment variables
 gem 'dotenv-rails'
@@ -58,3 +59,5 @@ gem 'sitemap_generator'
 
 gem 'rest-client'  # Pour les appels API
 gem 'json'         # Pour parser les réponses
+
+gem 'rack-brotli'

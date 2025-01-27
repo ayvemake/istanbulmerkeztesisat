@@ -25,7 +25,7 @@ module ServiceWeb
     # Configuration du fuseau horaire
     config.time_zone = 'Istanbul'
     
-    # Ajoutez cette ligne
+    # Configuration des assets
     config.assets.paths << Rails.root.join("app", "assets", "images")
     config.assets.paths << Rails.root.join("app", "assets", "images", "services")
     
@@ -39,5 +39,11 @@ module ServiceWeb
     
     # Configuration des assets
     config.assets.precompile += %w( *.jpg )
+    
+    # Utilisation de la compression gzip
+    config.middleware.use Rack::Deflater
+    config.middleware.use Rack::Brotli if defined?(Rack::Brotli)
+
+    config.assets.compile = true if Rails.env.development?
   end
 end

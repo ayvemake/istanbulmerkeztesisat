@@ -2,21 +2,35 @@ function showHomeService(name, description, type) {
   const modal = document.getElementById('home-modal');
   const serviceUrl = type === 'tesisat' ? '/hizmetler?category=tesisat' : '/hizmetler?category=boya';
   
+  const getServiceImages = (type) => {
+    if (type === 'tesisat') {
+      return [
+        '/assets/sanitary/general/general1.webp',
+        '/assets/sanitary/general/general2.webp',
+        '/assets/sanitary/general/general3.webp'
+      ];
+    } else {
+      return [
+        '/assets/paint/renovate/renovate1.webp',
+        '/assets/paint/renovate/renovate2.webp',
+        '/assets/paint/renovate/renovate3.webp'
+      ];
+    }
+  };
+
+  const images = getServiceImages(type);
+  
   const content = `
     <div class="inline-block w-full max-w-4xl bg-white rounded-2xl shadow-xl transform transition-all">
       <!-- Header avec Slider -->
       <div class="relative h-72">
         <div class="swiper-container h-full">
           <div class="swiper-wrapper">
-            ${type === 'tesisat' ? `
-              <div class="swiper-slide"><img src="/assets/services/sanitary1.webp" class="w-full h-full object-cover" alt="Tesisat 1"></div>
-              <div class="swiper-slide"><img src="/assets/services/sanitary2.webp" class="w-full h-full object-cover" alt="Tesisat 2"></div>
-              <div class="swiper-slide"><img src="/assets/services/sanitary3.webp" class="w-full h-full object-cover" alt="Tesisat 3"></div>
-            ` : `
-              <div class="swiper-slide"><img src="/assets/services/paint1.webp" class="w-full h-full object-cover" alt="Boya 1"></div>
-              <div class="swiper-slide"><img src="/assets/services/paint2.webp" class="w-full h-full object-cover" alt="Boya 2"></div>
-              <div class="swiper-slide"><img src="/assets/services/paint3.webp" class="w-full h-full object-cover" alt="Boya 3"></div>
-            `}
+            ${images.map(img => `
+              <div class="swiper-slide">
+                <img src="${img}" class="w-full h-full object-cover" alt="${name}">
+              </div>
+            `).join('')}
           </div>
           <div class="swiper-pagination"></div>
           <div class="swiper-button-next"></div>

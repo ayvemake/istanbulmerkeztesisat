@@ -1,64 +1,60 @@
 import { Controller } from "@hotwired/stimulus"
 import PhotoSwipe from 'photoswipe'
 import PhotoSwipeUI_Default from 'photoswipe/dist/photoswipe-ui-default'
+import PhotoSwipeLightbox from 'photoswipe/dist/photoswipe-lightbox'
 
 export default class extends Controller {
-  static values = {
-    images: Array
-  }
-
-  static targets = ["mainImage", "thumbnail"]
+  static targets = ["image"]
 
   connect() {
-    this.initPhotoSwipe()
+    this.initializeLightbox()
   }
 
-  showImage(event) {
-    event.preventDefault()
-    const clickedImage = event.currentTarget
-    const index = this.thumbnailTargets.indexOf(clickedImage)
-    
-    // Mettre à jour l'image principale
-    this.mainImageTarget.src = this.imagesValue[index].large
-    
-    // Ouvrir PhotoSwipe si cliqué sur l'image principale
-    if (clickedImage === this.mainImageTarget) {
-      this.openPhotoSwipe(index)
-    }
+  initializeLightbox() {
+    const lightbox = new PhotoSwipeLightbox({
+      gallery: '.gallery-grid',
+      children: 'a',
+      pswpModule: PhotoSwipeLightbox
+    })
   }
 
-  initPhotoSwipe() {
-    const pswpElement = document.querySelector('.pswp')
-    
-    const items = this.imagesValue.map(image => ({
-      src: image.large,
-      w: image.width,
-      h: image.height,
-      msrc: image.thumbnail
+  openLightbox(event) {
+    const image = event.currentTarget
+    const fullSizeUrl = image.dataset.full
+    const items = this.imageTargets.map(img => ({
+      src: img.dataset.full,
+      w: 1200,
+      h: 800
     }))
-
+    
     const options = {
-      index: 0,
+      index: this.imageTargets.indexOf(image),
       history: false,
-      focus: false,
-      showAnimationDuration: 250,
-      hideAnimationDuration: 250,
-      shareEl: false,
-      closeOnScroll: false
+      bgOpacity: 0.9,
+      showHideOpacity: true
     }
 
-    this.gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, options)
+    this.lightbox.open(items, options)
   }
 
-  openPhotoSwipe(index = 0) {
-    this.gallery.options.index = index
-    this.gallery.init()
-  }
+  filterGallery(event) {
+    const category = event.currentTarget.dataset.category
+    const items = document.querySelectorAll('.gallery-item')
+    
+    items.forEach(item => {
+      if (category === 'all' || item.dataset.category === category) {
+        item.classList.remove('hidden')
+      } else {
+        item.classList.add('hidden')
+      }
+    })
 
-  disconnect() {
-    if (this.gallery) {
-      this.gallery.close()
-      this.gallery = null
-    }
+    // Update active filter
+    document.querySelectorAll('.gallery-filter').forEach(btn => {
+      btn.classList.remove('bg-blue-800', 'text-white')
+      btn.classList.add('text-gray-700', 'hover:bg-blue-50')
+    })
+    event.currentTarget.classList.add('bg-blue-800', 'text-white')
+    event.currentTarget.classList.remove('text-gray-700', 'hover:bg-blue-50')
   }
 } 

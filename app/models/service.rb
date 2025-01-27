@@ -6,15 +6,16 @@ class Service < ApplicationRecord
   has_many :service_advantages, dependent: :destroy
   accepts_nested_attributes_for :service_advantages, allow_destroy: true
 
-  validates :name, :description, :category, presence: true
+  validates :name, presence: true
+  validates :category, presence: true
+  validates :description, presence: true
   validates :category, inclusion: { in: CATEGORIES }
-  validates :gallery_images, presence: true, if: :published?
   
   EXCLUDED_SERVICES = ['Kalorifer Tesisatı', 'Doğalgaz Tesisatı', 'Ahşap Boyama'].freeze
 
   scope :active, -> { where(active: true) }
   scope :featured, -> { where(featured: true) }
-  scope :by_category, ->(category) { where(category: category) if category.present? }
+  scope :by_category, ->(category) { where(category: category) }
   scope :tesisat, -> { 
     where(category: 'tesisat')
     .where.not(name: EXCLUDED_SERVICES)
@@ -75,20 +76,43 @@ class Service < ApplicationRecord
     end
   end
 
-  def gallery_images_or_default
+  def display_images
     if gallery_images.attached?
       gallery_images
     else
       case category
       when 'tesisat'
-        ['services/sanitary1.webp', 'services/sanitary2.webp', 'services/sanitary3.webp']
+        [
+          'sanitary/general/general1.webp',
+          'sanitary/general/general2.webp',
+          'sanitary/general/general3.webp'
+        ]
       when 'boya'
-        ['services/paint1.webp', 'services/paint2.webp', 'services/paint3.webp']
+        [
+          'paint/renovate/renovate1.webp',
+          'paint/renovate/renovate2.webp',
+          'paint/renovate/renovate3.webp'
+        ]
+      else
+        ['default-service.webp']
       end
     end
   end
 
-  def display_images
-    gallery_images_or_default
+  def first_image
+    if image.attached?
+      image
+    elsif gallery_images.attached?
+      gallery_images.first
+    else
+      case category
+      when 'tesisat'
+        'sanitary/general/general1.webp'
+      when 'boya'
+        'paint/renovate/renovate1.webp'
+      else
+        'default-service.webp'
+      end
+    end
   end
 end 

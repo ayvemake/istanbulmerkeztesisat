@@ -1,50 +1,64 @@
 namespace :images do
-  desc "Optimize images for web"
+  desc "Optimize and organize service images"
   task optimize: :environment do
     require 'mini_magick'
 
-    source_dir = Rails.root.join('app/assets/images/services')
-    Dir.mkdir(source_dir) unless Dir.exist?(source_dir)
-    
-    Dir.glob("#{source_dir}/*.{png,jpg,jpeg}").each do |image_path|
+    SERVICES = {
+      'sanitary' => {
+        'general' => ['general1.webp', 'general2.webp', 'general3.webp', 'general4.webp'],
+        'thermal' => ['thermal1.webp', 'thermal2.webp', 'thermal3.webp', 'thermal4.webp', 'thermal5.webp'],
+        'unblock' => ['unblock1.webp', 'unblock2.webp', 'unblock3.webp', 'unblock4.webp']
+      },
+      'paint' => {
+        'renovate' => ['renovate1.webp', 'renovate2.webp', 'renovate3.webp', 'renovate4.webp', 
+                       'renovate5.webp', 'renovate6.webp']
+      }
+    }
+
+    def optimize_image(input_path, output_path)
+      return if File.exist?(output_path)
+      
       begin
-        original = MiniMagick::Image.open(image_path)
-        filename = File.basename(image_path, ".*")
+        image = MiniMagick::Image.open(input_path)
         
-        # Créer le dossier de destination s'il n'existe pas
-        FileUtils.mkdir_p(source_dir)
-
-        # Version mobile très optimisée
-        puts "Optimizing mobile version of #{filename}..."
-        mobile = original.dup
-        mobile.resize "640x360>" # 16:9 ratio
-        mobile.quality "60"
-        mobile.strip
-        mobile.format "webp" do |cmd|
-          cmd.auto_orient
-          cmd.sampling_factor "4:2:0"
-          cmd.interlace "Plane"
-          cmd.gaussian_blur "0.05"
-        end
-        mobile.write("#{source_dir}/#{filename}_mobile.webp")
-
-        # Version desktop optimisée
-        puts "Optimizing desktop version of #{filename}..."
-        desktop = original.dup
-        desktop.resize "1024x576>" # 16:9 ratio
-        desktop.quality "75"
-        desktop.strip
-        desktop.format "webp" do |cmd|
-          cmd.auto_orient
-          cmd.sampling_factor "4:2:0"
-          cmd.interlace "Plane"
-        end
-        desktop.write("#{source_dir}/#{filename}.webp")
-
-        puts "Successfully optimized #{filename}"
+        # Optimisation de l'image
+        image.resize '1200x800>' # Redimensionne si plus grand
+        image.quality 85        # Qualité de compression
+        image.format 'webp'     # Conversion en WebP
+        
+        # Créer le dossier de destination si nécessaire
+        FileUtils.mkdir_p(File.dirname(output_path))
+        
+        image.write output_path
+        puts "✓ Optimized: #{File.basename(output_path)}"
       rescue => e
-        puts "Error processing #{image_path}: #{e.message}"
+        puts "✗ Error processing #{File.basename(input_path)}: #{e.message}"
       end
     end
+
+    # Parcourir la structure des services
+    SERVICES.each do |category, services|
+      services.each do |service_type, filenames|
+        source_dir = Rails.root.join('app', 'assets', 'images', 'original', category, service_type)
+        target_dir = Rails.root.join('app', 'assets', 'images', category, service_type)
+        
+        # Créer les dossiers nécessaires
+        FileUtils.mkdir_p(target_dir)
+        
+        # Traiter chaque image du dossier source
+        Dir.glob("#{source_dir}/*").each_with_index do |file, index|
+          next if File.directory?(file)
+          
+          output_filename = filenames[index] || "#{service_type}#{index + 1}.webp"
+          output_path = File.join(target_dir, output_filename)
+          
+          optimize_image(file, output_path)
+        end
+      end
+    end
+
+    puts "\nImage optimization completed!"
+    puts "\nStructure des dossiers créée :"
+    system("tree app/assets/images/sanitary app/assets/images/paint")
   end
 end 

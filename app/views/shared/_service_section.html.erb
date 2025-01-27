@@ -1,0 +1,29 @@
+<% cache [title, services.map(&:cache_key_with_version), images] do %>
+  <div class="mb-24">
+    <div class="text-center mb-16">
+      <h2 class="text-4xl lg:text-5xl font-bold">
+        <span class="bg-gradient-to-r from-<%= color %>-700 to-<%= color %>-500 bg-clip-text text-transparent">
+          <%= title %>
+        </span>
+      </h2>
+      <div class="mt-4 w-24 h-1 bg-gradient-to-r from-<%= color %>-700 to-<%= color %>-500 mx-auto rounded-full"></div>
+    </div>
+
+    <div class="flex flex-col lg:flex-row items-start gap-12">
+      <%= render partial: 'shared/image_grid',
+          locals: {
+            images: images,
+            alt_text: title
+          } %>
+      
+      <!-- Text Content -->
+      <div class="lg:w-1/2">
+        <div class="space-y-6">
+          <% services.each do |service| %>
+            <%= render 'shared/service_item', service: service, type: service.category %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %> 
