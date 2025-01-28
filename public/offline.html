@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Çevrimdışı - Offline</title>
+  <style>
+    body {
+      font-family: system-ui, -apple-system, sans-serif;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      margin: 0;
+      background-color: #f3f4f6;
+    }
+    .container {
+      text-align: center;
+      padding: 2rem;
+    }
+    h1 {
+      color: #374151;
+      font-size: 1.875rem;
+      margin-bottom: 1rem;
+    }
+    p {
+      color: #6b7280;
+      margin-bottom: 1.5rem;
+    }
+    button {
+      background-color: #10b981;
+      color: white;
+      padding: 0.75rem 1.5rem;
+      border-radius: 0.5rem;
+      border: none;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #059669;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>İnternet Bağlantısı Yok</h1>
+    <p>Lütfen internet bağlantınızı kontrol edin ve tekrar deneyin.</p>
+    <button onclick="window.location.reload()">Yenile</button>
+  </div>
+</body>
+</html> 

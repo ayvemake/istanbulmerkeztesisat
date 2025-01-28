@@ -22,26 +22,38 @@
     <link rel="canonical" href="<%= request.original_url %>" />
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-
-    <%= stylesheet_link_tag "tailwind", "inter-font", "data-turbo-track": "reload" %>
-    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
-    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
-    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
-
-    <link rel="preload" href="<%= asset_path('sanitary/general/general1.webp') %>" as="image">
-    <link rel="preload" href="<%= asset_path('sanitary/thermal/thermal1.webp') %>" as="image">
+    <%= stylesheet_link_tag "application", data: { "turbo-track": "reload" } %>
+    <%= stylesheet_link_tag "application.tailwind", data: { "turbo-track": "reload" } %>
+    <%= stylesheet_link_tag "tailwind", "inter-font", "data-turbo-track": "reload" %> 
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preload" as="image" href="<%= asset_path('sanitary/general/general1.webp') %>" type="image/webp" fetchpriority="high">
+    <link rel="preload" 
+          href="<%= asset_path('sanitary/thermal/thermal1.webp') %>" 
+          as="image"
+          type="image/webp"
+          fetchpriority="high">
     <link rel="preload" href="<%= asset_path('sanitary/unblock/unblock1.webp') %>" as="image">
     <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="manifest" href="/manifest.json">
+    <meta name="theme-color" content="#10b981">
 
-    <!-- PhotoSwipe CSS -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/5.3.7/photoswipe.min.css">
-
-    <!-- Preload des fonts -->
-    <link rel="preload" href="/fonts/your-font.woff2" as="font" type="font/woff2" crossorigin>
-    
-    <!-- Preload des images critiques -->
-    <!-- Preconnect aux origines externes -->
+    <% if Rails.env.production? %>
+      <script>
+        if ('serviceWorker' in navigator) {
+          window.addEventListener('load', () => {
+            navigator.serviceWorker.register('/service-worker.js')
+              .then(registration => {
+                console.log('ServiceWorker registered:', registration);
+              })
+              .catch(error => {
+                console.log('ServiceWorker registration failed:', error);
+              });
+          });
+        }
+      </script>
+    <% end %>
   </head>
 
   <body class="<%= yield :body_class %>">
@@ -51,8 +63,8 @@
       <%= render 'shared/navbar' %>
       
       <main class="flex-grow w-full">
-        <%= render 'shared/flash' %>
-        <%= yield %>
+        <%= yield :full_width %>
+        <%= yield :main %>
       </main>
       
       <%= render 'shared/footer' %>
@@ -99,24 +111,14 @@
     </div>
     <%= turbo_frame_tag "modal" %>
 
-    <!-- Frame pour la modale -->
-    <div id="modal-container"></div>
-    <%= turbo_frame_tag "modal" do %>
-      <%= render "shared/modal" %>
+    <%= content_tag :div, 
+        data: { controller: "home-service" },
+        class: "your-classes" do %>
+      <!-- ... votre contenu ... -->
     <% end %>
 
-    <!-- Modal containers -->
-    <div id="home-modal" class="hidden fixed inset-0 bg-black bg-opacity-50 z-50 p-4 flex items-center justify-center">
-      <!-- Modal content will be injected here -->
-    </div>
-
-    <div id="service-modal" class="hidden fixed inset-0 bg-black bg-opacity-50 z-50 overflow-y-auto">
-      <div class="flex items-center justify-center min-h-screen p-4">
-        <!-- Le contenu sera injecté ici -->
-      </div>
-    </div>
-
-    <script>
+    <%# Pour les scripts à la fin du body %>
+    <%= javascript_tag nonce: true do %>
       function showHomeService(name, description, type) {
         const modal = document.getElementById('home-modal');
         
@@ -339,12 +341,12 @@
               </button>
             </div>
           `;
-
+          
           modal.innerHTML = content;
           modal.classList.remove('hidden');
           document.body.style.overflow = 'hidden';
-
-          // Initialize Swiper with responsive options
+          
+          // Initialize Swiper
           new Swiper('.swiper-container', {
             loop: true,
             autoplay: {
@@ -375,80 +377,6 @@
           });
         }
       }
-
-      // Fonction pour la modale des services
-      function showServiceDetails(name, description, image) {
-        const modal = document.getElementById('service-modal');
-        const content = `
-          <div class="inline-block w-full max-w-4xl bg-white rounded-2xl shadow-xl transform transition-all">
-            <!-- Header -->
-            <div class="relative h-72">
-              <img src="${image}" class="w-full h-full object-cover rounded-t-2xl" alt="${name}">
-              <div class="absolute inset-0 bg-gradient-to-t from-black/75 to-transparent rounded-t-2xl"></div>
-              <div class="absolute bottom-0 left-0 p-8">
-                <h3 class="text-3xl font-bold text-white mb-2">${name}</h3>
-              </div>
-            </div>
-
-            <!-- Content -->
-            <div class="p-8">
-              <div class="prose max-w-none">
-                <p class="text-gray-600 text-lg leading-relaxed">${description}</p>
-              </div>
-
-              <!-- Actions -->
-              <div class="flex items-center justify-end space-x-4 mt-6 pt-6 border-t border-gray-200">
-                <a href="/contact/new?service=${encodeURIComponent(name)}" 
-                   class="inline-flex items-center px-6 py-3 bg-emerald-600 text-white text-lg font-medium rounded-lg hover:bg-emerald-700 transition-colors">
-                  Teklif Al
-                </a>
-                
-                <a href="tel:+905555555555" 
-                   class="inline-flex items-center px-6 py-3 border-2 border-emerald-600 text-emerald-600 text-lg font-medium rounded-lg hover:bg-emerald-50 transition-colors">
-                  Hemen Ara
-                </a>
-              </div>
-            </div>
-
-            <!-- Close Button -->
-            <button onclick="closeModal('service-modal')" class="absolute top-4 right-4 text-white hover:text-gray-200">
-              <span class="sr-only">Kapat</span>
-              <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
-              </svg>
-            </button>
-          </div>
-        `;
-
-        modal.querySelector('div').innerHTML = content;
-        modal.classList.remove('hidden');
-        document.body.style.overflow = 'hidden';
-      }
-
-      // Fonction générique pour fermer les modales
-      function closeModal(modalId) {
-        const modal = document.getElementById(modalId);
-        modal.classList.add('hidden');
-        document.body.style.overflow = '';
-      }
-
-      // Event listeners pour fermer les modales en cliquant à l'extérieur
-      document.addEventListener('DOMContentLoaded', function() {
-        ['home-modal', 'service-modal'].forEach(modalId => {
-          const modal = document.getElementById(modalId);
-          if (modal) {
-            modal.addEventListener('click', function(e) {
-              if (e.target === this) {
-                closeModal(modalId);
-              }
-            });
-          }
-        });
-      });
-    </script>
-
-    <!-- PhotoSwipe JS -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/5.3.7/photoswipe.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/5.3.7/photoswipe-lightbox.min.js"></script>
+    <% end %>
   </body>
 </html>

@@ -4,20 +4,20 @@ source "https://rubygems.org"
 ruby '3.2.2'
 
 # Rails et dépendances de base
-gem "rails", "~> 7.1.0"  # Version spécifique
+gem "rails", "~> 7.1.0"
 gem "puma", ">= 5.0"
-gem "sqlite3"  # On garde SQLite pour tous les environnements
 
-# Environment variables
-gem 'dotenv-rails'
-
+# Base de données
 group :development, :test do
-  gem "sqlite3"
+  gem "sqlite3", "~> 1.4"
 end
 
 group :production do
-  gem "pg"
+  gem "pg", "~> 1.5"  # Spécifiez une version pour PostgreSQL
 end
+
+# Environment variables
+gem 'dotenv-rails'
 
 # Gems essentiels
 gem "propshaft"
@@ -29,8 +29,8 @@ gem "tzinfo-data", platforms: %i[ windows jruby ]
 gem "bootsnap", require: false
 
 # Frontend
-gem 'tailwindcss-rails'
 gem 'hotwire-rails'
+gem "tailwindcss-rails", "~> 3.3"
 
 # Image processing
 gem 'image_processing'
@@ -40,6 +40,16 @@ gem 'mini_magick'
 gem 'devise'
 gem 'pundit'
 
+# Performance et Cache
+gem 'redis'
+gem 'hiredis'
+gem 'rack-brotli'
+
+# SEO et API
+gem 'sitemap_generator'
+gem 'rest-client'
+gem 'json'
+
 group :development, :test do
   gem 'rspec-rails'
   gem 'factory_bot_rails'
@@ -47,17 +57,13 @@ group :development, :test do
 end
 
 group :development do
+  # Outils d'analyse de code
   gem 'rubocop'
   gem 'brakeman'
   gem 'rack-mini-profiler'
+  gem 'traceroute'
+  gem 'rails_best_practices'
+  gem 'debride'           # Pour trouver le code mort
+  gem 'unused'            # Alternative à dead_code
+  gem 'code_metrics'      # Autre alternative pour l'analyse de code
 end
-
-gem 'redis'
-gem 'hiredis'
-
-gem 'sitemap_generator'
-
-gem 'rest-client'  # Pour les appels API
-gem 'json'         # Pour parser les réponses
-
-gem 'rack-brotli'

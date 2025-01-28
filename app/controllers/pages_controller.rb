@@ -183,4 +183,9 @@ class PagesController < ApplicationController
   def technical_info
     @page_title = "Teknik Bilgiler"
   end
+
+  # Ajout de l'action teknikler
+  def teknikler
+    render layout: 'application'
+  end
 end

@@ -4,23 +4,8 @@
 
 import { application } from "./application"
 
-import CarouselController from "./carousel_controller"
-application.register("carousel", CarouselController)
-
-import ContactFormController from "./contact_form_controller"
-application.register("contact-form", ContactFormController)
-
 import DropdownController from "./dropdown_controller"
 application.register("dropdown", DropdownController)
-
-import FlashController from "./flash_controller"
-application.register("flash", FlashController)
-
-import GalleryController from "./gallery_controller"
-application.register("gallery", GalleryController)
-
-import HelloController from "./hello_controller"
-application.register("hello", HelloController)
 
 import LazyImageController from "./lazy_image_controller"
 application.register("lazy-image", LazyImageController)
@@ -28,29 +13,14 @@ application.register("lazy-image", LazyImageController)
 import MobileMenuController from "./mobile_menu_controller"
 application.register("mobile-menu", MobileMenuController)
 
-import ModalController from "./modal_controller"
-application.register("modal", ModalController)
-
 import NavbarController from "./navbar_controller"
 application.register("navbar", NavbarController)
 
-import ServiceFilterController from "./service_filter_controller"
-application.register("service-filter", ServiceFilterController)
+import PhotoswipeController from "./photoswipe_controller"
+application.register("photoswipe", PhotoswipeController)
 
-import ServiceModalController from "./service_modal_controller"
-application.register("service-modal", ServiceModalController)
-
-import ServicesFilterController from "./services_filter_controller"
-application.register("services-filter", ServicesFilterController)
-
-import StickyCtaController from "./sticky_cta_controller"
-application.register("sticky-cta", StickyCtaController)
-
-import TestimonialCarouselController from "./testimonial_carousel_controller"
-application.register("testimonial-carousel", TestimonialCarouselController)
+import WaterEffectController from "./water_effect_controller"
+application.register("water-effect", WaterEffectController)
 
 import WhatsappController from "./whatsapp_controller"
 application.register("whatsapp", WhatsappController)
-
-import WorkProcessController from "./work_process_controller"
-application.register("work-process", WorkProcessController)

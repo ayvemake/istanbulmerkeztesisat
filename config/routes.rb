@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   get 'about', to: 'pages#about', as: :about
   get 'zones-intervention', to: 'pages#zones', as: :zones
   get 'teknik-bilgiler', to: 'pages#technical_info', as: :technical_info
+  get 'teknikler', to: 'pages#teknikler'
 
   # Routes pour les services
   get 'hizmetler', to: 'services#index', as: :services
@@ -20,4 +21,8 @@ Rails.application.routes.draw do
   resources :contacts, only: [:new, :create]
 
   get 'services/update_categories', to: 'services#update_categories'
+
+  # Routes PWA
+  get '/service-worker.js', to: 'pwa#service_worker'
+  get '/manifest.json', to: 'pwa#manifest'
 end

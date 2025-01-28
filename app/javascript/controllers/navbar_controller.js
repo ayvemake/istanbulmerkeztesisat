@@ -38,4 +38,22 @@ export default class extends Controller {
       ? '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />'
       : '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />'
   }
+
+  scrollToContact(event) {
+    event.preventDefault()
+    
+    // Si nous ne sommes pas sur la page d'accueil, redirigeons d'abord
+    if (window.location.pathname !== '/') {
+      window.location.href = '/#iletisim'
+      return
+    }
+    
+    const contactSection = document.getElementById('iletisim')
+    if (contactSection) {
+      contactSection.scrollIntoView({ 
+        behavior: 'smooth',
+        block: 'start'
+      })
+    }
+  }
 } 

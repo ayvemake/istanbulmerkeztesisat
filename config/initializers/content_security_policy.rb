@@ -5,11 +5,26 @@
 # https://guides.rubyonrails.org/security.html#content-security-policy-header
 
 Rails.application.config.content_security_policy do |policy|
-  policy.img_src :self, :data, :blob
-  policy.connect_src :self
-  policy.script_src :self, :unsafe_inline
-  policy.style_src :self, :unsafe_inline
+  policy.default_src :self, :https
+  policy.font_src    :self, :https, :data
+  policy.img_src     :self, :https, :data, :blob
+  policy.script_src  :self, :https, :unsafe_inline, :unsafe_eval
+  policy.style_src   :self, :https, :unsafe_inline
+  policy.connect_src :self, :https, :ws, :wss,
+                     'http://localhost:*',
+                     'ws://localhost:*'
+  policy.frame_src   :self, :https
+  policy.worker_src  :self, :blob
+
+  # Autres directives
+  policy.frame_ancestors :none
+  policy.base_uri :self
+  policy.form_action :self
 end
+
+# Désactivons temporairement les nonces pour éviter les conflits
+# Rails.application.config.content_security_policy_nonce_generator = -> request { SecureRandom.base64(16) }
+# Rails.application.config.content_security_policy_nonce_directives = %w(script-src style-src)
 
 # Rails.application.configure do
 #   config.content_security_policy do |policy|
