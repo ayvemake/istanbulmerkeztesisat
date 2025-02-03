@@ -50,20 +50,26 @@ jobs:
     - name: Generate static pages
       run: |
         RAILS_ENV=production bundle exec rails runner "
-          pages = {
-            'home' => 'index',
-            'about' => 'about',
-            'services' => 'services',
-            'contact' => 'contact',
-            'teknikler' => 'teknikler'
-          }
-          
-          pages.each do |template, output|
-            content = ApplicationController.renderer.render(
-              template: \"pages/#{template}\",
+          def render_page(template)
+            ApplicationController.renderer.new(
+              https: true,
+              http_host: 'istanbulmerkeztesisat.com'
+            ).render(
+              template: template,
               layout: 'application'
             )
-            File.write(Rails.root.join('public', \"#{output}.html\"), content)
+          end
+
+          {
+            'pages/home' => 'index',
+            'pages/about' => 'about',
+            'pages/services' => 'services',
+            'pages/contact' => 'contact',
+            'pages/teknikler' => 'teknikler'
+          }.each do |template, output|
+            puts "Generating #{output}.html from #{template}"
+            content = render_page(template)
+            File.write(Rails.root.join('public', "#{output}.html"), content)
           end
         "
       env:
@@ -73,14 +79,17 @@ jobs:
         
     - name: Copy assets and additional files
       run: |
-        cp -r public/assets public/
-        cp -r public/images public/
-        cp -r public/packs public/ || true
-        cp public/404.html public/
+        cp -r app/assets/images/* public/images/ || true
+        cp -r public/assets/* public/ || true
+        cp -r public/packs/* public/ || true
+        cp public/404.html public/ || true
         echo "istanbulmerkeztesisat.com" > public/CNAME
+        touch public/.nojekyll
         
-    - name: Create .nojekyll file
-      run: touch public/.nojekyll
+    - name: List generated files
+      run: |
+        echo "Contents of public directory:"
+        ls -la public/
         
     - name: Deploy to GitHub Pages
       uses: peaceiris/actions-gh-pages@v3
