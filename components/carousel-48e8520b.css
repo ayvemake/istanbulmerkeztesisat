@@ -1,0 +1,27 @@
+.carousel-slide {
+  @apply absolute inset-0 transition-all duration-700 ease-in-out transform;
+}
+
+.carousel-slide[data-active="true"] {
+  @apply opacity-100 translate-x-0;
+}
+
+.carousel-slide[data-active="false"] {
+  @apply opacity-0 translate-x-full;
+}
+
+.carousel-slide.prev {
+  @apply -translate-x-full;
+}
+
+.carousel-slide.next {
+  @apply translate-x-full;
+}
+
+.carousel-controls {
+  @apply absolute bottom-3 right-3 z-30 flex space-x-2;
+}
+
+.carousel-indicator {
+  @apply w-1.5 h-1.5 rounded-full transition-colors;
+} 

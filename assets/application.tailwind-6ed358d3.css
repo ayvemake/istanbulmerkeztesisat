@@ -1,0 +1,271 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer utilities {
+  .safe-top {
+    padding-top: env(safe-area-inset-top);
+  }
+  
+  .safe-bottom {
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+
+  .animate-fade-in {
+    animation: fadeIn 0.5s ease-out;
+  }
+
+  .whatsapp-sticky {
+    @apply fixed right-4 z-40 transition-all duration-300;
+  }
+
+  /* Ajustement pour les appareils mobiles */
+  @media (max-width: 640px) {
+    .whatsapp-sticky {
+      right: 1rem;
+    }
+  }
+
+  /* Ajustement pour éviter le chevauchement avec la barre de navigation iOS */
+  @supports (-webkit-touch-callout: none) {
+    .whatsapp-sticky {
+      bottom: calc(env(safe-area-inset-bottom) + 24px) !important;
+    }
+  }
+
+  .aspect-w-16 {
+    position: relative;
+    padding-bottom: calc(var(--tw-aspect-h) / var(--tw-aspect-w) * 100%);
+  }
+  .aspect-h-9 {
+    --tw-aspect-h: 9;
+  }
+  .aspect-w-16 {
+    --tw-aspect-w: 16;
+  }
+  .aspect-w-16 > * {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+  }
+
+  .water-effect-container {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .water-effect-canvas {
+    @apply absolute inset-0 w-full h-full;
+    background: linear-gradient(180deg, 
+      rgba(0,149,255,0.05) 0%, 
+      rgba(0,149,255,0) 100%
+    );
+  }
+
+  .wave1, .wave2, .wave3 {
+    @apply absolute bottom-0 left-0 w-[200%];
+    height: 100px;
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 120' preserveAspectRatio='none'%3E%3Cpath d='M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z' fill='%230A192F'/%3E%3C/svg%3E");
+    background-repeat: repeat-x;
+  }
+
+  .wave1 {
+    @apply opacity-30;
+    animation: wave 15s linear infinite;
+  }
+
+  .wave2 {
+    @apply opacity-20;
+    animation: wave 10s linear infinite;
+  }
+
+  .wave3 {
+    @apply opacity-10;
+    animation: wave 7s linear infinite;
+  }
+
+  @keyframes wave {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
+
+  .animate-wave {
+    animation: wave linear infinite;
+    will-change: transform;
+  }
+
+  .service-image {
+    @apply transition-all duration-500;
+  }
+
+  .group:hover .service-image {
+    @apply scale-105;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Styles spécifiques pour le menu mobile */
+.mobile-menu-open {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+/* Empêcher le scroll sur iOS */
+.prevent-scroll {
+  overflow: hidden;
+  position: fixed;
+  width: 100%;
+} 
+
+@layer components {
+  /* Vos styles personnalisés ici */
+
+  .dropdown-menu {
+    @apply transition-all duration-200 opacity-0 transform scale-95;
+  }
+
+  .dropdown-menu.show {
+    @apply opacity-100 scale-100;
+  }
+
+  details > summary {
+    list-style: none;
+  }
+  
+  details > summary::-webkit-details-marker {
+    display: none;
+  }
+
+  details[open] > div {
+    animation: slideDown 0.2s ease-out;
+  }
+
+  details > summary:hover {
+    transform: scale(1.02);
+  }
+
+  details > div {
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  }
+
+  @keyframes slideDown {
+    from {
+      opacity: 0;
+      transform: translateY(-10px) translateX(-50%);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0) translateX(-50%);
+    }
+  }
+
+  .whatsapp-button {
+    @apply absolute top-4 right-4 z-50;
+  }
+
+  .wa-widget {
+    @apply !fixed !bottom-24 !right-6 md:!bottom-8;
+  }
+  
+  .wa-widget iframe {
+    @apply !w-auto !h-auto;
+  }
+
+  .whatsapp-modal {
+    @apply fixed inset-0 bg-black bg-opacity-50 z-50 
+           flex items-center justify-center 
+           transition-opacity duration-300;
+  }
+
+  .whatsapp-modal-content {
+    @apply bg-white rounded-lg p-6 max-w-sm w-full mx-4 
+           transform transition-transform duration-300 
+           scale-95 opacity-0;
+  }
+
+  .whatsapp-modal-content.show {
+    @apply scale-100 opacity-100;
+  }
+
+  .bg-gradient-custom {
+    @apply bg-gradient-to-b from-white via-gray-100 to-gray-400 w-screen relative left-[50%] right-[50%] ml-[-50vw] mr-[-50vw];
+  }
+
+  .water-effect-container {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .water-effect-canvas {
+    @apply absolute inset-0 w-full h-full;
+    background: linear-gradient(180deg, 
+      rgba(0,149,255,0.05) 0%, 
+      rgba(0,149,255,0) 100%
+    );
+  }
+
+  .wave1, .wave2, .wave3 {
+    @apply absolute bottom-0 left-0 w-[200%];
+    height: 100px;
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 120' preserveAspectRatio='none'%3E%3Cpath d='M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z' fill='%230A192F'/%3E%3C/svg%3E");
+    background-repeat: repeat-x;
+  }
+
+  .wave1 {
+    @apply opacity-30;
+    animation: wave 15s linear infinite;
+  }
+
+  .wave2 {
+    @apply opacity-20;
+    animation: wave 10s linear infinite;
+  }
+
+  .wave3 {
+    @apply opacity-10;
+    animation: wave 7s linear infinite;
+  }
+
+  @keyframes wave {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
+
+  .animate-wave {
+    animation: wave linear infinite;
+    will-change: transform;
+  }
+
+  .service-image {
+    @apply transition-all duration-500;
+  }
+
+  .group:hover .service-image {
+    @apply scale-105;
+  }
+} 
+
+/* Animations et transitions */
+.service-image {
+  @apply transition-all duration-500;
+}
+
+.group:hover .service-image {
+  @apply scale-105;
+} 
