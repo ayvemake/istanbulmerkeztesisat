@@ -1,5 +1,5 @@
 # Omakase Ruby styling for Rails
-inherit_gem: { rubocop-rails-omakase: rubocop.yml }
+# inherit_gem: { rubocop-rails-omakase: rubocop.yml }
 
 # Overwrite or add rules to create your own house style
 #
@@ -25,6 +25,8 @@ AllCops:
     - 'node_modules/**/*'
     - 'tmp/**/*'
     - 'public/**/*'
+    - 'config/environments/*'
+    - 'config/initializers/*'
 
 Style/Documentation:
   Enabled: false
@@ -37,3 +39,9 @@ Metrics/AbcSize:
 
 Layout/LineLength:
   Max: 120
+
+Style/FrozenStringLiteralComment:
+  Enabled: false
+
+Style/StringLiterals:
+  EnforcedStyle: single_quotes

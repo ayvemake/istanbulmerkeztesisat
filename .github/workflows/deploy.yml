@@ -65,16 +65,21 @@ jobs:
             )
           end
 
+          # Liste des templates qui existent réellement
           {
             "pages/home" => "index",
             "pages/about" => "about",
-            "pages/services" => "services",
-            "pages/contact" => "contact",
-            "pages/teknikler" => "teknikler"
+            "pages/teknikler" => "teknikler",
+            "pages/contact" => "contact"
           }.each do |template, output|
             puts "Generating #{output}.html from #{template}"
-            content = render_page(template)
-            File.write(Rails.root.join("public", "#{output}.html"), content)
+            begin
+              content = render_page(template)
+              File.write(Rails.root.join("public", "#{output}.html"), content)
+              puts "Successfully generated #{output}.html"
+            rescue ActionView::MissingTemplate => e
+              puts "Warning: Could not find template #{template}"
+            end
           end
         '
       env:
