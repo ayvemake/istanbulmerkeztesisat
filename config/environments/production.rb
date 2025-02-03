@@ -82,7 +82,18 @@ Rails.application.configure do
 
   config.action_controller.asset_host = 'https://your-cdn.com'
   config.public_file_server.headers = {
-    'Cache-Control' => 'public, max-age=31536000'
+    'Cache-Control' => 'public, max-age=31536000',
+    'X-Content-Type-Options' => 'nosniff',
+    'X-Frame-Options' => 'DENY',
+    'X-XSS-Protection' => '1; mode=block'
   }
+
+  # Activer la compression Brotli
+  config.middleware.use Rack::Brotli
+  
+  # Compression des assets
+  config.assets.compress = true
+  config.assets.js_compressor = :terser
+  config.assets.css_compressor = :sass
 
 end
