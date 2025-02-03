@@ -33,29 +33,31 @@ jobs:
         DATABASE_URL: ${{ secrets.DATABASE_URL }}
         RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }}
         
+    - name: Prepare public directory
+      run: |
+        rm -rf public/*
+        mkdir -p public/assets
+        mkdir -p public/images
+        
     - name: Compile assets
       run: |
-        bundle exec rails assets:precompile
+        RAILS_ENV=production bundle exec rails assets:precompile
       env:
         RAILS_ENV: production
         RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }}
         
-    - name: Build site
+    - name: Generate static pages
       run: |
-        bundle exec rails runner -e production "Rails.application.load_tasks; Rake::Task['assets:precompile'].invoke"
+        RAILS_ENV=production bundle exec rails runner "['home', 'about', 'services'].each { |page| File.write(Rails.root.join('public', \"#{page}.html\"), ApplicationController.renderer.render(template: \"pages/#{page}\", layout: 'application')) }"
       env:
-        RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }}
-        
-    - name: Build static site
-      run: |
-        mkdir -p public
-        cp -r app/assets/builds public/
-        cp -r app/assets/images public/
-        RAILS_ENV=production bundle exec rails assets:precompile
-        RAILS_ENV=production bundle exec rails runner "ActionController::Base.new.render_to_string(template: 'pages/home')" > public/index.html
-      env:
+        RAILS_ENV: production
         RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }}
         DATABASE_URL: ${{ secrets.DATABASE_URL }}
+        
+    - name: Copy additional files
+      run: |
+        cp public/404.html public/
+        echo "istanbulmerkeztesisat.com" > public/CNAME
         
     - name: Deploy to GitHub Pages
       uses: peaceiris/actions-gh-pages@v3
@@ -63,4 +65,5 @@ jobs:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         publish_dir: ./public
         cname: istanbulmerkeztesisat.com
-        enable_jekyll: false 
+        enable_jekyll: false
+        force_orphan: true 
