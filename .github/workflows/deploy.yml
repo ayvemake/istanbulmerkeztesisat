@@ -46,6 +46,8 @@ jobs:
         DATABASE_URL: postgres://postgres:postgres@localhost:5432/istanbulmerkeztesisat_test
         RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }}
       run: |
+        bundle exec rails db:create
+        bundle exec rails db:migrate
         bundle exec rails db:test:prepare
         
     - name: Run tests
