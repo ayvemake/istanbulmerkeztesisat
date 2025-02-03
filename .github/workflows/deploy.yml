@@ -33,11 +33,12 @@ jobs:
         DATABASE_URL: ${{ secrets.DATABASE_URL }}
         RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }}
         
-    - name: Prepare public directory
+    - name: Clear and prepare public directory
       run: |
         rm -rf public/*
         mkdir -p public/assets
         mkdir -p public/images
+        mkdir -p public/packs
         
     - name: Compile assets
       run: |
@@ -49,13 +50,20 @@ jobs:
     - name: Generate static pages
       run: |
         RAILS_ENV=production bundle exec rails runner "
-          pages = ['home', 'about', 'services']
-          pages.each do |page|
+          pages = {
+            'home' => 'index',
+            'about' => 'about',
+            'services' => 'services',
+            'contact' => 'contact',
+            'teknikler' => 'teknikler'
+          }
+          
+          pages.each do |template, output|
             content = ApplicationController.renderer.render(
-              template: \"pages/#{page}\",
+              template: \"pages/#{template}\",
               layout: 'application'
             )
-            File.write(Rails.root.join('public', \"#{page == 'home' ? 'index' : page}.html\"), content)
+            File.write(Rails.root.join('public', \"#{output}.html\"), content)
           end
         "
       env:
@@ -63,10 +71,16 @@ jobs:
         RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }}
         DATABASE_URL: ${{ secrets.DATABASE_URL }}
         
-    - name: Copy additional files
+    - name: Copy assets and additional files
       run: |
+        cp -r public/assets public/
+        cp -r public/images public/
+        cp -r public/packs public/ || true
         cp public/404.html public/
         echo "istanbulmerkeztesisat.com" > public/CNAME
+        
+    - name: Create .nojekyll file
+      run: touch public/.nojekyll
         
     - name: Deploy to GitHub Pages
       uses: peaceiris/actions-gh-pages@v3
