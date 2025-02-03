@@ -61,6 +61,8 @@ end
 group :development do
   # Outils d'analyse de code
   gem 'rubocop'
+  gem 'rubocop-rails'
+  gem 'rubocop-rspec'
   gem 'brakeman'
   gem 'rack-mini-profiler'
   gem 'traceroute'
