@@ -49,29 +49,29 @@ jobs:
         
     - name: Generate static pages
       run: |
-        RAILS_ENV=production bundle exec rails runner "
+        RAILS_ENV=production bundle exec rails runner '
           def render_page(template)
             ApplicationController.renderer.new(
               https: true,
-              http_host: 'istanbulmerkeztesisat.com'
+              http_host: "istanbulmerkeztesisat.com"
             ).render(
               template: template,
-              layout: 'application'
+              layout: "application"
             )
           end
 
           {
-            'pages/home' => 'index',
-            'pages/about' => 'about',
-            'pages/services' => 'services',
-            'pages/contact' => 'contact',
-            'pages/teknikler' => 'teknikler'
+            "pages/home" => "index",
+            "pages/about" => "about",
+            "pages/services" => "services",
+            "pages/contact" => "contact",
+            "pages/teknikler" => "teknikler"
           }.each do |template, output|
             puts "Generating #{output}.html from #{template}"
             content = render_page(template)
-            File.write(Rails.root.join('public', "#{output}.html"), content)
+            File.write(Rails.root.join("public", "#{output}.html"), content)
           end
-        "
+        '
       env:
         RAILS_ENV: production
         RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }}
