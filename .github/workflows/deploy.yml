@@ -48,7 +48,16 @@ jobs:
         
     - name: Generate static pages
       run: |
-        RAILS_ENV=production bundle exec rails runner "['home', 'about', 'services'].each { |page| File.write(Rails.root.join('public', \"#{page}.html\"), ApplicationController.renderer.render(template: \"pages/#{page}\", layout: 'application')) }"
+        RAILS_ENV=production bundle exec rails runner "
+          pages = ['home', 'about', 'services']
+          pages.each do |page|
+            content = ApplicationController.renderer.render(
+              template: \"pages/#{page}\",
+              layout: 'application'
+            )
+            File.write(Rails.root.join('public', \"#{page == 'home' ? 'index' : page}.html\"), content)
+          end
+        "
       env:
         RAILS_ENV: production
         RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }}

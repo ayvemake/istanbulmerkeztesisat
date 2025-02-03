@@ -3,15 +3,11 @@ class CreateServicesStructure < ActiveRecord::Migration[7.1]
     create_table :services do |t|
       t.string :name, null: false
       t.text :description
-      t.text :detailed_description
-      t.string :category, null: false
-      t.boolean :featured, default: false
-      t.boolean :active, default: true
+      t.string :category
       t.boolean :urgent, default: false
       t.boolean :available_24_7, default: false
-      t.boolean :warranty, default: true
-      t.json :work_steps
-      t.json :equipment
+      t.boolean :featured, default: false
+      t.boolean :active, default: true
 
       t.timestamps
     end
@@ -25,7 +21,7 @@ class CreateServicesStructure < ActiveRecord::Migration[7.1]
     end
 
     add_index :services, :category
+    add_index :services, :urgent
     add_index :services, :featured
-    add_index :services, :active
   end
 end 
