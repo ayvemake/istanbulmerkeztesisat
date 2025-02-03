@@ -7,6 +7,23 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    
+    # Ajout des services nécessaires
+    services:
+      postgres:
+        image: postgres:14
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: istanbulmerkeztesisat_test
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
     permissions:
       contents: write
     steps:
@@ -23,21 +40,32 @@ jobs:
         bundle install
         yarn install
     
-    # Supprimez ou commentez les étapes de test
-    # - name: Run tests
-    #   run: |
-    #     bin/rails db:test:prepare test test:system
-    
-    - name: Setup database
+    - name: Setup test database
+      env:
+        RAILS_ENV: test
+        DATABASE_URL: postgres://postgres:postgres@localhost:5432/istanbulmerkeztesisat_test
+        RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }}
       run: |
-        bundle exec rails db:create
-        bundle exec rails db:migrate
-        bundle exec rails db:seed
+        bundle exec rails db:test:prepare
+        
+    - name: Run tests
+      env:
+        RAILS_ENV: test
+        DATABASE_URL: postgres://postgres:postgres@localhost:5432/istanbulmerkeztesisat_test
+        RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }}
+      run: |
+        bundle exec rails test test:system
+        
+    - name: Setup production database
       env:
         RAILS_ENV: production
         DATABASE_URL: ${{ secrets.DATABASE_URL }}
         RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }}
-        
+      run: |
+        bundle exec rails db:create
+        bundle exec rails db:migrate
+        bundle exec rails db:seed
+    
     - name: Clear and prepare public directory
       run: |
         rm -rf public/*
@@ -57,19 +85,24 @@ jobs:
       run: |
         RAILS_ENV=production bundle exec rails runner '
           def render_page(template)
-            ApplicationController.renderer.new(
+            puts "Attempting to render #{template}..."
+            result = ApplicationController.renderer.new(
               https: true,
               http_host: "istanbulmerkeztesisat.com"
             ).render(
               template: template,
               layout: "application"
             )
+            puts "Successfully rendered #{template}"
+            result
           rescue => e
-            puts "Warning: Could not generate #{template}: #{e.message}"
+            puts "Error rendering #{template}: #{e.message}"
+            puts e.backtrace
             nil
           end
 
           # Créer le partial contact_info
+          puts "Creating contact_info partial..."
           contact_info = <<~HTML
             <div class="bg-white shadow rounded-lg p-6">
               <h2 class="text-2xl font-bold text-gray-900 mb-4">İletişim Bilgileri</h2>
@@ -100,7 +133,7 @@ jobs:
             </div>
           HTML
 
-          # Sauvegarder le partial
+          puts "Writing contact_info to public/shared/_contact_info.html.erb"
           FileUtils.mkdir_p("public/shared")
           File.write("public/shared/_contact_info.html.erb", contact_info)
 
@@ -110,13 +143,22 @@ jobs:
             "pages/teknikler" => "teknikler",
             "pages/contact" => "contact"
           }.each do |template, output|
-            puts "Generating #{output}.html from #{template}"
+            puts "="*50
+            puts "Processing #{template} -> #{output}.html"
             content = render_page(template)
             if content
-              File.write(Rails.root.join("public", "#{output}.html"), content)
-              puts "Successfully generated #{output}.html"
+              output_path = Rails.root.join("public", "#{output}.html")
+              File.write(output_path, content)
+              puts "Written #{output_path} (#{content.bytesize} bytes)"
+              puts "File exists: #{File.exist?(output_path)}"
+            else
+              puts "No content generated for #{template}"
             end
           end
+
+          puts "="*50
+          puts "Final directory contents:"
+          puts `ls -la public/`
         '
       env:
         RAILS_ENV: production
@@ -136,6 +178,24 @@ jobs:
       run: |
         echo "Contents of public directory:"
         ls -la public/
+        
+    - name: Verify index.html
+      run: |
+        if [ ! -f public/index.html ]; then
+          echo "Error: index.html is missing!"
+          exit 1
+        fi
+        echo "Content of index.html:"
+        cat public/index.html
+        
+    - name: Verify CNAME
+      run: |
+        if [ ! -f public/CNAME ]; then
+          echo "Error: CNAME file is missing!"
+          exit 1
+        fi
+        echo "Content of CNAME:"
+        cat public/CNAME
         
     - name: Deploy to GitHub Pages
       uses: peaceiris/actions-gh-pages@v3
