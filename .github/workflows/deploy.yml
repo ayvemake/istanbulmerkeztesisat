@@ -1,1 +1,48 @@
- 
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Set up Ruby
+      uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: 3.2.2
+        bundler-cache: true
+    
+    - name: Install dependencies
+      run: |
+        bundle install
+        yarn install
+    
+    - name: Setup database
+      run: |
+        bundle exec rails db:create
+        bundle exec rails db:migrate
+        bundle exec rails db:seed
+      env:
+        RAILS_ENV: production
+        DATABASE_URL: ${{ secrets.DATABASE_URL }}
+        
+    - name: Compile assets
+      run: |
+        bundle exec rails assets:precompile
+      env:
+        RAILS_ENV: production
+        
+    - name: Build site
+      run: |
+        bundle exec rails runner -e production "Rails.application.load_tasks; Rake::Task['assets:precompile'].invoke"
+        
+    - name: Deploy to GitHub Pages
+      uses: peaceiris/actions-gh-pages@v3
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: ./public
+        cname: istanbulmerkeztesisat.com 
