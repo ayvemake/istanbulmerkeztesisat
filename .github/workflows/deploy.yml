@@ -23,6 +23,11 @@ jobs:
         bundle install
         yarn install
     
+    # Supprimez ou commentez les étapes de test
+    # - name: Run tests
+    #   run: |
+    #     bin/rails db:test:prepare test test:system
+    
     - name: Setup database
       run: |
         bundle exec rails db:create

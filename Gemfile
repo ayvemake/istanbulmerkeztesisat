@@ -6,6 +6,7 @@ ruby '3.2.2'
 # Rails et dépendances de base
 gem "rails", "~> 7.1.0"
 gem "puma", ">= 5.0"
+gem 'rack-cors'
 
 # Base de données
 group :development, :test do
@@ -14,7 +15,6 @@ end
 
 group :production do
   gem "pg", "~> 1.5"  # Spécifiez une version pour PostgreSQL
-  gem 'rack-cors'
   gem 'rails_serve_static_assets'
 end
 
