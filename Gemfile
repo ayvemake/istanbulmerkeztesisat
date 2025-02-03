@@ -14,6 +14,8 @@ end
 
 group :production do
   gem "pg", "~> 1.5"  # Spécifiez une version pour PostgreSQL
+  gem 'rack-cors'
+  gem 'rails_serve_static_assets'
 end
 
 # Environment variables

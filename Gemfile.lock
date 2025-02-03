@@ -228,6 +228,8 @@ GEM
     rack-brotli (2.0.0)
       brotli (>= 0.3)
       rack (>= 3)
+    rack-cors (2.0.2)
+      rack (>= 2.0.0)
     rack-mini-profiler (3.3.1)
       rack (>= 1.2.0)
     rack-session (2.1.0)
@@ -266,6 +268,7 @@ GEM
       json
       require_all (~> 3.0)
       ruby-progressbar
+    rails_serve_static_assets (0.0.5)
     railties (7.1.5.1)
       actionpack (= 7.1.5.1)
       activesupport (= 7.1.5.1)
@@ -404,9 +407,11 @@ DEPENDENCIES
   puma (>= 5.0)
   pundit
   rack-brotli
+  rack-cors
   rack-mini-profiler
   rails (~> 7.1.0)
   rails_best_practices
+  rails_serve_static_assets
   redis
   rest-client
   rspec-rails
