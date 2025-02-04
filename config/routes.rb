@@ -11,14 +11,14 @@ Rails.application.routes.draw do
   get 'hizmetler', to: 'services#index', as: :services
   get 'hizmetler/tesisat', to: 'services#index', defaults: { category: 'tesisat' }, as: :tesisat_services
   get 'hizmetler/boya', to: 'services#index', defaults: { category: 'boya' }, as: :boya_services
-  
+
   # Route pour les services individuels
   resources :services, only: [:show]
 
   # Autres ressources
-  resources :customer_inquiries, only: [:new, :create], path: 'contact'
-  resources :service_areas, only: [:index, :show]
-  resources :contacts, only: [:new, :create]
+  resources :customer_inquiries, only: %i[new create], path: 'contact'
+  resources :service_areas, only: %i[index show]
+  resources :contacts, only: %i[new create]
 
   get 'services/update_categories', to: 'services#update_categories'
 

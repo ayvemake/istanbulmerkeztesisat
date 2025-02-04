@@ -6,4 +6,4 @@ class PwaController < ApplicationController
   def manifest
     render file: 'app/javascript/manifest.json', content_type: 'application/json'
   end
-end 
+end

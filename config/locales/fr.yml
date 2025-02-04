@@ -1,0 +1,6 @@
+fr:
+  inquiry_mailer:
+    confirmation:
+      subject: 'Nous avons bien reçu votre demande'
+    new_inquiry:
+      subject: "Nouvelle demande de service: %{service}" 

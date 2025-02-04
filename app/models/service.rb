@@ -10,22 +10,22 @@ class Service < ApplicationRecord
   validates :category, presence: true
   validates :description, presence: true
   validates :category, inclusion: { in: CATEGORIES }
-  
+
   EXCLUDED_SERVICES = ['Kalorifer Tesisatı', 'Doğalgaz Tesisatı', 'Ahşap Boyama'].freeze
 
   scope :active, -> { where(active: true) }
   scope :featured, -> { where(featured: true) }
   scope :by_category, ->(category) { where(category: category) }
-  scope :tesisat, -> { 
+  scope :tesisat, lambda {
     where(category: 'tesisat')
-    .where.not(name: EXCLUDED_SERVICES)
+      .where.not(name: EXCLUDED_SERVICES)
   }
-  scope :boya, -> { 
+  scope :boya, lambda {
     where(category: 'boya')
-    .where.not(name: EXCLUDED_SERVICES)
+      .where.not(name: EXCLUDED_SERVICES)
   }
   scope :urgent, -> { where(urgent: true) }
-  scope :available_services, -> { 
+  scope :available_services, lambda {
     where.not(name: EXCLUDED_SERVICES)
   }
 
@@ -45,7 +45,7 @@ class Service < ApplicationRecord
   def available_24_7?
     attributes['available_24_7'] || category == 'tesisat'
   end
-  
+
   def warranty?
     attributes['warranty'] || true # Par défaut, tous les services sont garantis
   end
@@ -53,7 +53,7 @@ class Service < ApplicationRecord
   def meta_description
     "#{name} - #{description.truncate(150)}"
   end
-  
+
   def meta_keywords
     [
       name,
@@ -68,8 +68,8 @@ class Service < ApplicationRecord
   def gallery_images_data
     gallery_images.map do |image|
       {
-        thumbnail: rails_representation_url(image.variant(resize: "100x100")),
-        large: rails_representation_url(image.variant(resize: "1200x800")),
+        thumbnail: rails_representation_url(image.variant(resize: '100x100')),
+        large: rails_representation_url(image.variant(resize: '1200x800')),
         width: 1200,
         height: 800
       }
@@ -115,4 +115,4 @@ class Service < ApplicationRecord
       end
     end
   end
-end 
+end

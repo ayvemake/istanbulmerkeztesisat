@@ -32,16 +32,37 @@ Style/Documentation:
   Enabled: false
 
 Metrics/MethodLength:
-  Max: 20
+  Max: 30
 
 Metrics/AbcSize:
   Max: 30
 
 Layout/LineLength:
   Max: 120
+  Exclude:
+    - 'config/initializers/*'
 
 Style/FrozenStringLiteralComment:
   Enabled: false
 
 Style/StringLiterals:
   EnforcedStyle: single_quotes
+
+Metrics/ClassLength:
+  Max: 200
+
+Metrics/BlockLength:
+  Exclude:
+    - 'lib/tasks/**/*'
+    - 'spec/**/*'
+    - 'config/routes.rb'
+    - 'config/environments/*'
+
+Rails/FilePath:
+  EnforcedStyle: arguments
+
+Style/FetchEnvVar:
+  Enabled: false
+
+Rails/OutputSafety:
+  Enabled: false

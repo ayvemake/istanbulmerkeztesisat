@@ -2,8 +2,8 @@ class CustomerInquiry < ApplicationRecord
   validates :name, presence: true
   validates :phone, presence: true
   validates :email, format: { with: URI::MailTo::EMAIL_REGEXP, allow_blank: true }
-  
-  enum status: {
+
+  enum :status, {
     pending: 'pending',
     contacted: 'contacted',
     scheduled: 'scheduled',
@@ -11,13 +11,13 @@ class CustomerInquiry < ApplicationRecord
     cancelled: 'cancelled'
   }
 
-  enum preferred_contact_method: {
+  enum :preferred_contact_method, {
     phone: 'phone',
     email: 'email',
     whatsapp: 'whatsapp'
-  }, _default: 'phone'
+  }, default: 'phone'
 
   scope :recent, -> { order(created_at: :desc) }
   scope :urgent_first, -> { order(urgent: :desc, created_at: :desc) }
   scope :pending, -> { where(status: 'pending') }
-end 
+end

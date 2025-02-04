@@ -1,0 +1,37 @@
+tesisat:
+  - name: 'Kameralı Su Kaçağı Tespiti'
+    description: 'Termal kamera ve akustik dinleme cihazları ile noktasal tespit...'
+    category: 'tesisat'
+    urgent: true
+    available_24h: true
+    first_image: 'sanitary/thermal/thermal1.webp'
+    advantages:
+      - title: 'Termal Kamera'
+        description: 'Son teknoloji cihazlarla tespit'
+      - title: 'Kırmadan Tespit'
+        description: 'Duvarlara zarar vermeden tespit'
+
+boya:
+  - name: 'İç Cephe Boyama'
+    description: 'Profesyonel iç mekan boyama, alçı, macun ve dekoratif boya uygulamaları.'
+    category: 'boya'
+    urgent: false
+    available_24h: false
+    first_image: 'paint/renovate/renovate1.webp'
+    advantages:
+      - title: 'Hazırlık İşlemleri'
+        description: 'Alçı, macun ve zımpara işlemleri'
+      - title: 'Kaliteli Malzeme'
+        description: '1. sınıf boya ve malzeme kullanımı'
+  
+  - name: 'Dış Cephe Boyama'
+    description: 'Bina dış cephe boyama, mantolama ve izolasyon hizmetleri.'
+    category: 'boya'
+    urgent: false
+    available_24h: false
+    first_image: 'paint/renovate/renovate2.webp'
+    advantages:
+      - title: 'Mantolama'
+        description: 'Isı yalıtımı ve mantolama'
+      - title: 'Su İzolasyonu'
+        description: 'Dış cephe su yalıtımı' 

@@ -1,20 +1,23 @@
-source "https://rubygems.org"
+source 'https://rubygems.org'
 
 # Spécifiez explicitement la version de Ruby
 ruby '3.2.2'
 
 # Rails et dépendances de base
-gem "rails", "~> 7.1.0"
-gem "puma", ">= 5.0"
+gem 'puma', '>= 5.0'
 gem 'rack-cors'
+gem 'rails', '~> 7.1.0'
 
 # Base de données
 group :development, :test do
-  gem "sqlite3", "~> 1.4"
+  gem 'factory_bot_rails'
+  gem 'faker'
+  gem 'rspec-rails'
+  gem 'sqlite3', '~> 1.4'
 end
 
 group :production do
-  gem "pg", "~> 1.5"  # Spécifiez une version pour PostgreSQL
+  gem 'pg', '~> 1.5' # Spécifiez une version pour PostgreSQL
   gem 'rails_serve_static_assets'
 end
 
@@ -22,17 +25,17 @@ end
 gem 'dotenv-rails'
 
 # Gems essentiels
-gem "propshaft"
-gem "importmap-rails"
-gem "turbo-rails"
-gem "stimulus-rails"
-gem "jbuilder"
-gem "tzinfo-data", platforms: %i[ windows jruby ]
-gem "bootsnap", require: false
+gem 'bootsnap', require: false
+gem 'importmap-rails'
+gem 'jbuilder'
+gem 'propshaft'
+gem 'stimulus-rails'
+gem 'turbo-rails'
+gem 'tzinfo-data', platforms: %i[windows jruby]
 
 # Frontend
 gem 'hotwire-rails'
-gem "tailwindcss-rails", "~> 3.3"
+gem 'tailwindcss-rails', '~> 3.3'
 
 # Image processing
 gem 'image_processing'
@@ -43,31 +46,25 @@ gem 'devise'
 gem 'pundit'
 
 # Performance et Cache
-gem 'redis'
 gem 'hiredis'
 gem 'rack-brotli'
+gem 'redis'
 
 # SEO et API
-gem 'sitemap_generator'
-gem 'rest-client'
 gem 'json'
-
-group :development, :test do
-  gem 'rspec-rails'
-  gem 'factory_bot_rails'
-  gem 'faker'
-end
+gem 'rest-client'
+gem 'sitemap_generator'
 
 group :development do
   # Outils d'analyse de code
+  gem 'brakeman'
+  gem 'code_metrics'      # Autre alternative pour l'analyse de code
+  gem 'debride'           # Pour trouver le code mort
+  gem 'rack-mini-profiler'
+  gem 'rails_best_practices'
   gem 'rubocop'
   gem 'rubocop-rails'
   gem 'rubocop-rspec'
-  gem 'brakeman'
-  gem 'rack-mini-profiler'
   gem 'traceroute'
-  gem 'rails_best_practices'
-  gem 'debride'           # Pour trouver le code mort
   gem 'unused'            # Alternative à dead_code
-  gem 'code_metrics'      # Autre alternative pour l'analyse de code
 end
