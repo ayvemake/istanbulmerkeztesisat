@@ -6,7 +6,7 @@ ruby '3.2.2'
 # Rails et dépendances de base
 gem 'puma', '>= 5.0'
 gem 'rack-cors'
-gem 'rails', '~> 7.1.0'
+gem 'rails', '~> 8.0.1'
 
 # Base de données
 group :development, :test do
