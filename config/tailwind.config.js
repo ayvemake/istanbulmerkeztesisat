@@ -4,9 +4,8 @@ module.exports = {
   content: [
     './app/views/**/*.{erb,haml,html,slim}',
     './app/helpers/**/*.rb',
-    './app/javascript/**/*.js',
     './app/assets/stylesheets/**/*.css',
-    './app/components/**/*.{erb,haml,html,slim,rb}'
+    './app/javascript/**/*.js'
   ],
   theme: {
     extend: {
@@ -20,6 +19,10 @@ module.exports = {
         'xl': '1280px',
         '2xl': '1536px',
       },
+      colors: {
+        'primary': '#10B981',
+        'secondary': '#1F2937'
+      }
     },
   },
   plugins: [],

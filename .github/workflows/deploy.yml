@@ -85,11 +85,23 @@ jobs:
         mkdir -p public/shared
         
     - name: Compile assets
-      run: |
-        RAILS_ENV=production bundle exec rails assets:precompile
       env:
         RAILS_ENV: production
+        NODE_ENV: production
         RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }}
+      run: |
+        # S'assurer que yarn est à jour
+        yarn install --frozen-lockfile
+        
+        # Compiler Tailwind CSS
+        yarn build:css
+        yarn build
+        
+        # Compiler les assets Rails
+        bundle exec rails assets:precompile
+        
+        # Vérifier que les fichiers CSS sont générés
+        ls -la public/assets
         
     - name: Generate static pages
       run: |
@@ -177,8 +189,18 @@ jobs:
         
     - name: Copy assets and additional files
       run: |
-        cp -r app/assets/images/* public/images/ || true
+        # Copier les assets compilés
         cp -r public/assets/* public/ || true
+        
+        # S'assurer que le CSS de Tailwind est copié
+        if [ -f public/assets/application-*.css ]; then
+          echo "Tailwind CSS file found"
+        else
+          echo "Error: Tailwind CSS file is missing!"
+          exit 1
+        fi
+        
+        cp -r app/assets/images/* public/images/ || true
         cp -r public/packs/* public/ || true
         cp public/404.html public/ || true
         echo "istanbulmerkeztesisat.com" > public/CNAME

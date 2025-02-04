@@ -22,8 +22,8 @@
     <link rel="canonical" href="<%= request.original_url %>" />
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-    <%= javascript_importmap_tags %>
-    <%= stylesheet_link_tag "application", data: { "turbo-track": "reload" } %>
+    <%= javascript_include_tag "application", "data-turbo-track": "reload", defer: true %>
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= stylesheet_link_tag "application.tailwind", data: { "turbo-track": "reload" } %>
     <%= stylesheet_link_tag "tailwind", "inter-font", "data-turbo-track": "reload" %> 
     <link rel="preconnect" href="https://fonts.googleapis.com">
