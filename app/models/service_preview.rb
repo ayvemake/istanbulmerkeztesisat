@@ -17,16 +17,6 @@ class ServicePreview
   end
 
   def self.build_service_advantages(advantages)
-    advantages.map { |adv| ServiceAdvantagePreview.create(adv) }
-  end
-end
-
-class ServiceAdvantagePreview
-  include ActiveModel::Model
-
-  attr_accessor :title, :description
-
-  def self.create(attributes)
-    new(attributes)
+    advantages.map { |adv| ServiceAdvantagePreview.create(adv.transform_keys(&:to_sym)) }
   end
 end

@@ -1,6 +1,9 @@
 require 'ostruct'
 
 class PagesController < ApplicationController
+  skip_after_action :verify_authorized
+  skip_after_action :verify_policy_scoped
+
   def home
     @thermal_images = thermal_images_data
     @tesisat_services = tesisat_services_data
@@ -9,18 +12,26 @@ class PagesController < ApplicationController
     @testimonials = testimonials_data
     @service_galleries = service_galleries_data
     @unblock_images = unblock_images_data
+    skip_authorization
   end
 
-  def about; end
+  def about
+    skip_authorization
+  end
 
-  def zones; end
+  def zones
+    @service_areas = service_areas_data
+    skip_authorization
+  end
 
   def technical_info
     @page_title = 'Teknik Bilgiler'
+    skip_authorization
   end
 
   # Ajout de l'action teknikler
   def teknikler
+    skip_authorization
     render layout: 'application'
   end
 
@@ -36,11 +47,14 @@ class PagesController < ApplicationController
 
   def tesisat_services_data
     load_service_data('tesisat').map do |service_data|
-      ServicePreview.create(
-        service_data.merge(
-          service_advantages: build_service_advantages(service_data['advantages'])
-        )
+      # Convertir les clés en symboles et transformer les données
+      transformed_data = service_data.transform_keys(&:to_sym).merge(
+        service_advantages: build_service_advantages(service_data['advantages'])
       )
+      # Supprimer les advantages bruts car ils ont été transformés
+      transformed_data.delete(:advantages)
+
+      ServicePreview.create(transformed_data)
     end
   end
 
@@ -49,16 +63,25 @@ class PagesController < ApplicationController
   end
 
   def build_service_advantages(advantages)
-    advantages.map { |adv| ServiceAdvantagePreview.create(adv) }
+    return [] unless advantages
+
+    advantages.map do |adv|
+      ServiceAdvantagePreview.create(
+        adv.transform_keys(&:to_sym)
+      )
+    end
   end
 
   def boya_services_data
     load_service_data('boya').map do |service_data|
-      ServicePreview.create(
-        service_data.merge(
-          service_advantages: build_service_advantages(service_data['advantages'])
-        )
+      # Convertir les clés en symboles et transformer les données
+      transformed_data = service_data.transform_keys(&:to_sym).merge(
+        service_advantages: build_service_advantages(service_data['advantages'])
       )
+      # Supprimer les advantages bruts car ils ont été transformés
+      transformed_data.delete(:advantages)
+
+      ServicePreview.create(transformed_data)
     end
   end
 
@@ -142,6 +165,15 @@ class PagesController < ApplicationController
         url: 'sanitary/unblock/unblock4.webp',
         title: 'Kanal Açma'
       }
+    ]
+  end
+
+  def service_areas_data
+    [
+      TestModels::ServiceArea.new(
+        name: 'Test Area',
+        districts: ['District 1', 'District 2']
+      )
     ]
   end
 end

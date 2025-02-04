@@ -10,9 +10,12 @@ gem 'rails', '~> 7.1.0'
 
 # Base de données
 group :development, :test do
+  gem 'capybara'
   gem 'factory_bot_rails'
   gem 'faker'
+  gem 'rails-controller-testing'
   gem 'rspec-rails'
+  gem 'shoulda-matchers'
   gem 'sqlite3', '~> 1.4'
 end
 

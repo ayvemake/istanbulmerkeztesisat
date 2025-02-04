@@ -3,4 +3,6 @@ fr:
     confirmation:
       subject: 'Nous avons bien reçu votre demande'
     new_inquiry:
-      subject: "Nouvelle demande de service: %{service}" 
+      subject: "Nouvelle demande de service: %{service}"
+  errors:
+    unauthorized: "Vous n'êtes pas autorisé à effectuer cette action." 
