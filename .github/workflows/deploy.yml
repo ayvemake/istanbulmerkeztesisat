@@ -8,7 +8,6 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     
-    # Ajout des services nécessaires
     services:
       postgres:
         image: postgres:14
@@ -26,6 +25,16 @@ jobs:
 
     permissions:
       contents: write
+
+    env:
+      RAILS_ENV: test
+      POSTGRES_HOST: localhost
+      POSTGRES_PORT: 5432
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      DATABASE_URL: postgres://postgres:postgres@localhost:5432/istanbulmerkeztesisat_test
+      RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }}
+
     steps:
     - uses: actions/checkout@v3
     
@@ -40,21 +49,20 @@ jobs:
         bundle install
         yarn install
     
+    - name: Wait for PostgreSQL
+      run: |
+        while ! nc -z localhost 5432; do
+          echo "Waiting for PostgreSQL..."
+          sleep 1
+        done
+    
     - name: Setup test database
-      env:
-        RAILS_ENV: test
-        DATABASE_URL: postgres://postgres:postgres@localhost:5432/istanbulmerkeztesisat_test
-        RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }}
       run: |
         bundle exec rails db:create
-        bundle exec rails db:migrate
+        bundle exec rails db:schema:load
         bundle exec rails db:test:prepare
         
     - name: Run tests
-      env:
-        RAILS_ENV: test
-        DATABASE_URL: postgres://postgres:postgres@localhost:5432/istanbulmerkeztesisat_test
-        RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }}
       run: |
         bundle exec rails test test:system
         
@@ -198,6 +206,25 @@ jobs:
         fi
         echo "Content of CNAME:"
         cat public/CNAME
+        
+    - name: Verify deployment files
+      run: |
+        echo "Contents of public directory before deployment:"
+        ls -la public/
+        
+        if [ ! -f public/index.html ]; then
+          echo "Error: index.html is missing!"
+          cat public/index.html || true
+          exit 1
+        fi
+        
+        if [ ! -f public/CNAME ]; then
+          echo "Error: CNAME file is missing!"
+          exit 1
+        fi
+        
+        echo "Contents of index.html:"
+        head -n 20 public/index.html
         
     - name: Deploy to GitHub Pages
       uses: peaceiris/actions-gh-pages@v3
