@@ -37,9 +37,6 @@ Rails.application.configure do
   # Make template changes take effect immediately.
   config.action_mailer.perform_caching = false
 
-  # Set localhost to be used by links generated in mailer templates.
-  config.action_mailer.default_url_options = { host: "localhost", port: 3000 }
-
   # Print deprecation notices to the Rails logger.
   config.active_support.deprecation = :log
 
@@ -84,7 +81,7 @@ Rails.application.configure do
   config.assets.digest = false
 
   # Ajoutez cette ligne temporairement si nécessaire
-  config.secret_key_base = 'dc4b6f6b41a99cfb13671a2edc7b3ee48752985a426b6a15d8ad2814e28c360bdc1540414e838873816854d96eaef533522f7ce74b53c218cb6d86d7637a3d39'
+  config.secret_key_base = 'x' * 32 if Rails.env.development?
 
   # Configuration des hôtes autorisés pour ngrok
   config.hosts.clear # Efface les restrictions d'hôtes en développement
@@ -100,4 +97,7 @@ Rails.application.configure do
   # Désactiver la compression en développement
   config.assets.css_compressor = nil
   config.assets.js_compressor = nil
+
+  # Add these lines near the top of the file, after the initial configuration block
+  config.require_master_key = false
 end
