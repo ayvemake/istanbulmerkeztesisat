@@ -78,9 +78,9 @@ Rails.application.configure do
     enable_starttls_auto: true
   }
 
-  config.action_mailer.default_url_options = { host: 'istanbultesisat.com' }
+  config.action_mailer.default_url_options = { host: 'istanbulmerkeztesisat.com' }
 
-  config.action_controller.asset_host = 'https://your-cdn.com'
+  config.action_controller.asset_host = 'https://istanbulmerkeztesisat.com'
   config.public_file_server.headers = {
     'Cache-Control' => 'public, max-age=31536000',
     'X-Content-Type-Options' => 'nosniff',
