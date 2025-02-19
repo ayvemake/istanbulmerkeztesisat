@@ -18,8 +18,8 @@
     "el-transition": "^0.0.7"
   },
   "engines": {
-    "node": ">=18.0.0",
-    "yarn": ">=1.22.0"
+    "node": "18.x",
+    "yarn": "1.22.x"
   }
 }
 
