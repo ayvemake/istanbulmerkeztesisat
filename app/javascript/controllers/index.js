@@ -16,11 +16,5 @@ application.register("mobile-menu", MobileMenuController)
 import NavbarController from "./navbar_controller"
 application.register("navbar", NavbarController)
 
-import PhotoswipeController from "./photoswipe_controller"
-application.register("photoswipe", PhotoswipeController)
-
-import WaterEffectController from "./water_effect_controller"
-application.register("water-effect", WaterEffectController)
-
 import WhatsappController from "./whatsapp_controller"
 application.register("whatsapp", WhatsappController)
