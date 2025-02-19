@@ -80,7 +80,6 @@ GEM
       tzinfo (~> 2.0)
     ast (2.4.2)
     base64 (0.2.0)
-    bcrypt (3.1.20)
     benchmark (0.4.0)
     bigdecimal (3.1.9)
     bootsnap (1.18.4)
@@ -100,12 +99,6 @@ GEM
       path_expander (~> 1.0)
       ruby_parser (~> 3.20)
       sexp_processor (~> 4.17)
-    devise (4.9.4)
-      bcrypt (~> 3.0)
-      orm_adapter (~> 0.1)
-      railties (>= 4.1.0)
-      responders
-      warden (~> 1.2.3)
     domain_name (0.6.20240107)
     dotenv (3.1.7)
     dotenv-rails (3.1.7)
@@ -114,14 +107,6 @@ GEM
     drb (2.2.1)
     erubi (1.13.1)
     erubis (2.7.0)
-    ffi (1.17.1-aarch64-linux-gnu)
-    ffi (1.17.1-aarch64-linux-musl)
-    ffi (1.17.1-arm-linux-gnu)
-    ffi (1.17.1-arm-linux-musl)
-    ffi (1.17.1-arm64-darwin)
-    ffi (1.17.1-x86_64-darwin)
-    ffi (1.17.1-x86_64-linux-gnu)
-    ffi (1.17.1-x86_64-linux-musl)
     globalid (1.2.1)
       activesupport (>= 6.1)
     hiredis (0.6.3)
@@ -134,9 +119,6 @@ GEM
       domain_name (~> 0.5)
     i18n (1.14.6)
       concurrent-ruby (~> 1.0)
-    image_processing (1.13.0)
-      mini_magick (>= 4.9.5, < 5)
-      ruby-vips (>= 2.0.17, < 3)
     importmap-rails (2.1.0)
       actionpack (>= 6.0.0)
       activesupport (>= 6.0.0)
@@ -164,7 +146,6 @@ GEM
       logger
       mime-types-data (~> 3.2015)
     mime-types-data (3.2025.0107)
-    mini_magick (4.13.2)
     mini_mime (1.1.5)
     minitest (5.25.4)
     msgpack (1.7.5)
@@ -196,7 +177,6 @@ GEM
       racc (~> 1.4)
     nokogiri (1.18.1-x86_64-linux-musl)
       racc (~> 1.4)
-    orm_adapter (0.5.0)
     parallel (1.26.3)
     parser (3.3.6.0)
       ast (~> 2.4.1)
@@ -212,8 +192,6 @@ GEM
       stringio
     puma (6.5.0)
       nio4r (~> 2.0)
-    pundit (2.4.0)
-      activesupport (>= 3.0.0)
     racc (1.8.1)
     rack (3.1.8)
     rack-brotli (2.0.0)
@@ -279,9 +257,6 @@ GEM
     reline (0.6.0)
       io-console (~> 0.5)
     require_all (3.0.0)
-    responders (3.1.1)
-      actionpack (>= 5.2)
-      railties (>= 5.2)
     rest-client (2.1.0)
       http-accept (>= 1.7.0, < 2.0)
       http-cookie (>= 1.0.2, < 2.0)
@@ -307,9 +282,6 @@ GEM
     rubocop-rspec (3.4.0)
       rubocop (~> 1.61)
     ruby-progressbar (1.13.0)
-    ruby-vips (2.2.2)
-      ffi (~> 1.12)
-      logger
     ruby_parser (3.21.1)
       racc (~> 1.5)
       sexp_processor (~> 4.16)
@@ -341,8 +313,6 @@ GEM
       unicode-emoji (~> 4.0, >= 4.0.4)
     unicode-emoji (4.0.4)
     unused (0.1.0)
-    warden (1.2.9)
-      rack (>= 2.0.9)
     websocket-driver (0.7.7)
       base64
       websocket-extensions (>= 0.1.0)
@@ -366,18 +336,14 @@ DEPENDENCIES
   brakeman
   code_metrics
   debride
-  devise
   dotenv-rails
   hiredis
   hotwire-rails
-  image_processing
   importmap-rails
   jbuilder
   json
-  mini_magick
   propshaft
   puma (>= 5.0)
-  pundit
   rack-brotli
   rack-cors
   rack-mini-profiler

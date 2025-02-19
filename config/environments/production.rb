@@ -30,9 +30,6 @@ Rails.application.configure do
   config.assets.compile = true
   config.assets.digest = true
 
-  # Store uploaded files on the local file system
-  config.active_storage.service = :local
-
   # Force all access to the app over SSL, use Strict-Transport-Security
   config.force_ssl = true
 

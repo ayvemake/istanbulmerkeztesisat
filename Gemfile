@@ -24,14 +24,6 @@ gem 'tzinfo-data', platforms: %i[windows jruby]
 gem 'hotwire-rails'
 gem 'tailwindcss-rails', '~> 3.3'
 
-# Image processing
-gem 'image_processing'
-gem 'mini_magick'
-
-# Authentification et Autorisation
-gem 'devise'
-gem 'pundit'
-
 # Performance et Cache
 gem 'hiredis'
 gem 'rack-brotli'
@@ -45,13 +37,13 @@ gem 'sitemap_generator'
 group :development do
   # Outils d'analyse de code
   gem 'brakeman'
-  gem 'code_metrics'      # Autre alternative pour l'analyse de code
-  gem 'debride'           # Pour trouver le code mort
+  gem 'code_metrics'
+  gem 'debride'
   gem 'rack-mini-profiler'
   gem 'rails_best_practices'
   gem 'rubocop'
   gem 'rubocop-rails'
   gem 'rubocop-rspec'
   gem 'traceroute'
-  gem 'unused'            # Alternative à dead_code
+  gem 'unused'
 end
