@@ -1,7 +1,16 @@
-class CustomerInquiry < ApplicationRecord
+class CustomerInquiry
+  include ActiveModel::Model
+  include ActiveModel::Attributes
+
+  attribute :name, :string
+  attribute :phone, :string
+  attribute :email, :string
+  attribute :message, :string
+  attribute :service_type, :string
+
   validates :name, presence: true
   validates :phone, presence: true
-  validates :email, format: { with: URI::MailTo::EMAIL_REGEXP, allow_blank: true }
+  validates :message, presence: true
 
   enum :status, {
     pending: 'pending',

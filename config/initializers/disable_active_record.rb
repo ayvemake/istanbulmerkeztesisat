@@ -1,0 +1,1 @@
+Rails.application.config.middleware.delete(ActiveRecord::Migration::CheckPending) if defined?(ActiveRecord) 

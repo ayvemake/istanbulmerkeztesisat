@@ -1,3 +1,3 @@
-class ApplicationRecord < ActiveRecord::Base
-  primary_abstract_class
+class ApplicationRecord
+  # Classe de base vide pour la compatibilité
 end

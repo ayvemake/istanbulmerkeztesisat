@@ -1,6 +1,12 @@
-class Contact < ApplicationRecord
-  validates :name, presence: true, length: { minimum: 2, maximum: 50 }
-  validates :email, presence: true, format: { with: URI::MailTo::EMAIL_REGEXP }
-  validates :phone, presence: true, format: { with: /\A[+]?[\d\s-]{7,}\z/ }
-  validates :message, presence: true, length: { minimum: 10, maximum: 1000 }
+class Contact
+  include ActiveModel::Model
+  include ActiveModel::Attributes
+
+  attribute :name, :string
+  attribute :email, :string
+  attribute :phone, :string
+  attribute :message, :string
+
+  validates :name, presence: true
+  validates :message, presence: true
 end
