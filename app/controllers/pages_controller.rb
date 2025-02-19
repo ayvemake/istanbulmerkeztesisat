@@ -1,57 +1,57 @@
 require 'ostruct'
 
 class PagesController < ApplicationController
-  skip_after_action :verify_authorized
-  skip_after_action :verify_policy_scoped
-
   def home
-    @thermal_images = thermal_images_data
+    @advantages = Advantage.all
+    @thermal_images = ThermalImage.all
+    @customer_inquiry = CustomerInquiry.new
     @tesisat_services = tesisat_services_data
     @boya_services = boya_services_data
     @featured_services = featured_services_data
     @testimonials = testimonials_data
     @service_galleries = service_galleries_data
     @unblock_images = unblock_images_data
-    skip_authorization
+    @service_areas = service_areas_data
   end
 
   def about
-    skip_authorization
+    @advantages = Advantage.all
   end
 
   def zones
     @service_areas = service_areas_data
-    skip_authorization
   end
 
   def technical_info
     @page_title = 'Teknik Bilgiler'
-    skip_authorization
   end
 
-  # Ajout de l'action teknikler
   def teknikler
-    skip_authorization
     render layout: 'application'
+  end
+
+  def contact
+    @contact = Contact.new
+  end
+
+  def services
+    @advantages = Advantage.all
+    @customer_inquiry = CustomerInquiry.new
+  end
+
+  def privacy_policy
+  end
+
+  def terms_of_service
   end
 
   private
 
-  def thermal_images_data
-    [
-      { url: 'thermal/thermal1.webp', title: 'Termal Kamera ile Su Kaçağı Tespiti' },
-      { url: 'thermal/thermal2.webp', title: 'Hassas Kaçak Tespiti' },
-      { url: 'thermal/thermal3.webp', title: 'Noktasal Tespit' }
-    ]
-  end
-
   def tesisat_services_data
     load_service_data('tesisat').map do |service_data|
-      # Convertir les clés en symboles et transformer les données
       transformed_data = service_data.transform_keys(&:to_sym).merge(
         service_advantages: build_service_advantages(service_data['advantages'])
       )
-      # Supprimer les advantages bruts car ils ont été transformés
       transformed_data.delete(:advantages)
 
       ServicePreview.create(transformed_data)
@@ -74,11 +74,9 @@ class PagesController < ApplicationController
 
   def boya_services_data
     load_service_data('boya').map do |service_data|
-      # Convertir les clés en symboles et transformer les données
       transformed_data = service_data.transform_keys(&:to_sym).merge(
         service_advantages: build_service_advantages(service_data['advantages'])
       )
-      # Supprimer les advantages bruts car ils ont été transformés
       transformed_data.delete(:advantages)
 
       ServicePreview.create(transformed_data)
