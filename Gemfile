@@ -8,22 +8,6 @@ gem 'puma', '>= 5.0'
 gem 'rack-cors'
 gem 'rails', '~> 7.1.0'
 
-# Base de données
-group :development, :test do
-  gem 'capybara'
-  gem 'factory_bot_rails'
-  gem 'faker'
-  gem 'rails-controller-testing'
-  gem 'rspec-rails'
-  gem 'shoulda-matchers'
-  gem 'sqlite3', '~> 1.4'
-end
-
-group :production do
-  gem 'pg', '~> 1.5' # Spécifiez une version pour PostgreSQL
-  gem 'rails_serve_static_assets'
-end
-
 # Environment variables
 gem 'dotenv-rails'
 

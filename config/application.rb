@@ -1,6 +1,16 @@
 require_relative 'boot'
 
-require 'rails/all'
+require "rails"
+# Pick the frameworks you want:
+require "active_model/railtie"
+require "active_job/railtie"
+# require "active_record/railtie"  # Commentez cette ligne
+require "active_storage/engine"
+require "action_controller/railtie"
+require "action_mailer/railtie"
+require "action_view/railtie"
+require "action_cable/engine"
+require "rails/test_unit/railtie"
 
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
@@ -17,6 +27,7 @@ module ServiceWeb
 
     # Configuration de la base de données
     config.active_record.verify_foreign_keys_for_fixtures = false
+    config.active_record.establish_connection = nil if Rails.env.production?
 
     # Configuration de la locale
     config.i18n.default_locale = :tr
