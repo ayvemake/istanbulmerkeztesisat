@@ -3,6 +3,9 @@ source 'https://rubygems.org'
 # Spécifiez explicitement la version de Ruby
 ruby '3.2.2'
 
+# Ajoutez cette ligne au début du Gemfile
+gem 'bundler', '~> 2.4.10'
+
 # Rails et dépendances de base
 gem 'puma', '>= 5.0'
 gem 'rack-cors'

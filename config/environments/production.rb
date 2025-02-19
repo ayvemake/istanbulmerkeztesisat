@@ -13,8 +13,11 @@ Rails.application.configure do
   # or in config/master.key. This key is used to decrypt credentials (and other encrypted files).
   config.require_master_key = true
 
+  # Add this line if you want to use the key from environment variable
+  config.secret_key_base = ENV['SECRET_KEY_BASE']
+
   # Enable serving of images, stylesheets, and JavaScripts from an asset server.
-  config.public_file_server.enabled = true
+  config.public_file_server.enabled = ENV['RAILS_SERVE_STATIC_FILES'].present?
   config.public_file_server.headers = {
     'Cache-Control' => "public, max-age=#{1.year.to_i}"
   }
@@ -38,7 +41,7 @@ Rails.application.configure do
   config.log_level = :info
 
   # Prepend all log lines with the following tags.
-  config.log_tags = [ :request_id ]
+  config.log_tags = [:request_id]
 
   # Use a different logger for distributed setups.
   config.logger = ActiveSupport::Logger.new(STDOUT)
@@ -80,7 +83,7 @@ Rails.application.configure do
 
   config.action_mailer.default_url_options = { host: 'istanbulmerkeztesisat.com' }
 
-  config.action_controller.asset_host = 'https://istanbulmerkeztesisat.com'
+  config.action_controller.asset_host = ENV['ASSET_HOST'] if ENV['ASSET_HOST'].present?
   config.public_file_server.headers = {
     'Cache-Control' => 'public, max-age=31536000',
     'X-Content-Type-Options' => 'nosniff',
@@ -95,5 +98,15 @@ Rails.application.configure do
   config.assets.compress = true
   config.assets.js_compressor = :terser
   config.assets.css_compressor = :sass
+
+  # Simplify asset configuration
+  config.assets.version = '1.0'
+
+  # Serve static files
+  config.public_file_server.enabled = ENV['RAILS_SERVE_STATIC_FILES'].present?
+  
+  # Logging
+  config.logger = ActiveSupport::Logger.new(STDOUT)
+  config.log_level = :info
 
 end
