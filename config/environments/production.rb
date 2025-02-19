@@ -50,9 +50,6 @@ Rails.application.configure do
   # Don't log any deprecations.
   config.active_support.report_deprecations = false
 
-  # Do not dump schema after migrations.
-  config.active_record.dump_schema_after_migration = false
-
   config.cache_store = :redis_cache_store, {
     url: ENV['REDIS_URL'],
     driver: :hiredis,
