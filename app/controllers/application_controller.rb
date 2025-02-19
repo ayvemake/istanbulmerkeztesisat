@@ -1,5 +1,6 @@
 class ApplicationController < ActionController::Base
-  include Pundit::Authorization
+  protect_from_forgery with: :exception
+  before_action :set_locale
 
   # Définir les callbacks par défaut
   after_action :verify_authorized, except: :index, unless: :skip_pundit?
@@ -19,5 +20,13 @@ class ApplicationController < ActionController::Base
 
   def skip_pundit?
     devise_controller? || Rails.env.test?
+  end
+
+  def set_locale
+    I18n.locale = params[:locale] || I18n.default_locale
+  end
+
+  def default_url_options
+    { locale: I18n.locale }
   end
 end
