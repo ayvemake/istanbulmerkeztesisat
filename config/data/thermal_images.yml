@@ -1,0 +1,11 @@
+- title: "Termal Görüntüleme 1"
+  description: "Su kaçağı tespiti için termal görüntüleme"
+  image_path: "thermal/image1.jpg"
+  featured: true
+  display_order: 1
+
+- title: "Termal Görüntüleme 2"
+  description: "Nem tespiti için termal görüntüleme"
+  image_path: "thermal/image2.jpg"
+  featured: false
+  display_order: 2 
