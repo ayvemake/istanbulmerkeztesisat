@@ -38,7 +38,7 @@ gem 'tzinfo-data', platforms: %i[windows jruby]
 
 # Frontend
 gem 'hotwire-rails'
-gem 'tailwindcss-rails', '~> 3.3'
+gem 'tailwindcss-rails', '~> 4.1'
 
 # Image processing
 gem 'image_processing'
