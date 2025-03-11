@@ -1,1 +1,21 @@
 # Ce fichier peut être supprimé car nous n'utilisons pas de base de données 
+
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+
+development:
+  <<: *default
+  database: service_web_development
+
+test:
+  <<: *default
+  database: service_web_test
+
+production:
+  <<: *default
+  url: <%= ENV['DATABASE_URL'] %>
+  database: service_web_production
+  username: service_web
+  password: <%= ENV['DATABASE_PASSWORD'] %> 

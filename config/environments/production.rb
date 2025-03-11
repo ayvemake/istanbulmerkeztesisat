@@ -26,7 +26,9 @@ Rails.application.configure do
   config.action_controller.asset_host = ENV['ASSET_HOST']
   config.public_file_server.headers = {
     'Cache-Control' => 'public, max-age=31536000',
-    'Expires' => 1.year.from_now.to_formatted_s(:rfc822)
+    'X-Content-Type-Options' => 'nosniff',
+    'X-Frame-Options' => 'DENY',
+    'X-XSS-Protection' => '1; mode=block'
   }
 
   # Compression

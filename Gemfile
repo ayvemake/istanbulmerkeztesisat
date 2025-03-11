@@ -7,6 +7,7 @@ ruby '3.2.2'
 gem 'puma', '>= 5.0'
 gem 'rack-cors'
 gem 'rails', '~> 7.1.0'
+gem 'pg'
 
 # Environment variables
 gem 'dotenv-rails'
