@@ -9,45 +9,31 @@
 
 # Make sure RUBY_VERSION matches the Ruby version in .ruby-version
 ARG RUBY_VERSION=3.3.4
-FROM ruby:3.2.2-slim as builder
+FROM ruby:3.2.2
 
-# Installation des dépendances système
-RUN apt-get update -qq && \
-    apt-get install -y build-essential libpq-dev nodejs npm git
-
-# Installation de Yarn
+# Installation des dépendances
+RUN apt-get update -qq && apt-get install -y nodejs postgresql-client
 RUN npm install -g yarn
 
-WORKDIR /rails
+# Configuration du répertoire de travail
+WORKDIR /app
 
 # Installation des gems
 COPY Gemfile Gemfile.lock ./
 RUN bundle install
 
-# Copie de l'application
+# Installation des packages npm
+COPY package.json yarn.lock ./
+RUN yarn install --ignore-engines
+
+# Copie du code source
 COPY . .
 
 # Précompilation des assets
-RUN SECRET_KEY_BASE=dummy bundle exec rails assets:precompile
+RUN bundle exec rails assets:precompile
 
-# Image finale
-FROM ruby:3.2.2-slim
-
-RUN apt-get update -qq && \
-    apt-get install -y libpq-dev nodejs && \
-    rm -rf /var/lib/apt/lists/*
-
-WORKDIR /rails
-
-# Copie depuis l'image builder
-COPY --from=builder /usr/local/bundle /usr/local/bundle
-COPY --from=builder /rails /rails
-
-# Configuration pour la production
-ENV RAILS_ENV=production
-ENV RAILS_SERVE_STATIC_FILES=true
-ENV RAILS_LOG_TO_STDOUT=true
-
+# Exposition du port
 EXPOSE 3000
 
-CMD ["bundle", "exec", "puma", "-C", "config/puma.rb"]
+# Commande de démarrage
+CMD ["rails", "server", "-b", "0.0.0.0"]

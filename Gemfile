@@ -47,3 +47,7 @@ group :development do
   gem 'traceroute'
   gem 'unused'
 end
+
+group :production do
+  gem 'pg'  # PostgreSQL est requis pour Heroku
+end
