@@ -201,6 +201,7 @@ GEM
       rack (>= 2.0.0)
     rack-mini-profiler (3.3.1)
       rack (>= 1.2.0)
+    rack-rewrite (1.5.1)
     rack-session (2.1.0)
       base64 (>= 0.1.0)
       rack (>= 3.0.0)
@@ -343,6 +344,7 @@ DEPENDENCIES
   rack-brotli
   rack-cors
   rack-mini-profiler
+  rack-rewrite
   rails (~> 7.1.0)
   rails_best_practices
   rest-client

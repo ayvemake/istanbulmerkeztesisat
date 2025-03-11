@@ -26,6 +26,7 @@ gem 'tailwindcss-rails', '~> 3.3'
 
 # Performance et Cache
 gem 'rack-brotli'
+gem 'rack-rewrite'
 
 # SEO et API
 gem 'json'
