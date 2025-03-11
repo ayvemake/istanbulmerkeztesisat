@@ -39,8 +39,7 @@ Rails.application.configure do
   # Logging
   config.log_level = :info
   config.log_tags = [:request_id]
-  config.logger = ActiveSupport::Logger.new(STDOUT)
-  config.logger.formatter = config.log_formatter
+  config.logger = ActiveSupport::Logger.new(STDOUT) if ENV["RAILS_LOG_TO_STDOUT"].present?
 
   # Email
   config.action_mailer.delivery_method = :smtp

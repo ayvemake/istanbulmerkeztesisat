@@ -29,6 +29,9 @@ gem 'rack-brotli'
 gem 'rack-rewrite'
 gem 'rack-attack'
 
+# Monitoring
+gem 'newrelic_rpm'
+
 # SEO et API
 gem 'json'
 gem 'rest-client'

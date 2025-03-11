@@ -1,1 +1,14 @@
- 
+/test
+/spec
+/features
+/doc
+/tmp
+/.git
+/.github
+/node_modules
+*.psd
+*.pdf
+/storage
+/log
+*.md
+*.rdoc 
