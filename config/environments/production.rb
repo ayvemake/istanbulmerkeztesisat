@@ -34,7 +34,7 @@ Rails.application.configure do
   config.middleware.use Rack::Brotli
   config.assets.compress = true
   config.assets.js_compressor = :terser
-  config.assets.css_compressor = :sass
+  config.assets.css_compressor = nil
 
   # Logging
   config.log_level = :info

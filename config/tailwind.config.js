@@ -6,8 +6,8 @@ module.exports = {
     './app/helpers/**/*.rb',
     './app/assets/stylesheets/**/*.css',
     './app/javascript/**/*.js',
-    './app/components/**/*.{erb,haml,html,slim,rb}',
-    './config/initializers/simple_form_tailwind.rb',
+    './config/initializers/simple_form.rb',
+    './app/components/**/*.{erb,haml,html,slim,rb}'
   ],
   theme: {
     extend: {
