@@ -1,4 +1,8 @@
-#!/usr/bin/env sh
+#!/usr/bin/env bash
+
+if [ -f tmp/pids/server.pid ]; then
+  rm tmp/pids/server.pid
+fi
 
 if ! gem list foreman -i --silent; then
   echo "Installing foreman..."

@@ -1,0 +1,266 @@
+.
+├── app
+│   ├── assets
+│   │   ├── builds
+│   │   │   └── tailwind.css
+│   │   ├── config
+│   │   │   └── manifest.js
+│   │   ├── images
+│   │   │   ├── logo
+│   │   │   │   ├── logo_inverted.png
+│   │   │   │   ├── logo_only.png
+│   │   │   │   └── logo.png
+│   │   │   ├── paint
+│   │   │   │   └── renovate
+│   │   │   │       ├── renovate1.webp
+│   │   │   │       ├── renovate2.webp
+│   │   │   │       ├── renovate3.webp
+│   │   │   │       ├── renovate4.webp
+│   │   │   │       ├── renovate5.webp
+│   │   │   │       └── renovate6.webp
+│   │   │   └── sanitary
+│   │   │       ├── general
+│   │   │       │   ├── general1.webp
+│   │   │       │   ├── general2.webp
+│   │   │       │   ├── general3.webp
+│   │   │       │   └── general4.webp
+│   │   │       ├── thermal
+│   │   │       │   ├── thermal1.webp
+│   │   │       │   ├── thermal2.webp
+│   │   │       │   ├── thermal3.webp
+│   │   │       │   ├── thermal4.webp
+│   │   │       │   └── thermal5.webp
+│   │   │       └── unblock
+│   │   │           ├── unblock1.webp
+│   │   │           ├── unblock2.webp
+│   │   │           ├── unblock3.webp
+│   │   │           └── unblock4.webp
+│   │   └── stylesheets
+│   │       ├── application.css
+│   │       ├── application.tailwind.css
+│   │       └── components
+│   │           ├── gallery.css
+│   │           └── services.css
+│   ├── controllers
+│   │   ├── application_controller.rb
+│   │   ├── concerns
+│   │   ├── home_controller.rb
+│   │   ├── pages_controller.rb
+│   │   ├── pwa_controller.rb
+│   │   └── static_pages_controller.rb
+│   ├── helpers
+│   │   ├── application_helper.rb
+│   │   ├── icon_helper.rb
+│   │   ├── schema_helper.rb
+│   │   ├── service_details_helper.rb
+│   │   └── services_helper.rb
+│   ├── javascript
+│   │   ├── application.js
+│   │   ├── controllers
+│   │   │   ├── application.js
+│   │   │   ├── dropdown_controller.js
+│   │   │   ├── index.js
+│   │   │   ├── lazy_image_controller.js
+│   │   │   ├── mobile_carousel_controller.js
+│   │   │   ├── mobile_menu_controller.js
+│   │   │   ├── navbar_controller.js
+│   │   │   ├── service_carousel_controller.js
+│   │   │   ├── water_effect_controller.js
+│   │   │   └── whatsapp_controller.js
+│   │   ├── manifest.json
+│   │   ├── modals
+│   │   │   ├── home_modal.js
+│   │   │   └── service_modal.js
+│   │   └── service_worker.js
+│   ├── jobs
+│   │   ├── application_job.rb
+│   │   ├── contact_notification_job.rb
+│   │   └── customer_inquiry_notification_job.rb
+│   ├── mailers
+│   │   ├── application_mailer.rb
+│   │   └── inquiry_mailer.rb
+│   ├── models
+│   │   ├── advantage.rb
+│   │   ├── application_record.rb
+│   │   ├── contact.rb
+│   │   ├── customer_inquiry.rb
+│   │   ├── service_advantage_preview.rb
+│   │   ├── service_advantage.rb
+│   │   ├── service_area.rb
+│   │   ├── service_preview.rb
+│   │   ├── service.rb
+│   │   ├── service_review_preview.rb
+│   │   └── thermal_image.rb
+│   ├── services
+│   │   └── image_optimizer_service.rb
+│   └── views
+│       ├── contacts
+│       │   ├── _form.html.erb
+│       │   └── new.html.erb
+│       ├── customer_inquiries
+│       │   ├── _form.html.erb
+│       │   ├── new.html.erb
+│       │   └── _success.html.erb
+│       ├── home
+│       │   └── index.html.erb
+│       ├── layouts
+│       │   ├── application.html.erb
+│       │   └── mailer.html.erb
+│       ├── pages
+│       │   ├── about.html.erb
+│       │   ├── contact.html.erb
+│       │   ├── home.html.erb
+│       │   ├── technical_info.html.erb
+│       │   ├── teknikler.html.erb
+│       │   └── zones.html.erb
+│       ├── pwa
+│       │   ├── manifest.json.erb
+│       │   └── service-worker.js
+│       ├── services
+│       │   ├── index.html.erb
+│       │   ├── _service_card.html.erb
+│       │   ├── _service_details.html.erb
+│       │   ├── _service_modal.html.erb
+│       │   ├── show.html.erb
+│       │   ├── _testimonials.html.erb
+│       │   └── _work_process.html.erb
+│       └── shared
+│           ├── _boya_section.html.erb
+│           ├── _contact_info.html.erb
+│           ├── _footer.html.erb
+│           ├── icons
+│           │   ├── _chart-bar.html.erb
+│           │   ├── _clipboard-check.html.erb
+│           │   ├── _clock.html.erb
+│           │   ├── _cog.html.erb
+│           │   ├── _lightning.html.erb
+│           │   ├── _paint_brush.html.erb
+│           │   ├── _paint.html.erb
+│           │   ├── _phone.html.erb
+│           │   ├── _pipe.html.erb
+│           │   └── _shield-check.html.erb
+│           ├── _navbar.html.erb
+│           ├── _photoswipe_gallery.html.erb
+│           ├── _social_media.html.erb
+│           ├── _tesisat_section.html.erb
+│           └── _whatsapp_widget.html.erb
+├── bin
+│   ├── brakeman
+│   ├── bundle
+│   ├── dev
+│   ├── docker-entrypoint
+│   ├── importmap
+│   ├── jobs
+│   ├── kamal
+│   ├── rails
+│   ├── rake
+│   ├── rubocop
+│   ├── setup
+│   └── thrust
+├── CNAME
+├── config
+│   ├── application.rb
+│   ├── boot.rb
+│   ├── cable.yml
+│   ├── cache.yml
+│   ├── credentials.yml.enc
+│   ├── database.yml
+│   ├── deploy.yml
+│   ├── environment.rb
+│   ├── environments
+│   │   ├── development.rb
+│   │   ├── production.rb
+│   │   └── test.rb
+│   ├── importmap.rb
+│   ├── initializers
+│   │   ├── assets.rb
+│   │   ├── content_security_policy.rb
+│   │   ├── cors.rb
+│   │   ├── disable_active_record.rb
+│   │   ├── dotenv.rb
+│   │   ├── facebook.rb
+│   │   ├── filter_parameter_logging.rb
+│   │   ├── google_maps.rb
+│   │   ├── hosts.rb
+│   │   ├── image_optimization.rb
+│   │   ├── inflections.rb
+│   │   ├── rack_mini_profiler.rb
+│   │   └── wati.rb
+│   ├── locales
+│   │   ├── en.yml
+│   │   ├── fr.yml
+│   │   └── tr.yml
+│   ├── master.key
+│   ├── puma.rb
+│   ├── queue.yml
+│   ├── recurring.yml
+│   ├── routes.rb
+│   ├── secrets.yml
+│   ├── sitemap.rb
+│   ├── tailwind.config.js
+│   └── webpack
+│       └── production.js
+├── config.ru
+├── db
+│   ├── development.sqlite3
+│   ├── schema.rb
+│   └── test.sqlite3
+├── Dockerfile
+├── Gemfile
+├── Gemfile.lock
+├── lib
+│   └── tasks
+│       ├── assets.rake
+│       ├── audit.rake
+│       ├── check_files.rake
+│       ├── cleanup.rake
+│       ├── images
+│       │   └── constants.rb
+│       ├── images.rake
+│       └── unused.rake
+├── package.json
+├── Procfile
+├── Procfile.dev
+├── project_structure.txt
+├── railway.toml
+├── Rakefile
+├── README.md
+├── render.yaml
+├── script
+├── spec
+│   ├── controllers
+│   │   └── pages_controller_spec.rb
+│   ├── helpers
+│   │   └── application_helper_spec.rb
+│   ├── rails_helper.rb
+│   ├── requests
+│   │   └── pages_spec.rb
+│   ├── spec_helper.rb
+│   ├── support
+│   │   ├── pundit.rb
+│   │   ├── request_spec_helper.rb
+│   │   ├── shared_examples
+│   │   │   └── view_examples.rb
+│   │   ├── test_models.rb
+│   │   └── view_spec_helper.rb
+│   └── views
+│       └── pages
+│           ├── about.html.tailwindcss_spec.rb
+│           ├── home.html.tailwindcss_spec.rb
+│           └── zones.html.tailwindcss_spec.rb
+├── static.json
+├── tailwind.config.js
+├── test
+│   ├── application_system_test_case.rb
+│   ├── controllers
+│   ├── fixtures
+│   │   └── files
+│   ├── helpers
+│   ├── integration
+│   ├── mailers
+│   ├── models
+│   ├── system
+│   └── test_helper.rb
+└── yarn.lock
+
+63 directories, 201 files

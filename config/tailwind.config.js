@@ -5,7 +5,9 @@ module.exports = {
     './app/views/**/*.{erb,haml,html,slim}',
     './app/helpers/**/*.rb',
     './app/assets/stylesheets/**/*.css',
-    './app/javascript/**/*.js'
+    './app/javascript/**/*.js',
+    './app/components/**/*.{erb,haml,html,slim,rb}',
+    './config/initializers/simple_form_tailwind.rb',
   ],
   theme: {
     extend: {
@@ -25,7 +27,11 @@ module.exports = {
       }
     },
   },
-  plugins: [],
+  plugins: [
+    require('@tailwindcss/forms'),
+    require('@tailwindcss/aspect-ratio'),
+    require('@tailwindcss/typography'),
+  ],
   variants: {
     extend: {
       opacity: ['disabled'],

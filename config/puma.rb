@@ -40,7 +40,12 @@ plugin :tmp_restart
 
 preload_app!
 
+# Ajoutez ces lignes pour une meilleure gestion du fichier PID
+pidfile ENV.fetch("PIDFILE") { "tmp/pids/server.pid" }
+
 on_worker_boot do
   # Configuration du Worker pour la reconnexion à la base de données
   ActiveRecord::Base.establish_connection if defined?(ActiveRecord)
+  # Nettoyage du fichier PID à l'arrêt
+  FileUtils.rm_f Rails.root.join("tmp/pids/server.pid")
 end
