@@ -25,9 +25,7 @@ gem 'hotwire-rails'
 gem 'tailwindcss-rails', '~> 3.3'
 
 # Performance et Cache
-gem 'hiredis'
 gem 'rack-brotli'
-gem 'redis'
 
 # SEO et API
 gem 'json'

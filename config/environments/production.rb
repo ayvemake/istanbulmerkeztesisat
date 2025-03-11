@@ -50,12 +50,6 @@ Rails.application.configure do
   # Don't log any deprecations.
   config.active_support.report_deprecations = false
 
-  config.cache_store = :redis_cache_store, {
-    url: ENV['REDIS_URL'],
-    driver: :hiredis,
-    expires_in: 1.day
-  }
-
   # Compression Gzip
   config.middleware.use Rack::Deflater
   
@@ -76,7 +70,7 @@ Rails.application.configure do
   }
 
   config.action_mailer.default_url_options = { 
-    host: 'istanbul-merkez-tesisat-6eaa29fe16e9.herokuapp.com',
+    host: 'www.istanbulmerkeztesisat.com',
     protocol: 'https'
   }
 
@@ -112,5 +106,23 @@ Rails.application.configure do
 
   # Utilisation de CDN (si nécessaire)
   config.action_controller.asset_host = ENV['ASSET_HOST']
+
+  # Active le caching des fragments
+  config.action_controller.perform_caching = true
+
+  # Cache en mémoire pour les sessions
+  config.session_store :cookie_store, key: "_#{Rails.application.class.module_parent_name.downcase}_session"
+
+  # Configuration CDN et assets
+  config.action_controller.asset_host = ENV['ASSET_HOST']
+  config.public_file_server.headers = {
+    'Cache-Control' => 'public, max-age=31536000',
+    'Expires' => 1.year.from_now.to_formatted_s(:rfc822)
+  }
+
+  # Compression des assets
+  config.assets.compress = true
+  config.assets.js_compressor = :terser
+  config.assets.css_compressor = :sass
 
 end
