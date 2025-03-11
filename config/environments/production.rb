@@ -103,4 +103,10 @@ Rails.application.configure do
   config.logger = ActiveSupport::Logger.new(STDOUT)
   config.log_level = :info
 
+  # Autoriser les hôtes depuis une variable d'environnement
+  config.hosts = (ENV['ALLOWED_HOSTS'] || '').split(',')
+
+  # Désactiver la vérification d'hôte (utiliser seulement temporairement)
+  config.hosts.clear
+
 end
