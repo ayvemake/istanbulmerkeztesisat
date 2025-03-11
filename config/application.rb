@@ -50,5 +50,8 @@ module ServiceWeb
     config.middleware.use Rack::Brotli if defined?(Rack::Brotli)
 
     config.assets.compile = true if Rails.env.development?
+
+    # Activer Rack::Attack
+    config.middleware.use Rack::Attack
   end
 end
