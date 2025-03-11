@@ -7,7 +7,6 @@ ruby '3.2.2'
 gem 'puma', '>= 5.0'
 gem 'rack-cors'
 gem 'rails', '~> 7.1.0'
-gem 'pg'
 
 # Environment variables
 gem 'dotenv-rails'
@@ -53,5 +52,5 @@ group :development do
 end
 
 group :production do
-  gem 'pg'  # PostgreSQL est requis pour Heroku
+  # Gardez cette ligne car elle est en double
 end

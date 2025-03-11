@@ -3,7 +3,7 @@ require_relative 'boot'
 require "rails"
 # Pick the frameworks you want:
 require "active_model/railtie"
-require "active_record/railtie"
+# require "active_record/railtie"  # Commentez cette ligne si vous n'utilisez pas de base de données
 require "active_job/railtie"
 require "action_controller/railtie"
 require "action_mailer/railtie"
