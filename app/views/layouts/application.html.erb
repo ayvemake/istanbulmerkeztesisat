@@ -22,17 +22,14 @@
     <link rel="canonical" href="<%= request.original_url %>" />
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-    <%= stylesheet_link_tag "application.tailwind", media: 'all', "data-turbo-track": "reload" %>
+    <link rel="stylesheet" href="<%= asset_path('application.tailwind.css') %>" media="all" data-turbo-track="reload">
     <%= javascript_include_tag "application", "data-turbo-track": "reload", defer: true %>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="preload" as="image" href="<%= asset_path('sanitary/general/general1.webp') %>" type="image/webp" fetchpriority="high">
-    <link rel="preload" 
-          href="<%= asset_path('sanitary/thermal/thermal1.webp') %>" 
-          as="image"
-          type="image/webp"
-          fetchpriority="high">
-    <link rel="preload" href="<%= asset_path('sanitary/unblock/unblock1.webp') %>" as="image">
+    <!-- Préchargement des images principales uniquement si elles sont sur la page d'accueil -->
+    <% if current_page?(root_path) %>
+      <link rel="preload" as="image" href="<%= asset_path('sanitary/general/general1.webp') %>" type="image/webp" fetchpriority="high">
+    <% end %>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="manifest" href="/manifest.json">
     <meta name="theme-color" content="#10b981">

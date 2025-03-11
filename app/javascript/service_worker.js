@@ -1,43 +1,43 @@
-const CACHE_VERSION = 'v1';
-const CACHE_NAME = `service-web-cache-${CACHE_VERSION}`;
-
-const CACHED_ASSETS = [
+// Service Worker pour Istanbul Merkez Tesisat
+const CACHE_NAME = 'istanbul-tesisat-cache-v1';
+const urlsToCache = [
   '/',
-  '/offline.html',
-  '/manifest.json',
-  '/assets/application.css',
-  '/assets/application.js',
-  '/assets/tailwind.css'
+  '/assets/application.tailwind.css',
+  '/assets/application.js'
 ];
 
-self.addEventListener('install', (event) => {
+// Installation du service worker
+self.addEventListener('install', event => {
   event.waitUntil(
-    caches.open(CACHE_NAME).then((cache) => {
-      return cache.addAll(CACHED_ASSETS);
-    })
+    caches.open(CACHE_NAME)
+      .then(cache => {
+        return cache.addAll(urlsToCache);
+      })
   );
 });
 
-self.addEventListener('activate', (event) => {
-  event.waitUntil(
-    caches.keys().then((cacheNames) => {
-      return Promise.all(
-        cacheNames
-          .filter((name) => name.startsWith('service-web-cache-') && name !== CACHE_NAME)
-          .map((name) => caches.delete(name))
-      );
-    })
-  );
-});
-
-self.addEventListener('fetch', (event) => {
+// Stratégie de cache : network first, puis cache
+self.addEventListener('fetch', event => {
   event.respondWith(
-    caches.match(event.request).then((response) => {
-      return response || fetch(event.request).catch(() => {
-        if (event.request.mode === 'navigate') {
-          return caches.match('/offline.html');
-        }
-      });
+    fetch(event.request)
+      .catch(() => {
+        return caches.match(event.request);
+      })
+  );
+});
+
+// Nettoyage des anciens caches
+self.addEventListener('activate', event => {
+  const cacheWhitelist = [CACHE_NAME];
+  event.waitUntil(
+    caches.keys().then(cacheNames => {
+      return Promise.all(
+        cacheNames.map(cacheName => {
+          if (cacheWhitelist.indexOf(cacheName) === -1) {
+            return caches.delete(cacheName);
+          }
+        })
+      );
     })
   );
 }); 
