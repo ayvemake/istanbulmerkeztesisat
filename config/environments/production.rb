@@ -75,7 +75,10 @@ Rails.application.configure do
     enable_starttls_auto: true
   }
 
-  config.action_mailer.default_url_options = { host: 'istanbulmerkeztesisat.com' }
+  config.action_mailer.default_url_options = { 
+    host: 'istanbul-merkez-tesisat-6eaa29fe16e9.herokuapp.com',
+    protocol: 'https'
+  }
 
   config.action_controller.asset_host = ENV['ASSET_HOST'] if ENV['ASSET_HOST'].present?
   config.public_file_server.headers = {
