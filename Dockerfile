@@ -7,33 +7,59 @@
 
 # For a containerized dev environment, see Dev Containers: https://guides.rubyonrails.org/getting_started_with_devcontainer.html
 
-# Make sure RUBY_VERSION matches the Ruby version in .ruby-version
-ARG RUBY_VERSION=3.3.4
-FROM ruby:3.2.2
+# Optimisation de l'image
+FROM ruby:3.2.2-slim as builder
 
-# Installation des dépendances
-RUN apt-get update -qq && apt-get install -y nodejs postgresql-client
+# Installation minimale des dépendances
+RUN apt-get update -qq && \
+    apt-get install -y --no-install-recommends \
+    build-essential \
+    libpq-dev \
+    nodejs \
+    npm \
+    git \
+    && rm -rf /var/lib/apt/lists/*
+
+# Installation de Yarn
 RUN npm install -g yarn
 
-# Configuration du répertoire de travail
 WORKDIR /app
 
-# Installation des gems
+# Installation des gems avec --without development test
 COPY Gemfile Gemfile.lock ./
-RUN bundle install
+RUN bundle config set --local without 'development test' && \
+    bundle install --jobs 4 --retry 3
 
-# Installation des packages npm
+# Installation des packages npm en mode production
 COPY package.json yarn.lock ./
-RUN yarn install --ignore-engines
+RUN yarn install --production --frozen-lockfile
 
-# Copie du code source
+# Copie et précompilation des assets
 COPY . .
-
-# Précompilation des assets
 RUN bundle exec rails assets:precompile
 
-# Exposition du port
+# Image finale optimisée
+FROM ruby:3.2.2-slim
+
+RUN apt-get update -qq && \
+    apt-get install -y --no-install-recommends \
+    libpq-dev \
+    nodejs \
+    && rm -rf /var/lib/apt/lists/*
+
+WORKDIR /app
+
+# Copie uniquement les fichiers nécessaires
+COPY --from=builder /usr/local/bundle /usr/local/bundle
+COPY --from=builder /app/public/assets /app/public/assets
+COPY --from=builder /app/public/packs /app/public/packs
+COPY . .
+
+# Configuration pour la production
+ENV RAILS_ENV=production
+ENV RAILS_SERVE_STATIC_FILES=true
+ENV RAILS_LOG_TO_STDOUT=true
+
 EXPOSE 3000
 
-# Commande de démarrage
-CMD ["rails", "server", "-b", "0.0.0.0"]
+CMD ["bundle", "exec", "puma", "-C", "config/puma.rb"]

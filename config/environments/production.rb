@@ -80,9 +80,7 @@ Rails.application.configure do
   config.action_controller.asset_host = ENV['ASSET_HOST'] if ENV['ASSET_HOST'].present?
   config.public_file_server.headers = {
     'Cache-Control' => 'public, max-age=31536000',
-    'X-Content-Type-Options' => 'nosniff',
-    'X-Frame-Options' => 'DENY',
-    'X-XSS-Protection' => '1; mode=block'
+    'Expires' => 1.year.from_now.to_formatted_s(:rfc822)
   }
 
   # Activer la compression Brotli
@@ -108,5 +106,8 @@ Rails.application.configure do
 
   # Désactiver la vérification d'hôte (utiliser seulement temporairement)
   config.hosts.clear
+
+  # Utilisation de CDN (si nécessaire)
+  config.action_controller.asset_host = ENV['ASSET_HOST']
 
 end

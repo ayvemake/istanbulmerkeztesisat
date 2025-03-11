@@ -43,9 +43,22 @@ preload_app!
 # Ajoutez ces lignes pour une meilleure gestion du fichier PID
 pidfile ENV.fetch("PIDFILE") { "tmp/pids/server.pid" }
 
+# Optimisation de la mémoire
+before_fork do
+  ActiveRecord::Base.connection_pool.disconnect! if defined?(ActiveRecord)
+end
+
 on_worker_boot do
-  # Configuration du Worker pour la reconnexion à la base de données
   ActiveRecord::Base.establish_connection if defined?(ActiveRecord)
   # Nettoyage du fichier PID à l'arrêt
   FileUtils.rm_f Rails.root.join("tmp/pids/server.pid")
+end
+
+# Optimisation des performances
+lowlevel_error_handler do |e|
+  Rack::Response.new(
+    ['Une erreur est survenue. Veuillez réessayer plus tard.'],
+    500,
+    {'Content-Type' => 'text/plain'}
+  ).finish
 end
