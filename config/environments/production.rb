@@ -125,4 +125,34 @@ Rails.application.configure do
   config.assets.js_compressor = :terser
   config.assets.css_compressor = :sass
 
+  # Cache et sessions
+  config.cache_store = :memory_store, { size: 64.megabytes }
+  config.session_store :cookie_store, key: "_#{Rails.application.class.module_parent_name.downcase}_session"
+  config.action_controller.perform_caching = true
+
+  # Configuration CDN et assets (supprimer les doublons)
+  config.action_controller.asset_host = ENV['ASSET_HOST']
+  config.public_file_server.headers = {
+    'Cache-Control' => 'public, max-age=31536000',
+    'Expires' => 1.year.from_now.to_formatted_s(:rfc822)
+  }
+
+  # Compression (supprimer les doublons)
+  config.middleware.use Rack::Deflater
+  config.middleware.use Rack::Brotli
+  config.assets.compress = true
+  config.assets.js_compressor = :terser
+  config.assets.css_compressor = :sass
+
+  # Supprimer les configurations en double
+  config.assets.version = '1.0'
+  config.public_file_server.enabled = ENV['RAILS_SERVE_STATIC_FILES'].present?
+
+  # Logging (garder une seule configuration)
+  config.logger = ActiveSupport::Logger.new(STDOUT)
+  config.log_level = :info
+
+  # Sécurité
+  config.hosts = (ENV['ALLOWED_HOSTS'] || '').split(',')
+  config.hosts.clear # Temporaire
 end
