@@ -2,6 +2,9 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Importez vos styles personnalisés ici */
+@import "./application.css";
+
 @layer utilities {
   .safe-top {
     padding-top: env(safe-area-inset-top);

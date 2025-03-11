@@ -1,7 +1,7 @@
 {
   "scripts": {
     "build": "esbuild app/javascript/*.* --bundle --sourcemap --outdir=app/assets/builds --public-path=/assets && yarn build:css",
-    "build:css": "tailwindcss -i ./app/assets/stylesheets/application.tailwind.css -o ./app/assets/builds/tailwind.css --minify",
+    "build:css": "tailwindcss -i ./app/assets/stylesheets/application.tailwind.css -o ./app/assets/builds/application.tailwind.css --minify",
     "dev": "rails server & bin/rails tailwindcss:watch"
   },
   "devDependencies": {
