@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  # Laisser nginx gérer les assets statiques en production
+
   root 'pages#home'
 
   # Pages statiques
@@ -25,4 +27,6 @@ Rails.application.routes.draw do
   # Routes PWA
   get '/service-worker.js', to: 'pwa#service_worker'
   get '/manifest.json', to: 'pwa#manifest'
+
+  get 'health', to: 'health#index'
 end

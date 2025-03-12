@@ -24,7 +24,10 @@ RUN apt-get update -qq && \
     git \
     curl \
     libpq-dev \
-    && rm -rf /var/lib/apt/lists/*
+    nodejs \
+    npm \
+    && rm -rf /var/lib/apt/lists/* && \
+    npm install -g yarn
 
 WORKDIR /app
 
@@ -41,7 +44,12 @@ COPY . .
 ARG RAILS_MASTER_KEY
 ARG SECRET_KEY_BASE
 ENV SECRET_KEY_BASE=${SECRET_KEY_BASE}
-RUN bundle exec rails assets:precompile RAILS_ENV=production
+RUN yarn install && \
+    yarn build:css && \
+    yarn build && \
+    RAILS_ENV=production bundle exec rails assets:precompile && \
+    cp -r app/assets/builds/* public/assets/ && \
+    chmod -R 755 public/assets
 
 # Image finale
 FROM ruby:3.2.2-slim AS final
@@ -49,6 +57,7 @@ FROM ruby:3.2.2-slim AS final
 RUN apt-get update -qq && \
     apt-get install -y --no-install-recommends \
     libpq-dev \
+    curl \
     && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /app

@@ -12,18 +12,15 @@ Rails.application.configure do
   config.action_controller.perform_caching = true
 
   # Sécurité
-  config.force_ssl = true
+  config.force_ssl = ENV['FORCE_SSL'].present?
   config.require_master_key = false
   config.secret_key_base = ENV['SECRET_KEY_BASE']
-  config.hosts = (ENV['ALLOWED_HOSTS'] || '').split(',')
-  config.hosts.clear # Temporaire
 
   # Assets et CDN
   config.public_file_server.enabled = ENV['RAILS_SERVE_STATIC_FILES'].present?
-  config.assets.compile = false
+  config.assets.compile = true
   config.assets.digest = true
   config.assets.version = '1.0'
-  config.action_controller.asset_host = ENV['ASSET_HOST']
   config.public_file_server.headers = {
     'Cache-Control' => 'public, max-age=31536000',
     'X-Content-Type-Options' => 'nosniff',
@@ -39,9 +36,25 @@ Rails.application.configure do
   config.assets.css_compressor = nil
 
   # Logging
-  config.log_level = :info
+  config.log_level = ENV['RAILS_LOG_LEVEL']&.to_sym || :debug
   config.log_tags = [:request_id]
   config.logger = ActiveSupport::Logger.new(STDOUT) if ENV["RAILS_LOG_TO_STDOUT"].present?
+  
+  # Log des paramètres de requête
+  config.filter_parameters += [:password, :password_confirmation]
+  
+  # Configuration détaillée des logs
+  if ENV["RAILS_LOG_TO_STDOUT"].present?
+    logger           = ActiveSupport::Logger.new(STDOUT)
+    logger.formatter = proc do |severity, datetime, progname, msg|
+      "#{datetime}: #{severity} -- #{msg}\n"
+    end
+    config.logger = ActiveSupport::TaggedLogging.new(logger)
+  end
+
+  # Désactiver temporairement le cache en production pour le débogage
+  config.action_controller.perform_caching = false
+  config.consider_all_requests_local = true  # Afficher les erreurs détaillées
 
   # Email
   config.action_mailer.delivery_method = :smtp
@@ -66,10 +79,31 @@ Rails.application.configure do
   # Autres
   config.active_support.report_deprecations = false
 
-  # Forcer SSL
-  config.force_ssl = true
-  
   # Configurer les hôtes autorisés
-  config.hosts << 'www.istanbulmerkeztesisat.com'
-  config.hosts << 'istanbulmerkeztesisat.com'
+  if ENV['RAILS_DEVELOPMENT_HOSTS'].present?
+    config.hosts = ['localhost', 'web']
+  else
+    config.hosts = [
+      'www.istanbulmerkeztesisat.com',
+      'istanbulmerkeztesisat.com'
+    ]
+  end
+
+  # Configuration des assets
+  config.assets.css_compressor = nil
+  config.assets.js_compressor = :terser
+  config.assets.compile = true
+  config.assets.debug = false
+  config.public_file_server.enabled = true
+  config.assets.prefix = '/assets'
+  config.assets.digest = true
+  config.assets.version = '1.0'
+  config.serve_static_assets = true
+  config.static_cache_control = 'public, max-age=31536000'
+
+  # Configuration pour servir les fichiers statiques
+  config.public_file_server.headers = {
+    'Cache-Control' => 'public, max-age=31536000',
+    'Access-Control-Allow-Origin' => '*'
+  }
 end

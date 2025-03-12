@@ -1,6 +1,6 @@
 {
   "scripts": {
-    "build": "esbuild app/javascript/*.* --bundle --sourcemap --outdir=app/assets/builds --public-path=/assets && yarn build:css",
+    "build": "esbuild app/javascript/*.* --bundle --sourcemap --outdir=app/assets/builds --public-path=/assets",
     "build:css": "tailwindcss -i ./app/assets/stylesheets/application.tailwind.css -o ./app/assets/builds/application.tailwind.css --minify",
     "dev": "rails server & bin/rails tailwindcss:watch"
   },
@@ -11,12 +11,13 @@
   },
   "dependencies": {
     "@hotwired/stimulus": "^3.2.2",
-    "@hotwired/turbo-rails": "^7.3.0",
+    "@hotwired/turbo-rails": "^8.0.2",
     "@tailwindcss/aspect-ratio": "^0.4.2",
     "@tailwindcss/forms": "^0.5.10",
     "@tailwindcss/typography": "^0.5.16",
     "el-transition": "^0.0.7",
-    "esbuild": "^0.20.1"
+    "esbuild": "^0.20.1",
+    "postcss": "^8.4.35"
   },
   "engines": {
     "node": "18.19.0",
