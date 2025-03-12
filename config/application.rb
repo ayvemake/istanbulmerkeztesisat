@@ -21,7 +21,7 @@ module ServiceWeb
 
     # Configuration pour Heroku
     config.assets.initialize_on_precompile = false
-    config.serve_static_assets = true
+    config.public_file_server.enabled = true
 
     # Configuration de la locale
     config.i18n.default_locale = :tr
@@ -51,8 +51,5 @@ module ServiceWeb
     config.middleware.use Rack::Brotli if defined?(Rack::Brotli)
 
     config.assets.compile = true if Rails.env.development?
-
-    # Activer Rack::Attack
-    config.middleware.use Rack::Attack
   end
 end

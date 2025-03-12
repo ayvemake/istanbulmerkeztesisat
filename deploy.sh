@@ -5,6 +5,11 @@ set -e
 DOMAIN="www.istanbulmerkeztesisat.com"
 EMAIL="anilcan.kahraman@gmail.com"  # Remplacez par votre email
 
+# Charger les variables d'environnement
+if [ -f .env ]; then
+  export $(cat .env | xargs)
+fi
+
 # Installation des dépendances
 echo "📦 Installation des dépendances..."
 apt-get update

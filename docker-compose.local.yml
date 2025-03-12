@@ -5,36 +5,26 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-      args:
-        RAILS_MASTER_KEY: ${RAILS_MASTER_KEY}
-    restart: always
-    volumes:
-      - rails_public:/app/public
-      - rails_tmp:/app/tmp
-      - rails_log:/app/log
-      - ./.yarnrc
     environment:
       RAILS_ENV: production
       RAILS_SERVE_STATIC_FILES: "true"
       RAILS_LOG_TO_STDOUT: "true"
       SECRET_KEY_BASE: ${SECRET_KEY_BASE}
       RAILS_MASTER_KEY: ${RAILS_MASTER_KEY}
-      ASSET_HOST: "https://www.istanbulmerkeztesisat.com"
+      ASSET_HOST: "http://localhost"
       NODE_ENV: "production"
-      YARN_PRODUCTION: "true"
-      NODE_OPTIONS: "--max_old_space_size=4096"
-    ports:
-      - "3000:3000"
+    volumes:
+      - ./.yarnrc:/app/.yarnrc
+      - rails_public:/app/public
     networks:
       - web
 
   nginx:
     image: nginx:alpine
-    restart: always
     volumes:
-      - ./nginx.conf:/etc/nginx/conf.d/default.conf:ro
+      - ./nginx.local.conf:/etc/nginx/conf.d/default.conf:ro
+      - ./.ssl:/etc/nginx/ssl:ro
       - rails_public:/app/public:ro
-      - /etc/letsencrypt:/etc/letsencrypt:ro
     ports:
       - "80:80"
       - "443:443"
@@ -49,5 +39,3 @@ networks:
 
 volumes:
   rails_public:
-  rails_tmp:
-  rails_log: 

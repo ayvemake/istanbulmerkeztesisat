@@ -13,7 +13,7 @@ Rails.application.configure do
 
   # Sécurité
   config.force_ssl = true
-  config.require_master_key = true
+  config.require_master_key = false
   config.secret_key_base = ENV['SECRET_KEY_BASE']
   config.hosts = (ENV['ALLOWED_HOSTS'] || '').split(',')
   config.hosts.clear # Temporaire
