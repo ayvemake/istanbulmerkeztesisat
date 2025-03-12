@@ -45,10 +45,12 @@ ARG RAILS_MASTER_KEY
 ARG SECRET_KEY_BASE
 ENV SECRET_KEY_BASE=${SECRET_KEY_BASE}
 RUN yarn install && \
-    yarn build:css && \
     yarn build && \
+    yarn build:css && \
     RAILS_ENV=production bundle exec rails assets:precompile && \
+    mkdir -p public/assets && \
     cp -r app/assets/builds/* public/assets/ && \
+    cp -r app/assets/images public/ && \
     chmod -R 755 public/assets
 
 # Image finale
@@ -65,6 +67,7 @@ WORKDIR /app
 # Copie des fichiers nécessaires
 COPY --from=builder /usr/local/bundle /usr/local/bundle
 COPY --from=builder /app/public/assets /app/public/assets
+COPY --from=builder /app/public/images /app/public/images
 COPY . .
 
 # Création des dossiers temporaires nécessaires
