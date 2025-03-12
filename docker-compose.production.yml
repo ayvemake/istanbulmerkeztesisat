@@ -6,6 +6,10 @@ services:
       context: .
       dockerfile: Dockerfile
     restart: always
+    volumes:
+      - rails_public:/app/public
+      - rails_tmp:/app/tmp
+      - rails_log:/app/log
     environment:
       RAILS_ENV: production
       RAILS_SERVE_STATIC_FILES: "true"
@@ -22,7 +26,7 @@ services:
     restart: always
     volumes:
       - ./nginx.conf:/etc/nginx/conf.d/default.conf:ro
-      - ./public:/app/public
+      - rails_public:/app/public:ro
       - /etc/letsencrypt:/etc/letsencrypt:ro
     ports:
       - "80:80"
@@ -34,4 +38,9 @@ services:
 
 networks:
   web:
-    driver: bridge 
+    driver: bridge
+
+volumes:
+  rails_public:
+  rails_tmp:
+  rails_log: 

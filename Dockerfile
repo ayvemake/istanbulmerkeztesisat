@@ -7,49 +7,48 @@
 
 # For a containerized dev environment, see Dev Containers: https://guides.rubyonrails.org/getting_started_with_devcontainer.html
 
-# Optimisation de l'image
+# Première étape : Construction
+FROM node:18.19.0-slim as node
+WORKDIR /app
+COPY package.json yarn.lock ./
+RUN yarn install --production --network-timeout 100000
+
 FROM ruby:3.2.2-slim as builder
 
-# Installation minimale des dépendances
+# Installation des dépendances système
 RUN apt-get update -qq && \
     apt-get install -y --no-install-recommends \
     build-essential \
-    libpq-dev \
-    nodejs \
-    npm \
     git \
+    curl \
+    libpq-dev \
     && rm -rf /var/lib/apt/lists/*
-
-# Installation de Yarn
-RUN npm install -g yarn
 
 WORKDIR /app
 
-# Installation des gems avec --without development test
+# Copie des fichiers de dépendances
 COPY Gemfile Gemfile.lock ./
 RUN bundle config set --local without 'development test' && \
     bundle install --jobs 4 --retry 3
 
-# Installation des packages npm en mode production
-COPY package.json yarn.lock ./
-RUN yarn install --production --frozen-lockfile
-
-# Copie et précompilation des assets
+# Copie des assets Node.js
+COPY --from=node /app/node_modules ./node_modules
 COPY . .
-RUN bundle exec rails assets:precompile
 
-# Image finale optimisée
+# Précompilation des assets
+RUN bundle exec rails assets:precompile RAILS_ENV=production
+
+# Image finale
 FROM ruby:3.2.2-slim
 
 RUN apt-get update -qq && \
     apt-get install -y --no-install-recommends \
     libpq-dev \
-    nodejs \
     && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /app
 
-# Copie uniquement les fichiers nécessaires
+# Copie des fichiers nécessaires
 COPY --from=builder /usr/local/bundle /usr/local/bundle
 COPY --from=builder /app/public/assets /app/public/assets
 COPY --from=builder /app/public/packs /app/public/packs

@@ -19,7 +19,7 @@
     "esbuild": "^0.20.1"
   },
   "engines": {
-    "node": ">=20.x",
+    "node": "18.19.0",
     "yarn": "1.22.x"
   },
   "license": "MIT"
