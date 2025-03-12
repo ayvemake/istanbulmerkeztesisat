@@ -1,258 +1,42 @@
-name: Deploy to GitHub Pages
+name: Deploy to Kubernetes
 
 on:
   push:
     branches: [ main ]
 
 jobs:
-  deploy:
+  build-and-deploy:
     runs-on: ubuntu-latest
-    
-    services:
-      postgres:
-        image: postgres:14
-        env:
-          POSTGRES_USER: postgres
-          POSTGRES_PASSWORD: postgres
-          POSTGRES_DB: istanbulmerkeztesisat_test
-        ports:
-          - 5432:5432
-        options: >-
-          --health-cmd pg_isready
-          --health-interval 10s
-          --health-timeout 5s
-          --health-retries 5
-
-    permissions:
-      contents: write
-
-    env:
-      RAILS_ENV: test
-      POSTGRES_HOST: localhost
-      POSTGRES_PORT: 5432
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
-      DATABASE_URL: postgres://postgres:postgres@localhost:5432/istanbulmerkeztesisat_test
-      RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }}
-
     steps:
     - uses: actions/checkout@v3
     
-    - name: Set up Ruby
-      uses: ruby/setup-ruby@v1
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v2
+      
+    - name: Login to Docker Hub
+      uses: docker/login-action@v2
       with:
-        ruby-version: 3.2.2
-        bundler-cache: true
-    
-    - name: Install dependencies
-      run: |
-        bundle install
-        yarn install
-    
-    - name: Wait for PostgreSQL
-      run: |
-        while ! nc -z localhost 5432; do
-          echo "Waiting for PostgreSQL..."
-          sleep 1
-        done
-    
-    - name: Setup test database
-      run: |
-        bundle exec rails db:create
-        bundle exec rails db:schema:load
-        bundle exec rails db:test:prepare
+        username: ${{ secrets.DOCKER_HUB_USERNAME }}
+        password: ${{ secrets.DOCKER_HUB_TOKEN }}
         
-    - name: Run tests
-      run: |
-        bundle exec rails test test:system
-        
-    - name: Setup production database
-      env:
-        RAILS_ENV: production
-        DATABASE_URL: ${{ secrets.DATABASE_URL }}
-        RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }}
-      run: |
-        bundle exec rails db:create
-        bundle exec rails db:migrate
-        bundle exec rails db:seed
-    
-    - name: Clear and prepare public directory
-      run: |
-        rm -rf public/*
-        mkdir -p public/assets
-        mkdir -p public/images
-        mkdir -p public/packs
-        mkdir -p public/shared
-        
-    - name: Compile assets
-      env:
-        RAILS_ENV: production
-        NODE_ENV: production
-        RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }}
-      run: |
-        # S'assurer que yarn est à jour
-        yarn install --frozen-lockfile
-        
-        # Compiler Tailwind CSS
-        yarn build:css
-        yarn build
-        
-        # Compiler les assets Rails
-        bundle exec rails assets:precompile
-        
-        # Vérifier que les fichiers CSS sont générés
-        ls -la public/assets
-        
-    - name: Generate static pages
-      run: |
-        RAILS_ENV=production bundle exec rails runner '
-          def render_page(template)
-            puts "Attempting to render #{template}..."
-            result = ApplicationController.renderer.new(
-              https: true,
-              http_host: "istanbulmerkeztesisat.com"
-            ).render(
-              template: template,
-              layout: "application"
-            )
-            puts "Successfully rendered #{template}"
-            result
-          rescue => e
-            puts "Error rendering #{template}: #{e.message}"
-            puts e.backtrace
-            nil
-          end
-
-          # Créer le partial contact_info
-          puts "Creating contact_info partial..."
-          contact_info = <<~HTML
-            <div class="bg-white shadow rounded-lg p-6">
-              <h2 class="text-2xl font-bold text-gray-900 mb-4">İletişim Bilgileri</h2>
-              <div class="space-y-4">
-                <div>
-                  <h3 class="text-lg font-medium text-gray-900">Adres</h3>
-                  <p class="text-gray-600">İstanbul, Türkiye</p>
-                </div>
-                <div>
-                  <h3 class="text-lg font-medium text-gray-900">Telefon</h3>
-                  <p class="text-gray-600">
-                    <a href="tel:+905555555555" class="hover:text-emerald-600">+90 555 555 5555</a>
-                  </p>
-                </div>
-                <div>
-                  <h3 class="text-lg font-medium text-gray-900">E-posta</h3>
-                  <p class="text-gray-600">
-                    <a href="mailto:info@istanbulmerkeztesisat.com" class="hover:text-emerald-600">
-                      info@istanbulmerkeztesisat.com
-                    </a>
-                  </p>
-                </div>
-                <div>
-                  <h3 class="text-lg font-medium text-gray-900">Çalışma Saatleri</h3>
-                  <p class="text-gray-600">7/24 Hizmet</p>
-                </div>
-              </div>
-            </div>
-          HTML
-
-          puts "Writing contact_info to public/shared/_contact_info.html.erb"
-          FileUtils.mkdir_p("public/shared")
-          File.write("public/shared/_contact_info.html.erb", contact_info)
-
-          {
-            "pages/home" => "index",
-            "pages/about" => "about",
-            "pages/teknikler" => "teknikler",
-            "pages/contact" => "contact"
-          }.each do |template, output|
-            puts "="*50
-            puts "Processing #{template} -> #{output}.html"
-            content = render_page(template)
-            if content
-              output_path = Rails.root.join("public", "#{output}.html")
-              File.write(output_path, content)
-              puts "Written #{output_path} (#{content.bytesize} bytes)"
-              puts "File exists: #{File.exist?(output_path)}"
-            else
-              puts "No content generated for #{template}"
-            end
-          end
-
-          puts "="*50
-          puts "Final directory contents:"
-          puts `ls -la public/`
-        '
-      env:
-        RAILS_ENV: production
-        RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }}
-        DATABASE_URL: ${{ secrets.DATABASE_URL }}
-        
-    - name: Copy assets and additional files
-      run: |
-        # Copier les assets compilés
-        cp -r public/assets/* public/ || true
-        
-        # S'assurer que le CSS de Tailwind est copié
-        if [ -f public/assets/application-*.css ]; then
-          echo "Tailwind CSS file found"
-        else
-          echo "Error: Tailwind CSS file is missing!"
-          exit 1
-        fi
-        
-        cp -r app/assets/images/* public/images/ || true
-        cp -r public/packs/* public/ || true
-        cp public/404.html public/ || true
-        echo "istanbulmerkeztesisat.com" > public/CNAME
-        touch public/.nojekyll
-        
-    - name: List generated files
-      run: |
-        echo "Contents of public directory:"
-        ls -la public/
-        
-    - name: Verify index.html
-      run: |
-        if [ ! -f public/index.html ]; then
-          echo "Error: index.html is missing!"
-          exit 1
-        fi
-        echo "Content of index.html:"
-        cat public/index.html
-        
-    - name: Verify CNAME
-      run: |
-        if [ ! -f public/CNAME ]; then
-          echo "Error: CNAME file is missing!"
-          exit 1
-        fi
-        echo "Content of CNAME:"
-        cat public/CNAME
-        
-    - name: Verify deployment files
-      run: |
-        echo "Contents of public directory before deployment:"
-        ls -la public/
-        
-        if [ ! -f public/index.html ]; then
-          echo "Error: index.html is missing!"
-          cat public/index.html || true
-          exit 1
-        fi
-        
-        if [ ! -f public/CNAME ]; then
-          echo "Error: CNAME file is missing!"
-          exit 1
-        fi
-        
-        echo "Contents of index.html:"
-        head -n 20 public/index.html
-        
-    - name: Deploy to GitHub Pages
-      uses: peaceiris/actions-gh-pages@v3
+    - name: Build and push Docker image
+      uses: docker/build-push-action@v4
       with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_dir: ./public
-        cname: istanbulmerkeztesisat.com
-        enable_jekyll: false
-        force_orphan: true 
+        push: true
+        tags: your-docker-registry/rails-app:${{ github.sha }}
+        
+    - name: Set up kubectl
+      uses: azure/setup-kubectl@v3
+      
+    - name: Set Kubernetes context
+      uses: azure/k8s-set-context@v3
+      with:
+        kubeconfig: ${{ secrets.KUBE_CONFIG }}
+        
+    - name: Update deployment image
+      run: |
+        kubectl set image deployment/rails-app rails-app=your-docker-registry/rails-app:${{ github.sha }} -n rails-app
+        
+    - name: Verify deployment
+      run: |
+        kubectl rollout status deployment/rails-app -n rails-app 

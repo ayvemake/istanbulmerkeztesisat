@@ -65,4 +65,11 @@ Rails.application.configure do
   
   # Autres
   config.active_support.report_deprecations = false
+
+  # Forcer SSL
+  config.force_ssl = true
+  
+  # Configurer les hôtes autorisés
+  config.hosts << 'www.istanbulmerkeztesisat.com'
+  config.hosts << 'istanbulmerkeztesisat.com'
 end

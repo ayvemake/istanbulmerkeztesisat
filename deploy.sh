@@ -1,19 +1,26 @@
 #!/bin/bash
 set -e
 
-echo "🧹 Nettoyage des assets..."
-bundle exec rake assets:clobber
+# Variables
+DOMAIN="www.istanbulmerkeztesisat.com"
+EMAIL="anilcan.kahraman@gmail.com"  # Remplacez par votre email
 
-echo "🔨 Compilation des assets..."
-yarn build:css
-bundle exec rake assets:precompile RAILS_ENV=production
+# Installation des dépendances
+echo "📦 Installation des dépendances..."
+apt-get update
+apt-get install -y certbot python3-certbot-nginx
 
-echo "🚀 Déploiement sur Heroku..."
-git add .
-git commit -m "Deploy: $(date)" || true
-git push heroku main
+# Obtention du certificat SSL
+echo "🔒 Obtention du certificat SSL..."
+certbot certonly --standalone -d $DOMAIN --email $EMAIL --agree-tos --non-interactive
 
-echo "🔄 Redémarrage de l'application..."
-heroku restart
+# Construction et démarrage des conteneurs
+echo "🚀 Déploiement des conteneurs..."
+docker-compose -f docker-compose.production.yml build
+docker-compose -f docker-compose.production.yml up -d
 
-echo "✅ Déploiement terminé avec succès!" 
+# Nettoyage
+echo "🧹 Nettoyage..."
+docker system prune -f
+
+echo "✅ Déploiement terminé!" 

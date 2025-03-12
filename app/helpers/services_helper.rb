@@ -101,5 +101,4 @@ module ServicesHelper
       '7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4'
   end
 
-  # Extraire les autres chemins d'icônes de la même manière
 end
