@@ -48,10 +48,10 @@ RUN yarn install && \
     yarn build && \
     yarn build:css && \
     RAILS_ENV=production bundle exec rails assets:precompile && \
-    mkdir -p public/assets public/images && \
+    mkdir -p /app/public/assets /app/public/images && \
     cp -r app/assets/builds/* public/assets/ && \
     cp -r app/assets/images/* public/images/ && \
-    cp -r public/assets/application.tailwind.css public/assets/application.tailwind-*.css && \
+    cp -r app/assets/builds/application.tailwind.css public/assets/ && \
     chmod -R 755 public/assets public/images
 
 # Image finale
@@ -66,13 +66,13 @@ RUN apt-get update -qq && \
 WORKDIR /app
 
 # Créer les dossiers nécessaires avant la copie
-RUN mkdir -p public/assets public/images tmp/pids tmp/cache tmp/sockets && \
-    chmod -R 777 tmp && \
-    chmod -R 755 public
+RUN mkdir -p /app/public/assets /app/public/images /app/tmp/pids /app/tmp/cache /app/tmp/sockets && \
+    chmod -R 777 /app/tmp && \
+    chmod -R 755 /app/public
 
 COPY --from=builder /usr/local/bundle /usr/local/bundle
-COPY --from=builder /app/public/assets /app/public/assets
-COPY --from=builder /app/public/images /app/public/images
+COPY --from=builder /app/public/assets /app/public/assets/
+COPY --from=builder /app/public/images /app/public/images/
 COPY . .
 
 # Configuration pour la production
