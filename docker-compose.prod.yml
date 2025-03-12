@@ -15,7 +15,12 @@ services:
       NODE_ENV: "production"
       RACK_TIMEOUT_SERVICE_TIMEOUT: 600
     volumes:
-      - public_assets:/app/public
+      - type: volume
+        source: assets
+        target: /app/public/assets
+      - type: volume
+        source: images
+        target: /app/public/images
     networks:
       - app_network
     restart: unless-stopped
@@ -24,7 +29,12 @@ services:
     image: nginx:alpine
     volumes:
       - ./nginx.prod.conf:/etc/nginx/conf.d/default.conf:ro
-      - public_assets:/app/public
+      - type: volume
+        source: assets
+        target: /app/public/assets
+      - type: volume
+        source: images
+        target: /app/public/images
       - ./tmp:/app/tmp
       - /etc/letsencrypt:/etc/letsencrypt:ro
     ports:
@@ -37,7 +47,8 @@ services:
     restart: unless-stopped
 
 volumes:
-  public_assets:
+  assets:
+  images:
 
 networks:
   app_network:

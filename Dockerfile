@@ -48,10 +48,11 @@ RUN yarn install && \
     yarn build && \
     yarn build:css && \
     RAILS_ENV=production bundle exec rails assets:precompile && \
-    mkdir -p public/assets && \
+    mkdir -p public/assets public/images && \
     cp -r app/assets/builds/* public/assets/ && \
-    cp -r app/assets/images public/ && \
-    chmod -R 755 public/assets
+    cp -r app/assets/images/* public/images/ && \
+    cp -r public/assets/application.tailwind.css public/assets/application.tailwind-*.css && \
+    chmod -R 755 public/assets public/images
 
 # Image finale
 FROM ruby:3.2.2-slim AS final
@@ -64,17 +65,15 @@ RUN apt-get update -qq && \
 
 WORKDIR /app
 
-# Copie des fichiers nécessaires
+# Créer les dossiers nécessaires avant la copie
+RUN mkdir -p public/assets public/images tmp/pids tmp/cache tmp/sockets && \
+    chmod -R 777 tmp && \
+    chmod -R 755 public
+
 COPY --from=builder /usr/local/bundle /usr/local/bundle
 COPY --from=builder /app/public/assets /app/public/assets
 COPY --from=builder /app/public/images /app/public/images
 COPY . .
-
-# Création des dossiers temporaires nécessaires
-RUN mkdir -p tmp/pids tmp/cache tmp/sockets \
-    && chmod -R 777 tmp \
-    && mkdir -p public/assets \
-    && chmod -R 755 public
 
 # Configuration pour la production
 ENV RAILS_ENV=production \
