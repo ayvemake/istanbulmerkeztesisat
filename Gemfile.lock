@@ -129,7 +129,7 @@ GEM
     jbuilder (2.13.0)
       actionview (>= 5.0.0)
       activesupport (>= 5.0.0)
-    json (2.9.1)
+    json (2.10.2)
     language_server-protocol (3.17.0.3)
     logger (1.6.5)
     loofah (2.24.0)
@@ -194,8 +194,6 @@ GEM
       nio4r (~> 2.0)
     racc (1.8.1)
     rack (3.1.8)
-    rack-attack (6.7.0)
-      rack (>= 1.0, < 4)
     rack-brotli (2.0.0)
       brotli (>= 0.3)
       rack (>= 3)
@@ -343,7 +341,6 @@ DEPENDENCIES
   newrelic_rpm
   propshaft
   puma (>= 5.0)
-  rack-attack
   rack-brotli
   rack-cors
   rack-mini-profiler
