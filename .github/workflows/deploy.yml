@@ -26,7 +26,7 @@ jobs:
         tags: your-docker-registry/rails-app:${{ github.sha }}
         
     - name: Set up kubectl
-      uses: azure/setup-kubectl@v3
+      uses: azure/setup-kubectl@v4
       
     - name: Set Kubernetes context
       uses: azure/k8s-set-context@v3
