@@ -92,11 +92,10 @@ Rails.application.configure do
   # Configuration des assets
   config.assets.css_compressor = nil
   config.assets.js_compressor = :terser
-  config.assets.compile = true
-  config.assets.debug = false
+  config.assets.compile = false
+  config.assets.digest = true
   config.public_file_server.enabled = true
   config.assets.prefix = '/assets'
-  config.assets.digest = true
   config.assets.version = '1.0'
   config.serve_static_assets = true
   config.static_cache_control = 'public, max-age=31536000'
@@ -106,4 +105,7 @@ Rails.application.configure do
     'Cache-Control' => 'public, max-age=31536000',
     'Access-Control-Allow-Origin' => '*'
   }
+
+  # New configuration
+  config.action_controller.asset_host = ENV['ASSET_HOST'] if ENV['ASSET_HOST'].present?
 end

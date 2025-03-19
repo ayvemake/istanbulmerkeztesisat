@@ -10,7 +10,7 @@ export SECRET_KEY_BASE=$(openssl rand -hex 64)
 if [ -f config/master.key ]; then
   export RAILS_MASTER_KEY=$(cat config/master.key)
 else
-  export RAILS_MASTER_KEY=$(openssl rand -hex 32)
+  export RAILS_MASTER_KEY=$(openssl rand -hex 16)
   echo $RAILS_MASTER_KEY > config/master.key
 fi
 

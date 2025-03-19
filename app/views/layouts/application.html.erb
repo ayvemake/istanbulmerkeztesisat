@@ -11,12 +11,16 @@
     <meta property="og:url" content="<%= request.original_url %>">
     <meta property="og:title" content="<%= meta_title %>">
     <meta property="og:description" content="<%= meta_description %>">
+    <meta property="og:image" content="<%= asset_url('logo/logo_only.png') %>">
+    <meta property="og:site_name" content="İstanbul Merkez Tesisat">
+    <meta property="og:locale" content="tr_TR">
     
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:url" content="<%= request.original_url %>">
     <meta name="twitter:title" content="<%= meta_title %>">
     <meta name="twitter:description" content="<%= meta_description %>">
+    <meta name="twitter:image" content="<%= asset_url('logo/logo_only.png') %>">
     
     <!-- Canonical URL -->
     <link rel="canonical" href="<%= request.original_url %>" />
@@ -49,6 +53,17 @@
         }
       </script>
     <% end %>
+
+    <!-- Favicon et icônes -->
+    <link rel="icon" type="image/png" href="<%= asset_path('logo/logo_only.png') %>">
+    <link rel="apple-touch-icon" href="<%= asset_path('logo/logo_only.png') %>">
+    
+    <!-- Métadonnées supplémentaires pour le SEO -->
+    <meta name="author" content="İstanbul Merkez Tesisat">
+    <meta name="keywords" content="tesisat, istanbul tesisat, su tesisatı, tıkanıklık açma, kaçak tespiti, petek temizleme">
+    <meta name="robots" content="index, follow">
+    <meta name="googlebot" content="index, follow">
+    <link rel="alternate" hreflang="tr" href="<%= request.original_url %>">
   </head>
 
   <body class="<%= yield :body_class %>">
@@ -376,5 +391,45 @@
         }
       }
     <% end %>
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "LocalBusiness",
+      "name": "İstanbul Merkez Tesisat",
+      "image": "<%= asset_url('logo/logo_only.png') %>",
+      "description": "<%= meta_description %>",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "Votre adresse",
+        "addressLocality": "Istanbul",
+        "addressRegion": "Istanbul",
+        "postalCode": "34000",
+        "addressCountry": "TR"
+      },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": VOTRE_LATITUDE,
+        "longitude": VOTRE_LONGITUDE
+      },
+      "url": "<%= root_url %>",
+      "telephone": "+905466829686",
+      "priceRange": "$$",
+      "openingHoursSpecification": {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": [
+          "Monday",
+          "Tuesday",
+          "Wednesday",
+          "Thursday",
+          "Friday",
+          "Saturday",
+          "Sunday"
+        ],
+        "opens": "00:00",
+        "closes": "23:59"
+      }
+    }
+    </script>
   </body>
 </html>
