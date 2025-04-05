@@ -8,17 +8,16 @@ services:
       args:
         RAILS_MASTER_KEY: ${RAILS_MASTER_KEY}
     restart: always
+    env_file:
+      - .env
     volumes:
       - rails_public:/app/public
       - rails_tmp:/app/tmp
       - rails_log:/app/log
-      - ./.yarnrc
     environment:
       RAILS_ENV: production
       RAILS_SERVE_STATIC_FILES: "true"
       RAILS_LOG_TO_STDOUT: "true"
-      SECRET_KEY_BASE: ${SECRET_KEY_BASE}
-      RAILS_MASTER_KEY: ${RAILS_MASTER_KEY}
       ASSET_HOST: "https://www.istanbulmerkeztesisat.com"
       NODE_ENV: "production"
       YARN_PRODUCTION: "true"
@@ -49,5 +48,8 @@ networks:
 
 volumes:
   rails_public:
+    name: service_web_rails_public
   rails_tmp:
-  rails_log: 
+    name: service_web_rails_tmp
+  rails_log:
+    name: service_web_rails_log 

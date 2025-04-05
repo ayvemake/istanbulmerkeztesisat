@@ -12,8 +12,8 @@ fi
 
 # Installation des dépendances
 echo "📦 Installation des dépendances..."
-apt-get update
-apt-get install -y certbot python3-certbot-nginx
+sudo apt-get update
+sudo apt-get install -y curl git build-essential certbot python3-certbot-nginx
 
 # Obtention du certificat SSL
 echo "🔒 Obtention du certificat SSL..."
