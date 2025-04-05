@@ -8,23 +8,88 @@ export default class extends Controller {
   }
 
   connect() {
-    // Reset state on page load/navigation
-    this.closeMenu()
+    this.initialize()
+    
+    // Écouter les événements Turbo
+    document.addEventListener('turbo:before-cache', this.cleanup.bind(this))
+    document.addEventListener('turbo:render', this.initialize.bind(this))
   }
 
-  toggle() {
+  initialize() {
+    // Réinitialiser l'état
+    this.isTransitioning = false
+    this.openValue = false
+    
+    // Nettoyer d'abord
+    this.cleanup()
+    
+    // Initialiser les écouteurs
+    this.boundHandleClickOutside = this.handleClickOutside.bind(this)
+    this.boundHandleKeydown = this.handleKeydown.bind(this)
+    
+    document.addEventListener('click', this.boundHandleClickOutside)
+    document.addEventListener('keydown', this.boundHandleKeydown)
+  }
+
+  cleanup() {
+    if (this.boundHandleClickOutside) {
+      document.removeEventListener('click', this.boundHandleClickOutside)
+    }
+    if (this.boundHandleKeydown) {
+      document.removeEventListener('keydown', this.boundHandleKeydown)
+    }
+    
+    // S'assurer que le menu est fermé
+    this.closeMenu()
+    
+    // Réinitialiser les états
+    this.isTransitioning = false
+    this.openValue = false
+  }
+
+  handleKeydown(event) {
+    if (event.key === 'Escape' && this.openValue) {
+      this.closeMenu()
+    }
+  }
+
+  handleClickOutside(event) {
+    if (this.openValue && !this.element.contains(event.target)) {
+      this.closeMenu()
+    }
+  }
+
+  toggle(event) {
+    event.preventDefault()
+    // Empêcher les clics multiples rapides
+    if (this.isTransitioning) return
+    this.isTransitioning = true
+    
     this.openValue ? this.closeMenu() : this.openMenu()
+    
+    // Réinitialiser l'état de transition après l'animation
+    setTimeout(() => {
+      this.isTransitioning = false
+    }, 300)
   }
 
   closeMenu() {
+    if (!this.menuTarget) return
+    
     this.menuTarget.classList.add("hidden")
     this.openValue = false
     leave(this.menuTarget)
     leave(this.overlayTarget)
     document.body.classList.remove('overflow-hidden')
+    
+    // Réinitialiser le focus
+    const menuButton = this.element.querySelector('button')
+    if (menuButton) menuButton.focus()
   }
 
   openMenu() {
+    if (!this.menuTarget) return
+    
     this.menuTarget.classList.remove("hidden")
     this.openValue = true
     enter(this.menuTarget)
@@ -56,15 +121,10 @@ export default class extends Controller {
     }
   }
 
-  // Ferme le menu si on clique en dehors
-  clickOutside(event) {
-    if (!this.element.contains(event.target) && this.openValue) {
-      this.closeMenu()
-    }
-  }
-
   disconnect() {
-    // Nettoyage lors de la déconnexion du contrôleur
-    this.closeMenu()
+    // Nettoyer tous les écouteurs d'événements
+    document.removeEventListener('turbo:before-cache', this.cleanup.bind(this))
+    document.removeEventListener('turbo:render', this.initialize.bind(this))
+    this.cleanup()
   }
 } 
