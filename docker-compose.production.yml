@@ -34,8 +34,6 @@ services:
       - ./nginx.conf:/etc/nginx/conf.d/default.conf:ro
       - rails_public:/app/public:ro
       - /etc/letsencrypt:/etc/letsencrypt:ro
-    ports:
-      - "8080:80"
     depends_on:
       - web
     networks:
